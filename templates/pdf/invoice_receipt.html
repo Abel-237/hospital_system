@@ -1,0 +1,159 @@
+{% load i18n static hospital_tags %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <title>Reçu de Caisse - {{ invoice.invoice_number }}</title>
+    <style>
+        @page {
+            size: A5 portrait;
+            margin: 1.2cm;
+        }
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 10pt;
+            color: #0f172a;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #059669;
+            padding-bottom: 10px;
+            margin-bottom: 14px;
+        }
+        .republic {
+            font-size: 7.5pt;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #64748b;
+        }
+        .hospital-name {
+            font-size: 13pt;
+            font-weight: 800;
+            color: #065f46;
+            margin-top: 3px;
+        }
+        .receipt-title {
+            text-align: center;
+            font-size: 12pt;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #059669;
+            margin: 12px 0;
+        }
+        .meta-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 9pt;
+            margin-bottom: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.5pt;
+            margin-top: 6px;
+        }
+        th {
+            background-color: #f1f5f9;
+            border-bottom: 1px solid #cbd5e1;
+            text-align: left;
+            padding: 6px 8px;
+            font-size: 8pt;
+            text-transform: uppercase;
+        }
+        td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .totals {
+            margin-top: 14px;
+            text-align: right;
+            font-size: 9.5pt;
+            border-top: 1px solid #cbd5e1;
+            padding-top: 8px;
+        }
+        .stamp-box {
+            margin-top: 24px;
+            float: right;
+            width: 50%;
+            text-align: center;
+            font-size: 8.5pt;
+        }
+        .stamp-line {
+            margin-top: 35px;
+            border-top: 1px solid #0f172a;
+            padding-top: 4px;
+            font-weight: bold;
+        }
+        .clear { clear: both; }
+        @media print {
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="background:#059669; color:white; padding:8px 16px; text-align:center; font-size:10pt; font-weight:bold; margin-bottom:12px; cursor:pointer;" onclick="window.print()">
+        🖨️ Cliquez ici pour Imprimer le Reçu de Caisse
+    </div>
+
+    <div class="header">
+        <div class="republic">RÉPUBLIQUE DU CAMEROUN — MINISTÈRE DE LA SANTÉ PUBLIQUE</div>
+        <div class="hospital-name">{{ HOSPITAL.NAME }} — SERVICE DE LA CAISSE</div>
+        <div style="font-size:7.5pt; color:#64748b;">{{ HOSPITAL.ADDRESS }} • {{ HOSPITAL.PHONE }}</div>
+    </div>
+
+    <div class="receipt-title">REÇU D'ENCAISSEMENT & BORDEREAU</div>
+
+    <div class="meta-box">
+        <strong>Reçu Facture No :</strong> <span style="font-family:monospace; color:#059669;">{{ invoice.invoice_number }}</span><br>
+        <strong>Patient :</strong> {{ patient.full_name }} (Matricule : {{ patient.matricule }})<br>
+        <strong>Date d'émission :</strong> {{ invoice.created_at|date:"d/m/Y H:i" }}
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Désignation</th>
+                <th>Qté</th>
+                <th style="text-align:right;">Sous-Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.description }}</td>
+                <td>{{ item.quantity }}</td>
+                <td style="text-align:right; font-family:monospace;">{{ item.subtotal|currency_fcfa }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="totals">
+        <div>Montant Brut Total : <strong>{{ invoice.total_gross|currency_fcfa }}</strong></div>
+        {% if invoice.insurance_policy %}
+        <div style="color:#059669;">Tiers-Payant ({{ invoice.insurance_policy.company_name }} - {{ invoice.insurance_policy.coverage_percentage }}%) : -{{ invoice.insurance_amount|currency_fcfa }}</div>
+        {% endif %}
+        <div style="font-size:11pt; font-weight:bold; color:#0f172a; margin-top:4px;">
+            Net Payé : {{ invoice.paid_amount|currency_fcfa }}
+        </div>
+        <div style="font-size:8pt; color:#64748b;">
+            Modes de paiement : 
+            {% for p in payments %}
+                {{ p.get_method_display }} ({{ p.amount|currency_fcfa }}){% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="stamp-box">
+        <div>Cachet de la Caisse & Signature :</div>
+        <div class="stamp-line">Caissier de Garde</div>
+    </div>
+    <div class="clear"></div>
+</body>
+</html>

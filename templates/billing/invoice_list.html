@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load i18n hospital_tags %}
+
+{% block title %}{% trans "Facturation, Caisse & Mobile Money" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{% trans "Caisse & Facturation Hospitalière" %}</h1>
+            <p class="text-sm text-slate-500">{% trans "Encaissement Espèces, Carte, Orange Money et MTN Mobile Money Cameroun" %}</p>
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="{% url 'billing:export_csv' %}" class="btn-secondary text-xs">
+                📥 {% trans "Exporter Journal Caisse (CSV)" %}
+            </a>
+        </div>
+    </div>
+
+    <!-- Revenue KPIs -->
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+            <span class="text-xs font-semibold text-slate-500 uppercase">{% trans "Total Encaissé Aujourd'hui" %}</span>
+            <p class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">{{ today_total|currency_fcfa }}</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+            <span class="text-xs font-semibold text-emerald-600 uppercase">💵 {% trans "Espèces" %}</span>
+            <p class="text-2xl font-extrabold text-emerald-600 mt-1">{{ today_cash|currency_fcfa }}</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800 shadow-sm">
+            <span class="text-xs font-semibold text-orange-700 dark:text-orange-300 uppercase">📱 {% trans "Orange Money" %}</span>
+            <p class="text-2xl font-extrabold text-orange-700 dark:text-orange-300 mt-1">{{ today_orange|currency_fcfa }}</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-800 shadow-sm">
+            <span class="text-xs font-semibold text-yellow-700 dark:text-yellow-300 uppercase">📱 {% trans "MTN MoMo" %}</span>
+            <p class="text-2xl font-extrabold text-yellow-700 dark:text-yellow-300 mt-1">{{ today_mtn|currency_fcfa }}</p>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-center gap-3">
+        <form method="get" class="flex flex-col sm:flex-row items-center gap-3 w-full">
+            <div class="relative w-full sm:w-80">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">🔍</span>
+                <input type="text" name="q" value="{{ q }}" placeholder="{% trans "No Facture, patient, matricule..." %}" class="form-input pl-9 text-sm">
+            </div>
+            <select name="status" class="form-select text-sm w-full sm:w-56">
+                <option value="">{% trans "Tous les statuts" %}</option>
+                {% for s_val, s_lbl in statuses %}
+                    <option value="{{ s_val }}" {% if selected_status == s_val %}selected{% endif %}>{{ s_lbl }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn-primary text-xs">{% trans "Filtrer" %}</button>
+        </form>
+    </div>
+
+    <!-- Invoices Table -->
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-600 dark:text-slate-300">
+                <thead class="bg-slate-50 dark:bg-slate-800 text-xs font-semibold uppercase text-slate-500 border-b border-slate-200 dark:border-slate-800">
+                    <tr>
+                        <th class="px-6 py-4">{% trans "Facture No" %}</th>
+                        <th class="px-6 py-4">{% trans "Patient" %}</th>
+                        <th class="px-6 py-4">{% trans "Brut Total" %}</th>
+                        <th class="px-6 py-4">{% trans "Assurance" %}</th>
+                        <th class="px-6 py-4">{% trans "Net Patient" %}</th>
+                        <th class="px-6 py-4">{% trans "Statut" %}</th>
+                        <th class="px-6 py-4 text-right">{% trans "Action" %}</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                    {% for inv in invoices %}
+                    <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50">
+                        <td class="px-6 py-4 font-mono font-bold text-xs text-blue-600">
+                            {{ inv.invoice_number }}
+                            <div class="text-[10px] text-slate-400 font-normal">{{ inv.created_at|date:"d/m/Y" }}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="font-bold text-slate-900 dark:text-white">{{ inv.patient.full_name }}</span>
+                            <div class="text-xs text-slate-400 font-mono">{{ inv.patient.matricule }}</div>
+                        </td>
+                        <td class="px-6 py-4 font-mono text-xs">{{ inv.total_gross|currency_fcfa }}</td>
+                        <td class="px-6 py-4 font-mono text-xs text-emerald-600">
+                            {% if inv.insurance_amount > 0 %}
+                                -{{ inv.insurance_amount|currency_fcfa }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 font-mono font-bold text-sm text-slate-900 dark:text-white">
+                            {{ inv.patient_net_amount|currency_fcfa }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="badge {% if inv.status == 'PAID' %}badge-success{% elif inv.status == 'PARTIALLY_PAID' %}badge-info{% elif inv.status == 'CANCELLED' %}badge-danger{% else %}badge-warning{% endif %}">
+                                {{ inv.get_status_display }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="{% url 'billing:invoice_detail' pk=inv.pk %}" class="btn-secondary text-xs py-1.5 px-3">
+                                {% trans "Détails / Payer" %} →
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="px-6 py-12 text-center text-slate-400">
+                            {% trans "Aucune facture trouvée." %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

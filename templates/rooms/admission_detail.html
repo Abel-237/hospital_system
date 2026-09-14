@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load i18n hospital_tags %}
+
+{% block title %}{% trans "Séjour Hospitalier" %} - {{ admission.patient.full_name }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-6 space-y-6">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <div class="flex items-center gap-3">
+                <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{{ admission.patient.full_name }}</h1>
+                <span class="font-mono text-xs px-2.5 py-1 bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 font-bold rounded">
+                    {{ admission.bed }}
+                </span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">
+                {% trans "Admis le" %} {{ admission.admission_date|date:"d/m/Y H:i" }} • {% trans "Durée actuelle" %} : <strong>{{ admission.duration_days }} {% trans "jour(s)" %}</strong>
+            </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+            {% if admission.is_active and IS_DOCTOR or IS_ADMIN %}
+            <!-- Discharge Trigger Modal / Button -->
+            <button onclick="document.getElementById('discharge-modal').classList.remove('hidden')" class="btn-primary text-xs py-2 px-3 bg-red-600 hover:bg-red-700">
+                🚪 {% trans "Prononcer la Sortie" %}
+            </button>
+            {% endif %}
+            <a href="{% url 'rooms:bed_matrix' %}" class="btn-secondary text-xs">
+                ← {% trans "Plan des Lits" %}
+            </a>
+        </div>
+    </div>
+
+    <!-- Stay Summary Card -->
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
+        <h2 class="text-xs font-bold uppercase text-slate-500 tracking-wider">{% trans "Motif d'Admission & Évolution" %}</h2>
+        <p class="text-sm text-slate-800 dark:text-slate-200 leading-relaxed">{{ admission.admission_reason }}</p>
+        
+        {% if admission.discharge_summary %}
+        <div class="pt-3 border-t border-slate-100 dark:border-slate-800">
+            <h3 class="text-xs font-bold uppercase text-emerald-600 tracking-wider">{% trans "Résumé de Sortie (Épicrise)" %}</h3>
+            <p class="text-sm text-slate-800 dark:text-slate-200 mt-1">{{ admission.discharge_summary }}</p>
+            <span class="text-[11px] text-slate-400 mt-1 block">{% trans "Sortie validée par" %} {{ admission.discharge_authorized_by.display_title }}</span>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Nursing Care Log Form & History -->
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+            <h2 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                🩺 {% trans "Transmissions de Soins Infirmiers & Surveillance" %}
+            </h2>
+        </div>
+
+        {% if admission.is_active %}
+        <form method="post" action="{% url 'rooms:note_create' admission_id=admission.id %}" class="space-y-3 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+            {% csrf_token %}
+            <span class="text-xs font-bold text-slate-700 dark:text-slate-300 block">{% trans "Ajouter une note de soin (Tour de garde)" %}</span>
+            <div>
+                {{ note_form.observation }}
+            </div>
+            <div>
+                {{ note_form.administered_treatments }}
+            </div>
+            <div class="text-right">
+                <button type="submit" class="btn-primary text-xs py-1.5 px-3">
+                    + {% trans "Enregistrer Transmission" %}
+                </button>
+            </div>
+        </form>
+        {% endif %}
+
+        <!-- Notes timeline -->
+        <div class="space-y-3">
+            {% for note in notes %}
+            <div class="p-4 rounded-xl border border-slate-100 dark:border-slate-800 space-y-1">
+                <div class="flex items-center justify-between text-xs">
+                    <span class="font-bold text-blue-600 dark:text-blue-400">{{ note.nurse.display_title }}</span>
+                    <span class="text-slate-400 font-mono">{{ note.note_time|date:"d/m/Y H:i" }}</span>
+                </div>
+                <p class="text-xs text-slate-800 dark:text-slate-200 pt-1">{{ note.observation }}</p>
+                {% if note.administered_treatments %}
+                <p class="text-[11px] text-emerald-600 dark:text-emerald-400">💊 {{ note.administered_treatments }}</p>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p class="text-xs text-slate-400 text-center py-4">{% trans "Aucune note de soin enregistrée pour ce séjour." %}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal Discharge -->
+<div id="discharge-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white">{% trans "Validation de la Sortie d'Hospitalisation" %}</h3>
+        <p class="text-xs text-slate-500">
+            {% trans "Cette action libérera le lit pour de nouvelles admissions et finalisera le calcul des nuitées pour la facturation." %}
+        </p>
+
+        <form method="post" action="{% url 'rooms:discharge' pk=admission.pk %}" class="space-y-4">
+            {% csrf_token %}
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">
+                    {% trans "Résumé d'hospitalisation & Traitement de sortie" %} *
+                </label>
+                {{ discharge_form.discharge_summary }}
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-2">
+                <button type="button" onclick="document.getElementById('discharge-modal').classList.add('hidden')" class="btn-secondary text-xs">
+                    {% trans "Annuler" %}
+                </button>
+                <button type="submit" class="btn-primary bg-red-600 hover:bg-red-700">
+                    {% trans "Confirmer la Sortie" %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

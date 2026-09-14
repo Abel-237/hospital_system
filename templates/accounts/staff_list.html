@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load i18n hospital_tags %}
+
+{% block title %}{% trans "Gestion du Personnel Hospitalier" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{% trans "Personnel Hospitalier" %}</h1>
+            <p class="text-sm text-slate-500">{% trans "Annuaire des médecins, infirmiers, laborantins, pharmaciens et caissiers" %}</p>
+        </div>
+        <a href="{% url 'accounts:staff_create' %}" class="btn-primary">
+            + {% trans "Nouveau Collaborateur" %}
+        </a>
+    </div>
+
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-600 dark:text-slate-300">
+                <thead class="bg-slate-50 dark:bg-slate-800/60 text-xs font-semibold uppercase text-slate-500 border-b border-slate-200 dark:border-slate-800">
+                    <tr>
+                        <th class="px-6 py-4">{% trans "Nom & Prénom" %}</th>
+                        <th class="px-6 py-4">{% trans "Rôle / Fonction" %}</th>
+                        <th class="px-6 py-4">{% trans "Spécialité" %}</th>
+                        <th class="px-6 py-4">{% trans "Téléphone" %}</th>
+                        <th class="px-6 py-4">{% trans "2FA" %}</th>
+                        <th class="px-6 py-4">{% trans "Statut" %}</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                    {% for member in staff %}
+                    <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-3">
+                                {% if member.avatar_url %}
+                                    <img src="{{ member.avatar_url }}" alt="{{ member.full_name }}" class="w-8 h-8 rounded-lg object-cover shadow-sm shrink-0">
+                                {% else %}
+                                    <div class="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs flex items-center justify-center uppercase shrink-0">
+                                        {{ member.initials }}
+                                    </div>
+                                {% endif %}
+                                <div>
+                                    <div class="font-semibold text-slate-900 dark:text-white">{{ member.display_title }}</div>
+                                    <div class="text-xs text-slate-400 font-normal">@{{ member.username }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">{{ member.role|role_badge }}</td>
+                        <td class="px-6 py-4">{{ member.speciality|default:"—" }}</td>
+                        <td class="px-6 py-4 font-mono text-xs">{{ member.phone_number|default:"—" }}</td>
+                        <td class="px-6 py-4">
+                            {% if member.is_2fa_enabled %}
+                                <span class="badge badge-success">{% trans "2FA Actif" %}</span>
+                            {% else %}
+                                <span class="badge badge-warning">{% trans "2FA Inactif" %}</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4">
+                            {% if member.is_active %}
+                                <span class="text-xs font-semibold text-emerald-600">● {% trans "Actif" %}</span>
+                            {% else %}
+                                <span class="text-xs font-semibold text-red-500">● {% trans "Bloqué" %}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="px-6 py-8 text-center text-slate-400">
+                            {% trans "Aucun collaborateur trouvé." %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

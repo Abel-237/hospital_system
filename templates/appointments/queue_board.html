@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "File d'Attente Interactive" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <span>⚡</span> {% trans "Salle d'Attente Dynamique" %}
+            </h1>
+            <p class="text-sm text-slate-500">
+                {% trans "File d'attente rafraîchie en temps réel sans rechargement (HTMX) pour la date du" %} {{ today|date:"d/m/Y" }}
+            </p>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <a href="{% url 'appointments:appointment_create' %}" class="btn-primary">
+                + {% trans "Prendre un Rendez-vous" %}
+            </a>
+            <a href="{% url 'appointments:appointment_list' %}" class="btn-secondary text-xs">
+                {% trans "Vue Calendrier" %}
+            </a>
+        </div>
+    </div>
+
+    <!-- Live HTMX queue container -->
+    {% include 'appointments/_queue_board_partial.html' %}
+</div>
+{% endblock %}

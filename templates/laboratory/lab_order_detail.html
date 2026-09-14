@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load i18n hospital_tags %}
+
+{% block title %}{% trans "Bon d'Analyses" %} {{ order.order_number }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-6 space-y-6">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <div class="flex items-center gap-3">
+                <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{% trans "Résultats d'Analyses Médicales" %}</h1>
+                <span class="font-mono text-xs px-2.5 py-1 bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 font-bold rounded">
+                    {{ order.order_number }}
+                </span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">
+                {% trans "Patient" %} : <strong>{{ order.patient.full_name }}</strong> ({{ order.patient.matricule }}) • {% trans "Prescrit par" %} {{ order.prescribed_by.display_title }}
+            </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <a href="{% url 'laboratory:report_pdf' pk=order.pk %}" target="_blank" class="btn-primary text-xs">
+                📄 {% trans "Imprimer Rapport Biologique (PDF)" %}
+            </a>
+            <a href="{% url 'laboratory:order_list' %}" class="btn-secondary text-xs">
+                ← {% trans "Liste des Bons" %}
+            </a>
+        </div>
+    </div>
+
+    <!-- Test Items & Results Table -->
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-600 dark:text-slate-300">
+                <thead class="bg-slate-50 dark:bg-slate-800 text-xs font-semibold uppercase text-slate-500 border-b border-slate-200 dark:border-slate-800">
+                    <tr>
+                        <th class="px-6 py-4">{% trans "Examen / Paramètre" %}</th>
+                        <th class="px-6 py-4">{% trans "Résultat Mesuré" %}</th>
+                        <th class="px-6 py-4">{% trans "Valeurs de Référence" %}</th>
+                        <th class="px-6 py-4">{% trans "Biologiste" %}</th>
+                        <th class="px-6 py-4 text-right">{% trans "Action" %}</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                    {% for item in items %}
+                    <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 {% if item.is_abnormal %}bg-red-50/40 dark:bg-red-950/20{% endif %}">
+                        <td class="px-6 py-4">
+                            <span class="font-bold text-slate-900 dark:text-white">{{ item.test_type.name }}</span>
+                            <span class="font-mono text-xs text-slate-400 block">{{ item.test_type.code }}</span>
+                        </td>
+                        <td class="px-6 py-4 font-mono font-bold">
+                            {% if item.result_value %}
+                                <span class="{% if item.is_abnormal %}text-red-600 dark:text-red-400 flex items-center gap-1{% else %}text-slate-900 dark:text-white{% endif %}">
+                                    {% if item.is_abnormal %}⚠️{% endif %} {{ item.result_value }} {{ item.test_type.unit }}
+                                </span>
+                            {% else %}
+                                <span class="text-xs text-amber-500 font-normal italic">{% trans "En attente d'analyse" %}</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 text-xs font-mono text-slate-500">
+                            {% if item.test_type.normal_range_min or item.test_type.normal_range_max %}
+                                [{{ item.test_type.normal_range_min }} - {{ item.test_type.normal_range_max }}] {{ item.test_type.unit }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 text-xs text-slate-500">
+                            {{ item.analyzed_by.full_name|default:"—" }}
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            {% if IS_LABORANT or IS_ADMIN %}
+                            <a href="{% url 'laboratory:result_update' item_id=item.id %}" class="btn-secondary text-xs py-1 px-2.5">
+                                ✏️ {% trans "Saisir" %}
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

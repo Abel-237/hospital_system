@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load i18n hospital_tags %}
+
+{% block title %}{% trans "Pharmacie & Gestion des Stocks" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{% trans "Pharmacie Hospitalière & Stocks" %}</h1>
+            <p class="text-sm text-slate-500">{% trans "Livret thérapeutique, gestion des lots, alertes péremption et seuils critiques" %}</p>
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="{% url 'pharmacy:pending_prescriptions' %}" class="btn-secondary text-xs">
+                💊 {% trans "Ordonnances à délivrer" %}
+            </a>
+            <a href="{% url 'pharmacy:medication_create' %}" class="btn-primary">
+                + {% trans "Nouveau Médicament" %}
+            </a>
+        </div>
+    </div>
+
+    <!-- Expiring batches alert bar -->
+    {% if near_expiry_batches %}
+    <div class="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-2xl p-4">
+        <h2 class="text-xs font-bold uppercase text-amber-800 dark:text-amber-300 flex items-center gap-2 mb-2">
+            <span>⏳</span> {% trans "Lots proches de la date de péremption (≤ 60 jours)" %}
+        </h2>
+        <div class="flex flex-wrap gap-2">
+            {% for b in near_expiry_batches %}
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white dark:bg-slate-800 text-xs text-amber-900 dark:text-amber-200 border border-amber-300 dark:border-amber-700 shadow-sm">
+                <strong>{{ b.medication.name }}</strong> (Lot {{ b.batch_number }}) : {{ b.expiration_date|date:"d/m/Y" }} • {{ b.quantity }} {% trans "boîtes" %}
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Filter & Search -->
+    <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-center gap-4">
+        <form method="get" class="flex flex-col sm:flex-row items-center gap-3 w-full">
+            <div class="relative w-full sm:w-80">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">🔍</span>
+                <input type="text" name="q" value="{{ q }}" placeholder="{% trans "Rechercher par nom ou DCI..." %}" class="form-input pl-9 text-sm">
+            </div>
+            <select name="form" class="form-select text-sm w-full sm:w-48">
+                <option value="">{% trans "Toutes les formes" %}</option>
+                {% for f_val, f_lbl in forms %}
+                    <option value="{{ f_val }}" {% if form_filter == f_val %}selected{% endif %}>{{ f_lbl }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn-primary text-xs">{% trans "Rechercher" %}</button>
+        </form>
+    </div>
+
+    <!-- Medications Table -->
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-600 dark:text-slate-300">
+                <thead class="bg-slate-50 dark:bg-slate-800 text-xs font-semibold uppercase text-slate-500 border-b border-slate-200 dark:border-slate-800">
+                    <tr>
+                        <th class="px-6 py-4">{% trans "Médicament (DCI)" %}</th>
+                        <th class="px-6 py-4">{% trans "Forme / Dosage" %}</th>
+                        <th class="px-6 py-4">{% trans "Prix Unitaire" %}</th>
+                        <th class="px-6 py-4">{% trans "Stock Disponible" %}</th>
+                        <th class="px-6 py-4">{% trans "Statut Stock" %}</th>
+                        <th class="px-6 py-4 text-right">{% trans "Actions" %}</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                    {% for med in medications %}
+                    <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50">
+                        <td class="px-6 py-4">
+                            <div class="font-bold text-slate-900 dark:text-white">{{ med.name }}</div>
+                            <div class="text-xs text-slate-400 font-mono">{{ med.dci }}</div>
+                        </td>
+                        <td class="px-6 py-4 text-xs">
+                            {{ med.get_form_display }} • {{ med.dosage }}
+                        </td>
+                        <td class="px-6 py-4 font-mono font-bold text-xs">
+                            {{ med.unit_price|currency_fcfa }}
+                        </td>
+                        <td class="px-6 py-4 font-mono font-bold text-sm {% if med.is_critical_stock %}text-red-600{% else %}text-emerald-600{% endif %}">
+                            {{ med.total_stock }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {% if med.is_critical_stock %}
+                                <span class="badge badge-danger">⚠️ {% trans "Critique" %} (&le;{{ med.critical_stock_threshold }})</span>
+                            {% else %}
+                                <span class="badge badge-success">✓ {% trans "Normal" %}</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="{% url 'pharmacy:batch_create' %}?medication={{ med.id }}" class="btn-secondary text-xs py-1.5 px-3">
+                                + {% trans "Entrer Lot" %}
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="px-6 py-8 text-center text-xs text-slate-400">
+                            {% trans "Aucun médicament enregistré." %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

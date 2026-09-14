@@ -1,0 +1,324 @@
+{% extends 'base.html' %}
+{% load i18n hospital_tags %}
+
+{% block title %}{% trans "Tableau de Bord Hospitalier" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+    
+    <!-- Top Greeting Banner -->
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-700 via-indigo-700 to-slate-900 p-8 text-white shadow-xl shadow-blue-900/10">
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur text-xs font-semibold tracking-wide uppercase mb-3 border border-white/10">
+                    <i class="fa-solid fa-hospital text-blue-200"></i> {{ HOSPITAL.NAME }}
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                    {% trans "Bienvenue," %} {{ request.user.display_title }}
+                </h1>
+                <p class="text-blue-100 text-sm mt-1 max-w-xl">
+                    {% trans "Système de Gestion Hospitalière Régional. Fuseau horaire : Africa/Douala" %} • {{ today|date:"l d F Y" }}
+                </p>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                {% if IS_DOCTOR or IS_ADMIN %}
+                <a href="{% url 'appointments:queue_board' %}" class="px-4 py-2.5 rounded-xl bg-white text-blue-900 font-bold text-xs hover:bg-blue-50 transition shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-bolt text-amber-500"></i> {% trans "Salle d'Attente Directe" %}
+                </a>
+                {% endif %}
+                {% if IS_RECEPTIONIST or IS_ADMIN %}
+                <a href="{% url 'patients:patient_create' %}" class="px-4 py-2.5 rounded-xl bg-emerald-500 text-white font-bold text-xs hover:bg-emerald-600 transition shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus"></i> {% trans "Nouveau Patient" %}
+                </a>
+                {% endif %}
+                {% if IS_CASHIER %}
+                <a href="{% url 'billing:invoice_list' %}" class="px-4 py-2.5 rounded-xl bg-emerald-500 text-white font-bold text-xs hover:bg-emerald-600 transition shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-credit-card"></i> {% trans "Encaisser Paiement" %}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Decorative background glow -->
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    </div>
+
+    <!-- Global KPI Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{% trans "Patients Enregistrés" %}</span>
+                <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center text-sm shadow-sm">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+            </div>
+            <p class="text-3xl font-extrabold text-slate-900 dark:text-white mt-2">{{ total_patients }}</p>
+            <span class="text-[11px] text-slate-400 mt-1 block">{% trans "Dossiers médicaux actifs" %}</span>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{% trans "Rendez-vous du Jour" %}</span>
+                <div class="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-sm shadow-sm">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+            </div>
+            <p class="text-3xl font-extrabold text-blue-600 dark:text-blue-400 mt-2">{{ today_appointments_count }}</p>
+            <span class="text-[11px] text-slate-400 mt-1 block">{% trans "Consultations programmées" %}</span>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{% trans "Occupation des Lits" %}</span>
+                <div class="w-9 h-9 rounded-xl bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm shadow-sm">
+                    <i class="fa-solid fa-bed-pulse"></i>
+                </div>
+            </div>
+            <div class="flex items-baseline gap-2 mt-2">
+                <p class="text-3xl font-extrabold text-slate-900 dark:text-white">{{ occupancy_rate }}%</p>
+                <span class="text-xs text-slate-500">({{ occupied_beds }}/{{ total_beds }})</span>
+            </div>
+            <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+                <div class="bg-indigo-600 h-1.5 rounded-full transition-all duration-500" :style="{ width: '{{ occupancy_rate|default:0 }}%' }"></div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    {% if IS_CASHIER or IS_ADMIN %}{% trans "Recettes du Jour" %}{% else %}{% trans "Activité Clinique" %}{% endif %}
+                </span>
+                <div class="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm shadow-sm">
+                    <i class="fa-solid fa-coins"></i>
+                </div>
+            </div>
+            <p class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-2">
+                {% if today_revenue %}{{ today_revenue|currency_fcfa }}{% else %}0 FCFA{% endif %}
+            </p>
+            <span class="text-[11px] text-slate-400 mt-1 block">{% trans "Espèces & Mobile Money (Orange/MTN)" %}</span>
+        </div>
+
+    </div>
+
+    <!-- ROLE-SPECIFIC WORKSPACES -->
+
+    <!-- 1. DOCTOR WORKSPACE -->
+    {% if IS_DOCTOR %}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Patients in Waiting Room -->
+        <div class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                    {% trans "Patients en Salle d'Attente pour Vous" %}
+                </h2>
+                <a href="{% url 'appointments:queue_board' %}" class="text-xs font-semibold text-blue-600 hover:underline flex items-center gap-1">
+                    {% trans "Voir tout" %} <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </a>
+            </div>
+
+            <div class="divide-y divide-slate-100 dark:divide-slate-800">
+                {% for appt in waiting_patients %}
+                <div class="py-3 flex items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-sm text-slate-900 dark:text-white">{{ appt.patient.full_name }}</span>
+                            <span class="badge badge-info font-mono text-[10px]">{{ appt.patient.matricule }}</span>
+                            <span class="text-xs text-slate-500">({{ appt.patient.age }} ans)</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-0.5">{{ appt.reason }}</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <a href="{% url 'consultations:consultation_create' patient_id=appt.patient.id %}?appointment={{ appt.id }}" class="btn-primary text-xs py-1.5 px-3 flex items-center gap-1.5">
+                            <i class="fa-solid fa-stethoscope"></i> {% trans "Consulter" %}
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="py-6 text-center text-xs text-slate-400">{% trans "Aucun patient en attente pour le moment." %}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Pending Lab Results -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
+            <h2 class="text-base font-bold text-slate-900 dark:text-white">{% trans "Derniers Examens Validés" %}</h2>
+            <div class="space-y-3">
+                {% for lab in pending_lab_results %}
+                <a href="{% url 'laboratory:order_detail' pk=lab.pk %}" class="block p-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700/50 transition border border-slate-100 dark:border-slate-700">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="font-bold text-slate-800 dark:text-slate-200">{{ lab.patient.full_name }}</span>
+                        <span class="badge badge-success text-[10px]">{% trans "Prêt" %}</span>
+                    </div>
+                    <span class="text-[11px] text-slate-500 block mt-1">{{ lab.order_number }}</span>
+                </a>
+                {% empty %}
+                <p class="text-center text-xs text-slate-400 py-6">{% trans "Pas de résultats d'examens récents." %}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+    {% endif %}
+
+    <!-- 2. NURSE WORKSPACE -->
+    {% if IS_NURSE %}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Queue for Vital Signs -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
+            <h2 class="text-base font-bold text-slate-900 dark:text-white">{% trans "Prise des Constantes Vitales (File d'Attente)" %}</h2>
+            <div class="divide-y divide-slate-100 dark:divide-slate-800">
+                {% for appt in waiting_queue %}
+                <div class="py-3 flex items-center justify-between">
+                    <div>
+                        <span class="font-bold text-sm text-slate-900 dark:text-white">{{ appt.patient.full_name }}</span>
+                        <span class="text-xs text-slate-500 block">{{ appt.doctor.display_title }} • {{ appt.scheduled_time|time:"H:i" }}</span>
+                    </div>
+                    <a href="{% url 'consultations:vitals_create' %}?patient={{ appt.patient.id }}&appointment={{ appt.id }}" class="btn-primary text-xs py-1.5 px-3 flex items-center gap-1.5">
+                        <i class="fa-solid fa-heart-pulse"></i> {% trans "Saisir Constantes" %}
+                    </a>
+                </div>
+                {% empty %}
+                <p class="py-6 text-center text-xs text-slate-400">{% trans "Tous les patients en attente ont leurs constantes à jour." %}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Inpatient Care -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-base font-bold text-slate-900 dark:text-white">{% trans "Patients Hospitalisés (Soins & Surveillance)" %}</h2>
+                <a href="{% url 'rooms:bed_matrix' %}" class="text-xs text-blue-600 hover:underline font-semibold flex items-center gap-1">
+                    {% trans "Plan des lits" %} <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </a>
+            </div>
+            <div class="space-y-2">
+                {% for adm in active_admissions %}
+                <div class="p-3 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 flex items-center justify-between">
+                    <div>
+                        <span class="font-bold text-xs text-slate-900 dark:text-white">{{ adm.patient.full_name }}</span>
+                        <span class="text-[11px] text-slate-500 block">{{ adm.bed }}</span>
+                    </div>
+                    <a href="{% url 'rooms:admission_detail' pk=adm.pk %}" class="btn-secondary text-xs py-1 px-2.5">
+                        {% trans "Dossier Soins" %}
+                    </a>
+                </div>
+                {% empty %}
+                <p class="py-6 text-center text-xs text-slate-400">{% trans "Aucun patient actuellement hospitalisé." %}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+    {% endif %}
+
+    <!-- 3. PHARMACIST WORKSPACE -->
+    {% if IS_PHARMACIST %}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Pending Prescriptions -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-base font-bold text-slate-900 dark:text-white">{% trans "Ordonnances en Attente de Délivrance" %}</h2>
+                <a href="{% url 'pharmacy:pending_prescriptions' %}" class="text-xs text-blue-600 font-semibold hover:underline flex items-center gap-1">
+                    {% trans "Voir file" %} <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </a>
+            </div>
+            <div class="divide-y divide-slate-100 dark:divide-slate-800">
+                {% for rx in pending_dispensations %}
+                <div class="py-3 flex items-center justify-between">
+                    <div>
+                        <span class="font-bold text-xs text-slate-900 dark:text-white">{{ rx.patient.full_name }}</span>
+                        <span class="font-mono text-[11px] text-blue-600 block">{{ rx.code }}</span>
+                    </div>
+                    <a href="{% url 'pharmacy:dispense_prescription' prescription_id=rx.id %}" class="btn-primary text-xs py-1.5 px-3 flex items-center gap-1.5">
+                        <i class="fa-solid fa-prescription-bottle-medical"></i> {% trans "Délivrer Médicaments" %}
+                    </a>
+                </div>
+                {% empty %}
+                <p class="py-6 text-center text-xs text-slate-400">{% trans "Aucune ordonnance en attente de dispensation." %}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Low Stock Alerts -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
+            <h2 class="text-base font-bold text-red-600 dark:text-red-400 flex items-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation"></i> {% trans "Alertes Stock Critique & Réapprovisionnement" %}
+            </h2>
+            <div class="space-y-2">
+                {% for med in low_stock_medications %}
+                <div class="p-3 rounded-xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900 flex items-center justify-between">
+                    <div>
+                        <span class="font-bold text-xs text-red-900 dark:text-red-200">{{ med.name }} {{ med.dosage }}</span>
+                        <span class="text-[11px] text-red-600 dark:text-red-400 block">DCI: {{ med.dci }}</span>
+                    </div>
+                    <a href="{% url 'pharmacy:batch_create' %}?medication={{ med.id }}" class="btn-secondary text-xs py-1 px-2 text-red-700 border-red-300">
+                        + {% trans "Entrer Lot" %}
+                    </a>
+                </div>
+                {% empty %}
+                <p class="py-6 text-center text-xs text-slate-400">{% trans "Tous les stocks sont au-dessus des seuils critiques." %}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+    {% endif %}
+
+    <!-- 4. CASHIER WORKSPACE -->
+    {% if IS_CASHIER %}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
+            <h2 class="text-base font-bold text-slate-900 dark:text-white">{% trans "Ventilation Caisse du Jour" %}</h2>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
+                    <span class="text-xs font-semibold flex items-center gap-2"><i class="fa-solid fa-money-bill-wave text-slate-500"></i> {% trans "Espèces" %}</span>
+                    <span class="font-mono font-bold text-sm">{{ today_cash|currency_fcfa }}</span>
+                </div>
+                <div class="flex justify-between items-center p-3 rounded-xl bg-orange-50 dark:bg-orange-950/30 text-orange-900 dark:text-orange-200 border border-orange-200">
+                    <span class="text-xs font-semibold flex items-center gap-2"><i class="fa-solid fa-mobile-screen-button text-orange-600"></i> {% trans "Orange Money" %}</span>
+                    <span class="font-mono font-bold text-sm">{{ today_orange_money|currency_fcfa }}</span>
+                </div>
+                <div class="flex justify-between items-center p-3 rounded-xl bg-yellow-50 dark:bg-yellow-950/30 text-yellow-900 dark:text-yellow-200 border border-yellow-200">
+                    <span class="text-xs font-semibold flex items-center gap-2"><i class="fa-solid fa-mobile-screen-button text-yellow-600"></i> {% trans "MTN Mobile Money" %}</span>
+                    <span class="font-mono font-bold text-sm">{{ today_mtn_momo|currency_fcfa }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-base font-bold text-slate-900 dark:text-white">{% trans "Factures en Attente de Paiement" %}</h2>
+                <a href="{% url 'billing:invoice_list' %}" class="text-xs text-blue-600 font-semibold hover:underline flex items-center gap-1">
+                    {% trans "Toutes les factures" %} <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </a>
+            </div>
+            <div class="divide-y divide-slate-100 dark:divide-slate-800">
+                {% for inv in pending_invoices %}
+                <div class="py-3 flex items-center justify-between">
+                    <div>
+                        <span class="font-bold text-xs text-slate-900 dark:text-white">{{ inv.patient.full_name }}</span>
+                        <span class="font-mono text-[11px] text-slate-500 block">{{ inv.invoice_number }}</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="font-mono font-bold text-sm text-blue-600">{{ inv.patient_net_amount|currency_fcfa }}</span>
+                        <a href="{% url 'billing:invoice_detail' pk=inv.pk %}" class="btn-primary text-xs py-1.5 px-3 flex items-center gap-1.5">
+                            <i class="fa-solid fa-cash-register"></i> {% trans "Encaisser" %}
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="py-6 text-center text-xs text-slate-400">{% trans "Aucune facture en attente." %}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

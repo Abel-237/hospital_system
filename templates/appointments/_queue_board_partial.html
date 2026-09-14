@@ -1,0 +1,136 @@
+{% load i18n hospital_tags %}
+<div id="queue-board-container" hx-get="{% url 'appointments:queue_board' %}" hx-trigger="queueUpdated from:body, every 10s" hx-swap="outerHTML">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- 1. EN SALLE D'ATTENTE (WAITING) -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-amber-500 animate-pulse"></span>
+                    <h2 class="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wide">
+                        {% trans "1. En Salle d'Attente" %}
+                    </h2>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 font-extrabold text-xs">
+                    {{ waiting|length }}
+                </span>
+            </div>
+
+            <div class="space-y-3">
+                {% for appt in waiting %}
+                <div class="p-4 rounded-xl bg-amber-50/40 dark:bg-slate-800/60 border border-amber-200/60 dark:border-slate-700 space-y-2">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-md bg-amber-500 text-white font-bold text-xs flex items-center justify-center font-mono">
+                                    {{ appt.queue_number|default:forloop.counter }}
+                                </span>
+                                <span class="font-bold text-sm text-slate-900 dark:text-white">{{ appt.patient.full_name }}</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1">{{ appt.doctor.display_title }} • {{ appt.scheduled_time|time:"H:i" }}</p>
+                        </div>
+                        <span class="badge {% if appt.priority == 'URGENT' or appt.priority == 'EMERGENCY' %}badge-danger{% else %}badge-info{% endif %}">
+                            {{ appt.get_priority_display }}
+                        </span>
+                    </div>
+
+                    <div class="flex items-center gap-2 pt-2 border-t border-amber-100 dark:border-slate-700">
+                        <form hx-post="{% url 'appointments:update_status' pk=appt.pk %}" hx-swap="none">
+                            {% csrf_token %}
+                            <input type="hidden" name="status" value="IN_CONSULTATION">
+                            <button type="submit" class="btn-primary text-xs py-1 px-3">
+                                🔔 {% trans "Appeler en consultation" %}
+                            </button>
+                        </form>
+                        <a href="{% url 'consultations:vitals_create' %}?patient={{ appt.patient.id }}&appointment={{ appt.id }}" class="btn-secondary text-xs py-1 px-2.5">
+                            💓 {% trans "Constantes" %}
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="py-8 text-center text-xs text-slate-400">{% trans "Aucun patient en attente." %}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- 2. EN CONSULTATION (IN_CONSULTATION) -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-blue-500 animate-ping"></span>
+                    <h2 class="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wide">
+                        {% trans "2. En Consultation" %}
+                    </h2>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-800 dark:text-blue-300 font-extrabold text-xs">
+                    {{ in_consultation|length }}
+                </span>
+            </div>
+
+            <div class="space-y-3">
+                {% for appt in in_consultation %}
+                <div class="p-4 rounded-xl bg-blue-50/50 dark:bg-slate-800/60 border border-blue-200 dark:border-slate-700 space-y-3">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <span class="font-bold text-sm text-slate-900 dark:text-white">{{ appt.patient.full_name }}</span>
+                            <p class="text-xs text-slate-500">{{ appt.doctor.display_title }}</p>
+                        </div>
+                        <span class="badge badge-info">{% trans "En cours" %}</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 pt-2 border-t border-blue-100 dark:border-slate-700">
+                        <a href="{% url 'consultations:consultation_create' patient_id=appt.patient.id %}?appointment={{ appt.id }}" class="btn-primary text-xs py-1 px-3">
+                            📝 {% trans "Saisir diagnostic" %}
+                        </a>
+                        <form hx-post="{% url 'appointments:update_status' pk=appt.pk %}" hx-swap="none">
+                            {% csrf_token %}
+                            <input type="hidden" name="status" value="COMPLETED">
+                            <button type="submit" class="btn-secondary text-xs py-1 px-2.5">
+                                ✓ {% trans "Clôturer" %}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="py-8 text-center text-xs text-slate-400">{% trans "Aucun patient actuellement dans le bureau médical." %}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- 3. PLANIFIÉS / À ACCUEILLIR (SCHEDULED) -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-slate-400"></span>
+                    <h2 class="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wide">
+                        {% trans "3. À Accueillir au Guichet" %}
+                    </h2>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-extrabold text-xs">
+                    {{ scheduled|length }}
+                </span>
+            </div>
+
+            <div class="space-y-3">
+                {% for appt in scheduled %}
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                    <div>
+                        <span class="font-bold text-xs text-slate-900 dark:text-white">{{ appt.patient.full_name }}</span>
+                        <p class="text-[11px] text-slate-500">{{ appt.scheduled_time|time:"H:i" }} • {{ appt.doctor.display_title }}</p>
+                    </div>
+                    <form hx-post="{% url 'appointments:update_status' pk=appt.pk %}" hx-swap="none">
+                        {% csrf_token %}
+                        <input type="hidden" name="status" value="WAITING">
+                        <button type="submit" class="btn-primary text-xs py-1 px-2.5">
+                            👉 {% trans "Patient Arrivé" %}
+                        </button>
+                    </form>
+                </div>
+                {% empty %}
+                <p class="py-8 text-center text-xs text-slate-400">{% trans "Aucun rendez-vous en attente d'enregistrement." %}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% load i18n hospital_tags %}
+
+{% block title %}{{ patient.full_name }} ({{ patient.matricule }}){% endblock %}
+
+{% block content %}
+<div class="space-y-6" x-data="{ activeTab: 'summary' }">
+    
+    <!-- Patient Medical Passport Header -->
+    <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            
+            <div class="flex items-start sm:items-center gap-5">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-extrabold text-2xl shadow-lg shadow-blue-500/25 uppercase">
+                    {{ patient.first_name|first }}{{ patient.last_name|first }}
+                </div>
+                <div>
+                    <div class="flex flex-wrap items-center gap-2.5">
+                        <h1 class="text-2xl font-black text-slate-900 dark:text-white">{{ patient.full_name }}</h1>
+                        <span class="font-mono text-xs px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 font-bold border border-blue-200 dark:border-blue-900">
+                            {{ patient.matricule }}
+                        </span>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-extrabold bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300">
+                            🩸 {{ patient.blood_group }}
+                        </span>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500 mt-2">
+                        <span>🎂 {{ patient.birth_date|date:"d/m/Y" }} ({{ patient.age }} ans)</span>
+                        <span>•</span>
+                        <span>⚧ {{ patient.get_gender_display }}</span>
+                        <span>•</span>
+                        <span>📞 {{ patient.phone }}</span>
+                        <span>•</span>
+                        <span>📍 {{ patient.city }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Role Action Buttons -->
+            <div class="flex flex-wrap items-center gap-2">
+                {% if IS_DOCTOR or IS_ADMIN %}
+                <a href="{% url 'consultations:consultation_create' patient_id=patient.id %}" class="btn-primary text-xs py-2 px-3.5">
+                    🩺 {% trans "Nouvelle Consultation" %}
+                </a>
+                <a href="{% url 'laboratory:order_create' %}?patient={{ patient.id }}" class="btn-secondary text-xs py-2 px-3">
+                    🧪 {% trans "Prescrire Analyses" %}
+                </a>
+                {% endif %}
+
+                {% if IS_NURSE or IS_DOCTOR or IS_ADMIN %}
+                <a href="{% url 'consultations:vitals_create' %}?patient={{ patient.id }}" class="btn-secondary text-xs py-2 px-3">
+                    💓 {% trans "Prendre Constantes" %}
+                </a>
+                <a href="{% url 'rooms:admission_create' %}?patient={{ patient.id }}" class="btn-secondary text-xs py-2 px-3">
+                    🛏️ {% trans "Hospitaliser" %}
+                </a>
+                {% endif %}
+
+                {% if IS_CASHIER or IS_ADMIN %}
+                <a href="{% url 'billing:invoice_auto_generate' patient_id=patient.id %}" class="btn-secondary text-xs py-2 px-3 text-emerald-700 dark:text-emerald-400 border-emerald-300 dark:border-emerald-800">
+                    💳 {% trans "Générer Facture" %}
+                </a>
+                {% endif %}
+
+                <a href="{% url 'patients:patient_update' pk=patient.pk %}" class="btn-secondary text-xs py-2 px-3">
+                    ✏️ {% trans "Modifier" %}
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Medical Alerts Bar (Allergies & Chronic Diseases) -->
+        {% if patient.allergies or patient.chronic_conditions %}
+        <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-4 text-xs">
+            {% if patient.allergies %}
+            <div class="bg-red-50 dark:bg-red-950/30 text-red-800 dark:text-red-300 px-3 py-1.5 rounded-xl border border-red-200 dark:border-red-900 flex items-center gap-2">
+                <span class="font-bold">⚠️ {% trans "Allergies" %} :</span>
+                <span>{{ patient.allergies }}</span>
+            </div>
+            {% endif %}
+
+            {% if patient.chronic_conditions %}
+            <div class="bg-amber-50 dark:bg-amber-950/30 text-amber-800 dark:text-amber-300 px-3 py-1.5 rounded-xl border border-amber-200 dark:border-amber-900 flex items-center gap-2">
+                <span class="font-bold">📋 {% trans "Affections chroniques" %} :</span>
+                <span>{{ patient.chronic_conditions }}</span>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="flex items-center gap-1 border-b border-slate-200 dark:border-slate-800 text-xs font-semibold overflow-x-auto pb-0.5">
+        <button @click="activeTab = 'summary'" :class="{ 'border-blue-600 text-blue-600 dark:text-blue-400 border-b-2': activeTab === 'summary', 'text-slate-500 hover:text-slate-700': activeTab !== 'summary' }" class="px-4 py-3 transition">
+            {% trans "Synthèse Médicale" %}
+        </button>
+        <button @click="activeTab = 'consultations'" :class="{ 'border-blue-600 text-blue-600 dark:text-blue-400 border-b-2': activeTab === 'consultations', 'text-slate-500 hover:text-slate-700': activeTab !== 'consultations' }" class="px-4 py-3 transition">
+            {% trans "Consultations" %} ({{ consultations|length }})
+        </button>
+        <button @click="activeTab = 'admissions'" :class="{ 'border-blue-600 text-blue-600 dark:text-blue-400 border-b-2': activeTab === 'admissions', 'text-slate-500 hover:text-slate-700': activeTab !== 'admissions' }" class="px-4 py-3 transition">
+            {% trans "Hospitalisations" %} ({{ admissions|length }})
+        </button>
+        <button @click="activeTab = 'billing'" :class="{ 'border-blue-600 text-blue-600 dark:text-blue-400 border-b-2': activeTab === 'billing', 'text-slate-500 hover:text-slate-700': activeTab !== 'billing' }" class="px-4 py-3 transition">
+            {% trans "Factures & Règlements" %} ({{ invoices|length }})
+        </button>
+        <button @click="activeTab = 'audit'" :class="{ 'border-blue-600 text-blue-600 dark:text-blue-400 border-b-2': activeTab === 'audit', 'text-slate-500 hover:text-slate-700': activeTab !== 'audit' }" class="px-4 py-3 transition">
+            {% trans "Traçabilité & Audit" %}
+        </button>
+    </div>
+
+    <!-- TAB 1: SYNTHÈSE MÉDICALE -->
+    <div x-show="activeTab === 'summary'" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4 text-sm">
+            <h2 class="font-bold text-slate-900 dark:text-white border-b pb-2">{% trans "Antécédents Personnels & Familiaux" %}</h2>
+            <div>
+                <span class="text-xs font-semibold text-slate-500 block uppercase">{% trans "Antécédents Familiaux" %}</span>
+                <p class="text-slate-800 dark:text-slate-200 mt-0.5">{{ patient.family_history|default:"Néant" }}</p>
+            </div>
+            <div>
+                <span class="text-xs font-semibold text-slate-500 block uppercase">{% trans "Antécédents Chirurgicaux" %}</span>
+                <p class="text-slate-800 dark:text-slate-200 mt-0.5">{{ patient.surgical_history|default:"Néant" }}</p>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4 text-sm">
+            <h2 class="font-bold text-slate-900 dark:text-white border-b pb-2">{% trans "Personne à Contacter en Cas d'Urgence" %}</h2>
+            <div>
+                <span class="text-xs font-semibold text-slate-500 block uppercase">{% trans "Nom du Contact" %}</span>
+                <p class="text-slate-800 dark:text-slate-200 font-bold mt-0.5">{{ patient.emergency_contact_name|default:"Non renseigné" }}</p>
+            </div>
+            <div>
+                <span class="text-xs font-semibold text-slate-500 block uppercase">{% trans "Numéro d'Urgence" %}</span>
+                <p class="text-slate-800 dark:text-slate-200 font-mono mt-0.5">{{ patient.emergency_contact_phone|default:"Non renseigné" }}</p>
+            </div>
+            <div>
+                <span class="text-xs font-semibold text-slate-500 block uppercase">{% trans "Lien de Parenté" %}</span>
+                <p class="text-slate-800 dark:text-slate-200 mt-0.5">{{ patient.emergency_contact_relation|default:"Non renseigné" }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: CONSULTATIONS -->
+    <div x-show="activeTab === 'consultations'" style="display:none;" class="space-y-4">
+        {% for cons in consultations %}
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-3">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="text-xs font-bold text-blue-600 dark:text-blue-400 font-mono">{{ cons.created_at|date:"d/m/Y H:i" }}</span>
+                    <h3 class="font-bold text-base text-slate-900 dark:text-white">{{ cons.doctor.display_title }}</h3>
+                </div>
+                <a href="{% url 'consultations:consultation_detail' pk=cons.pk %}" class="btn-secondary text-xs">
+                    {% trans "Consulter Acte" %} →
+                </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs bg-slate-50 dark:bg-slate-800/50 p-3.5 rounded-xl">
+                <div>
+                    <span class="font-bold text-slate-500 uppercase">{% trans "Diagnostic" %} :</span>
+                    <p class="font-semibold text-slate-800 dark:text-slate-200 mt-0.5">{{ cons.diagnosis }}</p>
+                </div>
+                <div>
+                    <span class="font-bold text-slate-500 uppercase">{% trans "Plaintes & Symptômes" %} :</span>
+                    <p class="text-slate-700 dark:text-slate-300 mt-0.5">{{ cons.symptoms|truncatechars:120 }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl text-center text-xs text-slate-400">
+            {% trans "Aucune consultation enregistrée pour ce patient." %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- TAB 3: ADMISSIONS -->
+    <div x-show="activeTab === 'admissions'" style="display:none;" class="space-y-4">
+        {% for adm in admissions %}
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm flex items-center justify-between">
+            <div>
+                <span class="font-bold text-sm text-slate-900 dark:text-white">{{ adm.bed }}</span>
+                <p class="text-xs text-slate-500">{% trans "Admission le" %} {{ adm.admission_date|date:"d/m/Y H:i" }}</p>
+                <p class="text-xs text-slate-700 dark:text-slate-300 mt-1">{{ adm.admission_reason }}</p>
+            </div>
+            <a href="{% url 'rooms:admission_detail' pk=adm.pk %}" class="btn-secondary text-xs">
+                {% trans "Détail Séjour" %} →
+            </a>
+        </div>
+        {% empty %}
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl text-center text-xs text-slate-400">
+            {% trans "Aucun historique d'hospitalisation." %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- TAB 4: FACTURES -->
+    <div x-show="activeTab === 'billing'" style="display:none;" class="space-y-4">
+        {% for inv in invoices %}
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm flex items-center justify-between">
+            <div>
+                <span class="font-mono font-bold text-sm text-blue-600">{{ inv.invoice_number }}</span>
+                <p class="text-xs text-slate-500">{{ inv.created_at|date:"d/m/Y" }} • {{ inv.get_status_display }}</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="font-bold text-base text-slate-900 dark:text-white">{{ inv.patient_net_amount|currency_fcfa }}</span>
+                <a href="{% url 'billing:invoice_detail' pk=inv.pk %}" class="btn-secondary text-xs">
+                    {% trans "Voir Facture" %} →
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl text-center text-xs text-slate-400">
+            {% trans "Aucune facture émise." %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- TAB 5: AUDIT & TRAÇABILITÉ -->
+    <div x-show="activeTab === 'audit'" style="display:none;" class="space-y-4">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white">
+                    {% trans "Historique des modifications du dossier (Loi n°2010/012)" %}
+                </h3>
+                <a href="{% url 'patients:patient_history' pk=patient.pk %}" class="text-xs font-semibold text-blue-600 hover:underline">
+                    {% trans "Consulter le registre complet" %} →
+                </a>
+            </div>
+
+            <div class="divide-y divide-slate-100 dark:divide-slate-800 text-xs">
+                {% for log in audit_logs %}
+                <div class="py-3 flex items-center justify-between">
+                    <div>
+                        <span class="font-bold text-slate-800 dark:text-slate-200">
+                            {% if log.history_type == '+' %}{% trans "Création initiale" %}{% elif log.history_type == '~' %}{% trans "Modification fiche" %}{% else %}{% trans "Suppression" %}{% endif %}
+                        </span>
+                        <span class="text-slate-500 block">{{ log.history_date|date:"d/m/Y H:i:s" }} par {{ log.history_user.full_name|default:"Système" }}</span>
+                    </div>
+                    <span class="font-mono text-[10px] text-slate-400">ID: {{ log.history_id }}</span>
+                </div>
+                {% empty %}
+                <p class="text-xs text-slate-400 py-4 text-center">{% trans "Aucun log d'audit disponible." %}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

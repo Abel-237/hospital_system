@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Ajouter un Médicament" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto py-6">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
+        <h1 class="text-xl font-bold text-slate-900 dark:text-white mb-2">{% trans "Fiche Thérapeutique Médicament" %}</h1>
+        <p class="text-xs text-slate-500 mb-6">{% trans "Enregistrement au catalogue de la pharmacie hospitalière" %}</p>
+
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold mb-1 uppercase text-slate-500">{{ form.name.label }} *</label>
+                    {{ form.name }}
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1 uppercase text-slate-500">{{ form.dci.label }} *</label>
+                    {{ form.dci }}
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1 uppercase text-slate-500">{{ form.form.label }} *</label>
+                    {{ form.form }}
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1 uppercase text-slate-500">{{ form.dosage.label }} *</label>
+                    {{ form.dosage }}
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1 uppercase text-slate-500">{{ form.unit_price.label }} *</label>
+                    {{ form.unit_price }}
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1 uppercase text-slate-500">{{ form.critical_stock_threshold.label }} *</label>
+                    {{ form.critical_stock_threshold }}
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold mb-1 uppercase text-slate-500">{{ form.description.label }}</label>
+                {{ form.description }}
+            </div>
+
+            <div class="flex items-center gap-2 pt-2">
+                {{ form.is_active }}
+                <label class="text-xs font-semibold text-slate-700 dark:text-slate-300">{{ form.is_active.label }}</label>
+            </div>
+
+            <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-100 dark:border-slate-800">
+                <a href="{% url 'pharmacy:medication_list' %}" class="btn-secondary text-xs">{% trans "Annuler" %}</a>
+                <button type="submit" class="btn-primary">{% trans "Enregistrer le Médicament" %}</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Ordonnances à Délivrer" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{% trans "Comptoir de Délivrance Pharmacie" %}</h1>
+            <p class="text-sm text-slate-500">{% trans "Ordonnances électroniques prescrites en attente de délivrance et vérification" %}</p>
+        </div>
+        <a href="{% url 'pharmacy:medication_list' %}" class="btn-secondary text-xs">
+            ← {% trans "Catalogue Médicaments" %}
+        </a>
+    </div>
+
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-600 dark:text-slate-300">
+                <thead class="bg-slate-50 dark:bg-slate-800 text-xs font-semibold uppercase text-slate-500 border-b border-slate-200 dark:border-slate-800">
+                    <tr>
+                        <th class="px-6 py-4">{% trans "Date / Heure" %}</th>
+                        <th class="px-6 py-4">{% trans "Code Ordonnance" %}</th>
+                        <th class="px-6 py-4">{% trans "Patient" %}</th>
+                        <th class="px-6 py-4">{% trans "Médecin Prescripteur" %}</th>
+                        <th class="px-6 py-4">{% trans "Lignes Médicaments" %}</th>
+                        <th class="px-6 py-4 text-right">{% trans "Action" %}</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                    {% for rx in prescriptions %}
+                    <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50">
+                        <td class="px-6 py-4 font-mono text-xs">{{ rx.created_at|date:"d/m/Y H:i" }}</td>
+                        <td class="px-6 py-4 font-mono font-bold text-xs text-blue-600">{{ rx.code }}</td>
+                        <td class="px-6 py-4">
+                            <span class="font-bold text-slate-900 dark:text-white">{{ rx.patient.full_name }}</span>
+                            <div class="text-xs text-slate-400">{{ rx.patient.matricule }}</div>
+                        </td>
+                        <td class="px-6 py-4">{{ rx.doctor.display_title }}</td>
+                        <td class="px-6 py-4 text-xs">
+                            {{ rx.items.count }} {% trans "produit(s)" %}
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="{% url 'pharmacy:dispense_prescription' prescription_id=rx.id %}" class="btn-primary text-xs py-1.5 px-3">
+                                💊 {% trans "Délivrer" %}
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="px-6 py-12 text-center text-slate-400">
+                            {% trans "Aucune ordonnance en attente de délivrance." %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

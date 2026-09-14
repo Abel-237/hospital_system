@@ -1,0 +1,2768 @@
+# Translation file for en
+msgid ""
+msgstr ""
+"Project-Id-Version: hospital_system 2026.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-12 18:00+0100\n"
+"PO-Revision-Date: 2026-09-12 18:00+0100\n"
+"Last-Translator: Admin <admin@hospital-cmr.local>\n"
+"Language-Team: en\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "1. En Salle d'Attente"
+msgstr "1. En Salle d'Attente"
+
+msgid "2. En Consultation"
+msgstr "2. En Consultation"
+
+msgid "2FA"
+msgstr "2FA"
+
+msgid "2FA Actif"
+msgstr "2FA Active"
+
+msgid "2FA Activé"
+msgstr "2FA Enabled"
+
+msgid "2FA Activé et Opérationnel"
+msgstr "2FA Enabled and Operational"
+
+msgid "2FA Inactif"
+msgstr "2FA Inactive"
+
+msgid "2FA Non Configuré"
+msgstr "2FA Not Configured"
+
+msgid "3. À Accueillir au Guichet"
+msgstr "3. À Accueillir au Guichet"
+
+msgid "ACTIF"
+msgstr "ACTIVE"
+
+msgid "API REST (Mobile & Tiers)"
+msgstr "API REST (Mobile & Tiers)"
+
+msgid "Absent"
+msgstr "Absent"
+
+msgid "Accès refusé: vous n'avez pas le rôle requis pour cette action."
+msgstr "Accès refusé: vous n'avez pas le rôle requis pour cette action."
+
+msgid "Acte Médical & Consultation"
+msgstr "Acte Médical & Consultation"
+
+msgid "Acte Spécialisé / Chirurgie"
+msgstr "Acte Spécialisé / Chirurgie"
+
+msgid "Actes Médicaux & Prescriptions"
+msgstr "Actes Médicaux & Prescriptions"
+
+msgid "Actif"
+msgstr "Active"
+
+msgid "Actif au livret thérapeutique"
+msgstr "Actif au livret thérapeutique"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Activation de l'Authentification à Deux Facteurs (2FA)"
+msgstr "Activation de l'Authentification à Deux Facteurs (2FA)"
+
+msgid "Activer la 2FA"
+msgstr "Enable 2FA"
+
+msgid "Activez l'application Google Authenticator ou Twilio Authy pour sécuriser vos accès médicaux."
+msgstr "Enable Google Authenticator or Twilio Authy to protect your medical access."
+
+msgid "Activité Clinique"
+msgstr "Clinical Activity"
+
+msgid "Admettre"
+msgstr "Admettre"
+
+msgid "Admettre un Patient"
+msgstr "Admit Patient"
+
+msgid "Administrateur"
+msgstr "Administrator"
+
+msgid "Admis le"
+msgstr "Admis le"
+
+msgid "Admission & Attribution de Lit"
+msgstr "Admission & Attribution de Lit"
+
+msgid "Admission en Hospitalisation"
+msgstr "Inpatient Admission"
+
+msgid "Admission le"
+msgstr "Admission le"
+
+msgid "Adresse / Quartier"
+msgstr "Address / District"
+
+msgid "Adresse Email"
+msgstr "Email Address"
+
+msgid "Adresse Email Professionnelle"
+msgstr "Adresse Email Professionnelle"
+
+msgid "Adresse de résidence"
+msgstr "Adresse de résidence"
+
+msgid "Affectez un patient à un lit d'hospitalisation disponible"
+msgstr "Affectez un patient à un lit d'hospitalisation disponible"
+
+msgid "Affections chroniques"
+msgstr "Affections chroniques"
+
+msgid "Agenda des Consultations"
+msgstr "Agenda des Consultations"
+
+msgid "Ajouter le Lot au Stock"
+msgstr "Ajouter le Lot au Stock"
+
+msgid "Ajouter un Médicament"
+msgstr "Add Medication"
+
+msgid "Ajouter un Personnel de Santé"
+msgstr "Ajouter un Personnel de Santé"
+
+msgid "Ajouter un médicament"
+msgstr "Add Medication"
+
+msgid "Ajouter une note de soin (Tour de garde)"
+msgstr "Ajouter une note de soin (Tour de garde)"
+
+msgid "Alertes Stock Critique & Réapprovisionnement"
+msgstr "Alertes Stock Critique & Réapprovisionnement"
+
+msgid "Allergies"
+msgstr "Allergies"
+
+msgid "Allergies connues"
+msgstr "Known Allergies"
+
+msgid "Analyses en cours"
+msgstr "Analyses en cours"
+
+msgid "Analysé le"
+msgstr "Analysé le"
+
+msgid "Annuaire des médecins, infirmiers, laborantins, pharmaciens et caissiers"
+msgstr "Annuaire des médecins, infirmiers, laborantins, pharmaciens et caissiers"
+
+msgid "Annuler"
+msgstr "Cancel"
+
+msgid "Annuler et retourner au profil"
+msgstr "Annuler et retourner au profil"
+
+msgid "Annulé"
+msgstr "Cancelled"
+
+msgid "Annulé par l’utilisateur"
+msgstr "Annulé par l’utilisateur"
+
+msgid "Annulée"
+msgstr "Annulée"
+
+msgid "Antécédents Chirurgicaux"
+msgstr "Antécédents Chirurgicaux"
+
+msgid "Antécédents Familiaux"
+msgstr "Antécédents Familiaux"
+
+msgid "Antécédents Médicaux & Allergies"
+msgstr "Antécédents Médicaux & Allergies"
+
+msgid "Antécédents Personnels & Familiaux"
+msgstr "Antécédents Personnels & Familiaux"
+
+msgid "Antécédents chirurgicaux"
+msgstr "Antécédents chirurgicaux"
+
+msgid "Antécédents familiaux"
+msgstr "Family History"
+
+msgid "Antécédents personnels"
+msgstr "Personal Medical History"
+
+msgid "Appeler en consultation"
+msgstr "Appeler en consultation"
+
+msgid "Articles Prescrits à Déstocker (Allocation FEFO automatique)"
+msgstr "Articles Prescrits à Déstocker (Allocation FEFO automatique)"
+
+msgid "Assurance"
+msgstr "Assurance"
+
+msgid "Assuré"
+msgstr "Assuré"
+
+msgid "Aucun article sur cette facture."
+msgstr "Aucun article sur cette facture."
+
+msgid "Aucun bon d'analyses trouvé."
+msgstr "Aucun bon d'analyses trouvé."
+
+msgid "Aucun collaborateur trouvé."
+msgstr "No staff members found."
+
+msgid "Aucun enregistrement d'audit disponible."
+msgstr "Aucun enregistrement d'audit disponible."
+
+msgid "Aucun historique d'hospitalisation."
+msgstr "Aucun historique d'hospitalisation."
+
+msgid "Aucun log d'audit disponible."
+msgstr "Aucun log d'audit disponible."
+
+msgid "Aucun médicament enregistré."
+msgstr "Aucun médicament enregistré."
+
+msgid "Aucun patient actuellement dans le bureau médical."
+msgstr "Aucun patient actuellement dans le bureau médical."
+
+msgid "Aucun patient actuellement hospitalisé."
+msgstr "No patients currently admitted."
+
+msgid "Aucun patient en attente pour le moment."
+msgstr "No patients currently waiting."
+
+msgid "Aucun patient en attente."
+msgstr "Aucun patient en attente."
+
+msgid "Aucun patient ne correspond aux critères de recherche."
+msgstr "No patients match the search criteria."
+
+msgid "Aucun pavillon hospitalier configuré."
+msgstr "Aucun pavillon hospitalier configuré."
+
+msgid "Aucun rendez-vous en attente d'enregistrement."
+msgstr "Aucun rendez-vous en attente d'enregistrement."
+
+msgid "Aucun rendez-vous prévu pour cette date."
+msgstr "Aucun rendez-vous prévu pour cette date."
+
+msgid "Aucun règlement enregistré pour le moment."
+msgstr "Aucun règlement enregistré pour le moment."
+
+msgid "Aucun résultat pour ces critères de recherche."
+msgstr "Aucun résultat pour ces critères de recherche."
+
+msgid "Aucune consultation enregistrée pour ce patient."
+msgstr "Aucune consultation enregistrée pour ce patient."
+
+msgid "Aucune consultation trouvée"
+msgstr "Aucune consultation trouvée"
+
+msgid "Aucune facture en attente."
+msgstr "Aucune facture en attente."
+
+msgid "Aucune facture trouvée."
+msgstr "Aucune facture trouvée."
+
+msgid "Aucune facture émise."
+msgstr "Aucune facture émise."
+
+msgid "Aucune note de soin enregistrée pour ce séjour."
+msgstr "Aucune note de soin enregistrée pour ce séjour."
+
+msgid "Aucune notification enregistrée."
+msgstr "Aucune notification enregistrée."
+
+msgid "Aucune ordonnance en attente de dispensation."
+msgstr "Aucune ordonnance en attente de dispensation."
+
+msgid "Aucune ordonnance en attente de délivrance."
+msgstr "Aucune ordonnance en attente de délivrance."
+
+msgid "Aucune ordonnance rédigée pour cette consultation."
+msgstr "Aucune ordonnance rédigée pour cette consultation."
+
+msgid "Audit & Traçabilité DPI"
+msgstr "Audit & Traçabilité DPI"
+
+msgid "Authentification 2FA réussie."
+msgstr "2FA authentication successful."
+
+msgid "Authentification à Deux Facteurs"
+msgstr "Two-Factor Authentication"
+
+msgid "Authentification à Deux Facteurs (2FA)"
+msgstr "Authentification à Deux Facteurs (2FA)"
+
+msgid "Authentification à deux facteurs activée avec succès."
+msgstr "Two-factor authentication enabled successfully."
+
+msgid "Autre"
+msgstr "Other"
+
+msgid "Aérosol / Inhalateur"
+msgstr "Aerosol / Inhaler"
+
+msgid "Basculer Thème"
+msgstr "Toggle Theme"
+
+msgid "Basculer le menu"
+msgstr "Toggle Menu"
+
+msgid "Bienvenue,"
+msgstr "Welcome,"
+
+msgid "Bienvenue, %(name)s!"
+msgstr "Welcome, %(name)s!"
+
+msgid "Biochimie"
+msgstr "Biochimie"
+
+msgid "Biochimie Clinique"
+msgstr "Clinical Biochemistry"
+
+msgid "Biologiste"
+msgstr "Biologiste"
+
+msgid "Bloqué"
+msgstr "Blocked"
+
+msgid "Boire beaucoup d'eau, repos au lit pendant 48h..."
+msgstr "Boire beaucoup d'eau, repos au lit pendant 48h..."
+
+msgid "Bon"
+msgstr "Bon"
+
+msgid "Bon No"
+msgstr "Bon No"
+
+msgid "Bon d'Analyses"
+msgstr "Bon d'Analyses"
+
+msgid "Bon d’analyses laboratoire"
+msgstr "Bon d’analyses laboratoire"
+
+msgid "Bon d’analyses n°%(order)s prescrit pour %(patient)s."
+msgstr "Bon d’analyses n°%(order)s prescrit pour %(patient)s."
+
+msgid "Bons d’analyses laboratoire"
+msgstr "Bons d’analyses laboratoire"
+
+msgid "Brouillon"
+msgstr "Brouillon"
+
+msgid "Brut Total"
+msgstr "Brut Total"
+
+msgid "Caisse & Facturation"
+msgstr "Billing & Cashier"
+
+msgid "Caisse & Facturation Hospitalière"
+msgstr "Caisse & Facturation Hospitalière"
+
+msgid "Caisse & MoMo"
+msgstr "Billing & MoMo"
+
+msgid "Caissier"
+msgstr "Cashier"
+
+msgid "Canal"
+msgstr "Canal"
+
+msgid "Capacité Totale"
+msgstr "Capacité Totale"
+
+msgid "Carte Bancaire (TPE)"
+msgstr "Carte Bancaire (TPE)"
+
+msgid "Catalogue Médicaments"
+msgstr "Catalogue Médicaments"
+
+msgid "Catégorie"
+msgstr "Catégorie"
+
+msgid "Ce médecin a déjà une consultation programmée à cette heure précise. Veuillez choisir un autre créneau."
+msgstr "Ce médecin a déjà une consultation programmée à cette heure précise. Veuillez choisir un autre créneau."
+
+msgid "Cette action libérera le lit pour de nouvelles admissions et finalisera le calcul des nuitées pour la facturation."
+msgstr "Cette action libérera le lit pour de nouvelles admissions et finalisera le calcul des nuitées pour la facturation."
+
+msgid "Cette ordonnance a déjà été délivrée."
+msgstr "Cette ordonnance a déjà été délivrée."
+
+msgid "Chambre"
+msgstr "Room"
+
+msgid "Chambre & Hospitalisation"
+msgstr "Chambre & Hospitalisation"
+
+msgid "Chambre Commune / Standard"
+msgstr "Chambre Commune / Standard"
+
+msgid "Chambre Individuelle VIP"
+msgstr "Chambre Individuelle VIP"
+
+msgid "Chambres"
+msgstr "Rooms"
+
+msgid "Champs obligatoires marqués d'une astérisque. Conformité Loi camerounaise n°2010/012."
+msgstr "Champs obligatoires marqués d'une astérisque. Conformité Loi camerounaise n°2010/012."
+
+msgid "Changer de langue"
+msgstr "Switch Language"
+
+msgid "Changer de photo"
+msgstr "Change Photo"
+
+msgid "Chèque"
+msgstr "Check"
+
+msgid "Chèque / Virement Assureur"
+msgstr "Chèque / Virement Assureur"
+
+msgid "Cliché / Compte-rendu scanné"
+msgstr "Cliché / Compte-rendu scanné"
+
+msgid "Clé secrète manuelle :"
+msgstr "Manual secret key:"
+
+msgid "Clôturer"
+msgstr "Clôturer"
+
+msgid "Code"
+msgstr "Code"
+
+msgid "Code 2FA invalide ou expiré."
+msgstr "Invalid or expired 2FA code."
+
+msgid "Code Ordonnance"
+msgstr "Code Ordonnance"
+
+msgid "Code analyse"
+msgstr "Code analyse"
+
+msgid "Code de sécurité (TOTP 6 chiffres)"
+msgstr "Security Code (6-digit TOTP)"
+
+msgid "Code invalide. Veuillez réessayer."
+msgstr "Invalid code. Please try again."
+
+msgid "Collaborateur"
+msgstr "Staff Member"
+
+msgid "Collaborateurs"
+msgstr "Staff Members"
+
+msgid "Compagnie d’assurance / Mutuelle"
+msgstr "Compagnie d’assurance / Mutuelle"
+
+msgid "Complété le"
+msgstr "Complété le"
+
+msgid "Comprimé / Gélule"
+msgstr "Tablet / Capsule"
+
+msgid "Comptes & Personnel"
+msgstr "Comptes & Personnel"
+
+msgid "Comptoir de Délivrance Pharmacie"
+msgstr "Comptoir de Délivrance Pharmacie"
+
+msgid "Conditions de prélèvement & Remarques"
+msgstr "Conditions de prélèvement & Remarques"
+
+msgid "Conduite à Tenir & Prescription"
+msgstr "Treatment Plan & Prescription"
+
+msgid "Configuration 2FA"
+msgstr "2FA Security Setup"
+
+msgid "Configurer 2FA"
+msgstr "Configurer 2FA"
+
+msgid "Configurer l'application 2FA"
+msgstr "Configure 2FA Application"
+
+msgid "Confirmer"
+msgstr "Confirm"
+
+msgid "Confirmer et Activer le 2FA"
+msgstr "Confirmer et Activer le 2FA"
+
+msgid "Confirmer l'Admission"
+msgstr "Confirmer l'Admission"
+
+msgid "Confirmer la Sortie"
+msgstr "Confirmer la Sortie"
+
+msgid "Confirmer le Rendez-vous"
+msgstr "Confirmer le Rendez-vous"
+
+msgid "Conforme"
+msgstr "Compliant"
+
+msgid "Conforme Loi n°2010/012 (Cameroun)"
+msgstr "Compliant with Law n°2010/012 (Cameroon)"
+
+msgid "Connecté"
+msgstr "Online"
+
+msgid "Connexion"
+msgstr "Sign In"
+
+msgid "Connexion Personnel Hospitalier"
+msgstr "Hospital Staff Sign In"
+
+msgid "Conseils de dispensation au patient & Posologie expliquée"
+msgstr "Conseils de dispensation au patient & Posologie expliquée"
+
+msgid "Conseils de délivrance"
+msgstr "Conseils de délivrance"
+
+msgid "Consentement RGPD/CMR"
+msgstr "Consent GDPR/CMR"
+
+msgid "Consentement au traitement des données de santé (Loi n°2010/012)"
+msgstr "Consent to health data processing (Law n°2010/012)"
+
+msgid "Consentement traitement données de santé"
+msgstr "Consentement traitement données de santé"
+
+msgid "Consentement Éclairé & Loi n°2010/012"
+msgstr "Informed Consent & Law n°2010/012"
+
+msgid "Consentement éclairé au traitement des données médicales"
+msgstr "Consentement éclairé au traitement des données médicales"
+
+msgid "Console Django Admin"
+msgstr "Django Admin Console"
+
+msgid "Constantes"
+msgstr "Vital Signs"
+
+msgid "Constantes Vitales"
+msgstr "Vital Signs"
+
+msgid "Constantes associées"
+msgstr "Constantes associées"
+
+msgid "Constantes lors de l'acte"
+msgstr "Constantes lors de l'acte"
+
+msgid "Constantes vitales enregistrées avec succès pour %(patient)s."
+msgstr "Vital signs recorded successfully for %(patient)s."
+
+msgid "Constats auscultatoires, palpation..."
+msgstr "Constats auscultatoires, palpation..."
+
+msgid "Consultation"
+msgstr "Consultation"
+
+msgid "Consultation Médicale"
+msgstr "Medical Consultation"
+
+msgid "Consultation de médecine générale / spécialiste"
+msgstr "Consultation de médecine générale / spécialiste"
+
+msgid "Consultation du"
+msgstr "Consultation du"
+
+msgid "Consultation enregistrée avec succès."
+msgstr "Consultation enregistrée avec succès."
+
+msgid "Consultation liée"
+msgstr "Consultation liée"
+
+msgid "Consultation validée avec succès."
+msgstr "Consultation validated successfully."
+
+msgid "Consultations"
+msgstr "Consultations"
+
+msgid "Consultations Médicales"
+msgstr "Medical Consultations"
+
+msgid "Consultations médicales programmées par praticien"
+msgstr "Consultations médicales programmées par praticien"
+
+msgid "Consultations programmées"
+msgstr "Scheduled consultations"
+
+msgid "Consulter"
+msgstr "Consult"
+
+msgid "Consulter Acte"
+msgstr "Consulter Acte"
+
+msgid "Consulter le registre complet"
+msgstr "Consulter le registre complet"
+
+msgid "Contact d'Urgence"
+msgstr "Contact d'Urgence"
+
+msgid "Contact d’urgence (Nom)"
+msgstr "Contact d’urgence (Nom)"
+
+msgid "Contact d’urgence (Tél)"
+msgstr "Contact d’urgence (Tél)"
+
+msgid "Contenu du message"
+msgstr "Contenu du message"
+
+msgid "Coordonnées & Résidence"
+msgstr "Coordonnées & Résidence"
+
+msgid "Critique"
+msgstr "Critique"
+
+msgid "Création dossier"
+msgstr "Création dossier"
+
+msgid "Création initiale"
+msgstr "Création initiale"
+
+msgid "Créer le compte collaborateur"
+msgstr "Créer le compte collaborateur"
+
+msgid "Créer un Collaborateur"
+msgstr "Créer un Collaborateur"
+
+msgid "Créer un Dossier Patient"
+msgstr "Create Patient Record"
+
+msgid "Créer un collaborateur"
+msgstr "Create Staff Member"
+
+msgid "Créé par"
+msgstr "Créé par"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Date & Heure"
+msgstr "Date & Time"
+
+msgid "Date / Heure"
+msgstr "Date / Heure"
+
+msgid "Date d'Envoi"
+msgstr "Date Sent"
+
+msgid "Date d'admission"
+msgstr "Admission date"
+
+msgid "Date d'inscription"
+msgstr "Date Joined"
+
+msgid "Date d'Émission"
+msgstr "Issue Date"
+
+msgid "Date de Naissance"
+msgstr "Date of Birth"
+
+msgid "Date de Péremption"
+msgstr "Expiration Date"
+
+msgid "Date de création"
+msgstr "Date de création"
+
+msgid "Date de délivrance"
+msgstr "Date de délivrance"
+
+msgid "Date de naissance"
+msgstr "Date de naissance"
+
+msgid "Date de péremption"
+msgstr "Date de péremption"
+
+msgid "Date de réception"
+msgstr "Date de réception"
+
+msgid "Date de sortie"
+msgstr "Date de sortie"
+
+msgid "Date de sortie prévue"
+msgstr "Expected discharge date"
+
+msgid "Date d’admission"
+msgstr "Date d’admission"
+
+msgid "Date d’expiration de la police"
+msgstr "Date d’expiration de la police"
+
+msgid "Date d’échéance"
+msgstr "Date d’échéance"
+
+msgid "Date prévue"
+msgstr "Date prévue"
+
+msgid "Date sélectionnée :"
+msgstr "Date sélectionnée :"
+
+msgid "Date/Heure du consentement"
+msgstr "Date/Heure du consentement"
+
+msgid "Demande d'Analyses"
+msgstr "Demande d'Analyses"
+
+msgid "Demande d'Analyses Biologiques & Imagerie"
+msgstr "Demande d'Analyses Biologiques & Imagerie"
+
+msgid "Demandes d'Examens"
+msgstr "Lab Requests"
+
+msgid "Derniers Examens Validés"
+msgstr "Recently Validated Lab Tests"
+
+msgid "Dernière connexion"
+msgstr "Last Login"
+
+msgid "Dernière modification"
+msgstr "Dernière modification"
+
+msgid "Dernières Constantes Vitales Enregistrées"
+msgstr "Dernières Constantes Vitales Enregistrées"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Destinataire"
+msgstr "Recipient"
+
+msgid "Destinataire (Tél ou Email)"
+msgstr "Destinataire (Tél ou Email)"
+
+msgid "Diagnostic"
+msgstr "Diagnostic"
+
+msgid "Diagnostic & Examen Clinique"
+msgstr "Diagnosis & Clinical Examination"
+
+msgid "Diagnostic Médical / Hypothèse"
+msgstr "Diagnostic Médical / Hypothèse"
+
+msgid "Diagnostic Principal"
+msgstr "Primary Diagnosis"
+
+msgid "Diagnostic Retenu"
+msgstr "Diagnostic Retenu"
+
+msgid "Diagnostic retenu ou hypothèses différentielles..."
+msgstr "Diagnostic retenu ou hypothèses différentielles..."
+
+msgid "Diagnostics Différentiels"
+msgstr "Differential Diagnoses"
+
+msgid "Dispensation & Contrôle Pharmaceutique"
+msgstr "Dispensation & Contrôle Pharmaceutique"
+
+msgid "Disponible"
+msgstr "Available"
+
+msgid "Données Médicales Sécurisées"
+msgstr "Secured Medical Data"
+
+msgid "Dosage"
+msgstr "Strength / Dosage"
+
+msgid "Dossier DPI"
+msgstr "EHR Record"
+
+msgid "Dossier Médical"
+msgstr "Medical Record"
+
+msgid "Dossier Patient"
+msgstr "Patient Record"
+
+msgid "Dossier Patient Informatisé (DPI)"
+msgstr "Electronic Health Record (EHR)"
+
+msgid "Dossier Soins"
+msgstr "Care File"
+
+msgid "Dossier hautement confidentiel"
+msgstr "Dossier hautement confidentiel"
+
+msgid "Dossier patient %(matricule)s mis à jour avec succès."
+msgstr "Dossier patient %(matricule)s mis à jour avec succès."
+
+msgid "Dossier patient créé avec succès. Matricule: %(matricule)s"
+msgstr "Dossier patient créé avec succès. Matricule: %(matricule)s"
+
+msgid "Dossier patient mis à jour avec succès."
+msgstr "Patient record updated successfully."
+
+msgid "Dossiers Médicaux"
+msgstr "Medical Records"
+
+msgid "Dossiers Patients"
+msgstr "Dossiers Patients"
+
+msgid "Dossiers Patients Informatisés"
+msgstr "Electronic Health Records"
+
+msgid "Dossiers médicaux actifs"
+msgstr "Active medical records"
+
+msgid "Durée"
+msgstr "Durée"
+
+msgid "Durée (jours)"
+msgstr "Duration (days)"
+
+msgid "Durée actuelle"
+msgstr "Durée actuelle"
+
+msgid "Durée estimée (minutes)"
+msgstr "Durée estimée (minutes)"
+
+msgid "Déclenche une notification lorsque le stock disponible passe sous ce niveau"
+msgstr "Déclenche une notification lorsque le stock disponible passe sous ce niveau"
+
+msgid "Déconnexion"
+msgstr "Sign Out"
+
+msgid "Définissez les accès, le rôle hospitalier et les identifiants de connexion."
+msgstr "Définissez les accès, le rôle hospitalier et les identifiants de connexion."
+
+msgid "Définit les permissions et la vue d'accueil du personnel"
+msgstr "Defines staff permissions and dashboard view"
+
+msgid "Délivrance"
+msgstr "Délivrance"
+
+msgid "Délivrance de Médicaments"
+msgstr "Délivrance de Médicaments"
+
+msgid "Délivrances de Médicaments"
+msgstr "Délivrances de Médicaments"
+
+msgid "Délivrer"
+msgstr "Délivrer"
+
+msgid "Délivrer Médicaments"
+msgstr "Dispense Medications"
+
+msgid "Délivrée"
+msgstr "Délivrée"
+
+msgid "Délivrée en pharmacie"
+msgstr "Délivrée en pharmacie"
+
+msgid "Délivrée le"
+msgstr "Délivrée le"
+
+msgid "Dénomination Commune Internationale (DCI)"
+msgstr "International Nonproprietary Name (INN)"
+
+msgid "Déplier le menu"
+msgstr "Expand Menu"
+
+msgid "Désignation de la prestation"
+msgstr "Désignation de la prestation"
+
+msgid "Détail Séjour"
+msgstr "Détail Séjour"
+
+msgid "Détail de la Consultation"
+msgstr "Consultation Details"
+
+msgid "Détail de la Facture"
+msgstr "Invoice Details"
+
+msgid "Détails / Payer"
+msgstr "Détails / Payer"
+
+msgid "Détails réponse API passerelle"
+msgstr "Détails réponse API passerelle"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Email Professionnel"
+msgstr "Professional Email"
+
+msgid "Emails Envoyés"
+msgstr "Sent Emails"
+
+msgid "En Consultation"
+msgstr "In Consultation"
+
+msgid "En Stock"
+msgstr "In Stock"
+
+msgid "En attente"
+msgstr "Pending"
+
+msgid "En attente d'analyse"
+msgstr "En attente d'analyse"
+
+msgid "En attente de délivrance"
+msgstr "En attente de délivrance"
+
+msgid "En attente de paiement"
+msgstr "En attente de paiement"
+
+msgid "En attente de prélèvement"
+msgstr "En attente de prélèvement"
+
+msgid "En attente délivrance"
+msgstr "En attente délivrance"
+
+msgid "En consultation"
+msgstr "En consultation"
+
+msgid "En cours"
+msgstr "In Progress"
+
+msgid "En maintenance / Nettoyage"
+msgstr "En maintenance / Nettoyage"
+
+msgid "En nettoyage"
+msgstr "Under Cleaning"
+
+msgid "En salle d’attente"
+msgstr "En salle d’attente"
+
+msgid "Encaissement Espèces, Carte, Orange Money et MTN Mobile Money Cameroun"
+msgstr "Encaissement Espèces, Carte, Orange Money et MTN Mobile Money Cameroun"
+
+msgid "Encaissement enregistré avec succès: %(amount)s FCFA"
+msgstr "Encaissement enregistré avec succès: %(amount)s FCFA"
+
+msgid "Encaisser"
+msgstr "Encaisser"
+
+msgid "Encaisser / Déclencher Push USSD"
+msgstr "Encaisser / Déclencher Push USSD"
+
+msgid "Encaisser Paiement"
+msgstr "Collect Payment"
+
+msgid "Encaisser un Règlement"
+msgstr "Encaisser un Règlement"
+
+msgid "Enregistrement au catalogue de la pharmacie hospitalière"
+msgstr "Enregistrement au catalogue de la pharmacie hospitalière"
+
+msgid "Enregistrer"
+msgstr "Save"
+
+msgid "Enregistrer Transmission"
+msgstr "Enregistrer Transmission"
+
+msgid "Enregistrer le Dossier Patient"
+msgstr "Enregistrer le Dossier Patient"
+
+msgid "Enregistrer le Médicament"
+msgstr "Enregistrer le Médicament"
+
+msgid "Enregistrer le Résultat"
+msgstr "Enregistrer le Résultat"
+
+msgid "Enregistrer les Constantes"
+msgstr "Enregistrer les Constantes"
+
+msgid "Enregistrer les modifications"
+msgstr "Save Changes"
+
+msgid "Enregistrer un nouveau Patient"
+msgstr "Enregistrer un nouveau Patient"
+
+msgid "Enregistré par"
+msgstr "Enregistré par"
+
+msgid "Entrer Lot"
+msgstr "Entrer Lot"
+
+msgid "Entrez le code à 6 chiffres affiché sur l'application :"
+msgstr "Entrez le code à 6 chiffres affiché sur l'application :"
+
+msgid "Entrez le code à 6 chiffres pour valider :"
+msgstr "Enter the 6-digit code to confirm:"
+
+msgid "Entrée de Stock (Lot & Péremption)"
+msgstr "Entrée de Stock (Lot & Péremption)"
+
+msgid "Entrée de Stock (Lot FEFO)"
+msgstr "Stock Entry (FEFO Batch)"
+
+msgid "Entrée en Stock / Nouveau Lot"
+msgstr "Entrée en Stock / Nouveau Lot"
+
+msgid "Envoyé avec succès"
+msgstr "Envoyé avec succès"
+
+msgid "Envoyé le"
+msgstr "Envoyé le"
+
+msgid "Espèces"
+msgstr "Cash"
+
+msgid "Espèces & Mobile Money (Orange/MTN)"
+msgstr "Cash & Mobile Money (Orange/MTN)"
+
+msgid "Espèces / Caisse"
+msgstr "Espèces / Caisse"
+
+msgid "Ex: Cardiologie, Pédiatrie, Urgences"
+msgstr "E.g.: Cardiology, Pediatrics, Emergency"
+
+msgid "Ex: Cardiologie, Urgences, Pédiatrie"
+msgstr "E.g.: Cardiology, Emergency, Pediatrics"
+
+msgid "Ex: Consultation générale, suivi tension..."
+msgstr "Ex: Consultation générale, suivi tension..."
+
+msgid "Ex: Kamga"
+msgstr "E.g.: Kamga"
+
+msgid "Ex: ONMC-2026-XXXX"
+msgstr "E.g.: ONMC-2026-XXXX"
+
+msgid "Ex: Paul"
+msgstr "E.g.: Paul"
+
+msgid "Examen"
+msgstr "Test / Exam"
+
+msgid "Examen / Paramètre"
+msgstr "Examen / Paramètre"
+
+msgid "Examen Clinique"
+msgstr "Examen Clinique"
+
+msgid "Examen Clinique & Observations"
+msgstr "Physical Exam & Observations"
+
+msgid "Examen clinique"
+msgstr "Examen clinique"
+
+msgid "Examens"
+msgstr "Tests"
+
+msgid "Examens Demandés"
+msgstr "Examens Demandés"
+
+msgid "Examens de Laboratoire"
+msgstr "Laboratory Tests"
+
+msgid "Examens de Laboratoire & Imagerie"
+msgstr "Examens de Laboratoire & Imagerie"
+
+msgid "Examens à prescrire"
+msgstr "Examens à prescrire"
+
+msgid "Expliqué au patient : prendre après le repas, pas d'alcool..."
+msgstr "Expliqué au patient : prendre après le repas, pas d'alcool..."
+
+msgid "Exporter Journal Caisse (CSV)"
+msgstr "Exporter Journal Caisse (CSV)"
+
+msgid "FCFA"
+msgstr "FCFA"
+
+msgid "Facturation"
+msgstr "Billing"
+
+msgid "Facturation & Règlements"
+msgstr "Billing & Payments"
+
+msgid "Facturation, Caisse & Mobile Money"
+msgstr "Facturation, Caisse & Mobile Money"
+
+msgid "Facture"
+msgstr "Invoice"
+
+msgid "Facture Hospitalière"
+msgstr "Facture Hospitalière"
+
+msgid "Facture Intégralement Soldée"
+msgstr "Facture Intégralement Soldée"
+
+msgid "Facture No"
+msgstr "Facture No"
+
+msgid "Facture consolidée n°%(num)s générée avec succès."
+msgstr "Facture consolidée n°%(num)s générée avec succès."
+
+msgid "Factures"
+msgstr "Invoices"
+
+msgid "Factures & Règlements"
+msgstr "Factures & Règlements"
+
+msgid "Factures en Attente de Paiement"
+msgstr "Factures en Attente de Paiement"
+
+msgid "Femme"
+msgstr "Female"
+
+msgid "Fermer"
+msgstr "Close"
+
+msgid "Fiche Thérapeutique Médicament"
+msgstr "Fiche Thérapeutique Médicament"
+
+msgid "File d'Attente"
+msgstr "Waiting Queue"
+
+msgid "File d'Attente Interactive"
+msgstr "File d'Attente Interactive"
+
+msgid "File d'attente"
+msgstr "Waiting Queue"
+
+msgid "File d'attente live"
+msgstr "File d'attente live"
+
+msgid "File d'attente rafraîchie en temps réel sans rechargement (HTMX) pour la date du"
+msgstr "File d'attente rafraîchie en temps réel sans rechargement (HTMX) pour la date du"
+
+msgid "Filtrer"
+msgstr "Filtrer"
+
+msgid "Finances & Administration"
+msgstr "Finance & Administration"
+
+msgid "Format PNG, JPG ou WebP (max. 2 Mo)"
+msgstr "PNG, JPG or WebP format (max. 2 MB)"
+
+msgid "Format camerounais : +237 6XX XX XX XX"
+msgstr "Cameroon format: +237 6XX XX XX XX"
+
+msgid "Format camerounais: +237 6XX XX XX XX"
+msgstr "Cameroon format: +237 6XX XX XX XX"
+
+msgid "Format d'image non supporté. Utilisez PNG, JPG ou WebP."
+msgstr "Unsupported image format. Please use PNG, JPG or WebP."
+
+msgid "Formats acceptés : PNG, JPG, WebP. Taille maximale : 2 Mo."
+msgstr "Accepted formats: PNG, JPG, WebP. Maximum size: 2 MB."
+
+msgid "Forme / Dosage"
+msgstr "Forme / Dosage"
+
+msgid "Forme Galénique"
+msgstr "Dosage Form"
+
+msgid "Forme galénique"
+msgstr "Forme galénique"
+
+msgid "Fournisseur"
+msgstr "Supplier"
+
+msgid "Fréquence respiratoire (cpm)"
+msgstr "Fréquence respiratoire (cpm)"
+
+msgid "Féminin"
+msgstr "Female"
+
+msgid "Gestion des Médicaments"
+msgstr "Medication Management"
+
+msgid "Gestion des fiches médicales, antécédents et consentements Loi n°2010/012"
+msgstr "Management of medical charts, histories, and consents under Law n°2010/012"
+
+msgid "Gestion du Personnel"
+msgstr "Staff Management"
+
+msgid "Gestion du Personnel Hospitalier"
+msgstr "Gestion du Personnel Hospitalier"
+
+msgid "Gouttes (Ophtalmiques / Oritiques)"
+msgstr "Drops (Ophthalmic / Otic)"
+
+msgid "Gouttes / Collyre"
+msgstr "Gouttes / Collyre"
+
+msgid "Groupe Sanguin"
+msgstr "Blood Group"
+
+msgid "Groupe sanguin & Rhésus"
+msgstr "Blood Group & Rh"
+
+msgid "Générer Facture"
+msgstr "Générer Facture"
+
+msgid "Générer et Signer l'Ordonnance"
+msgstr "Générer et Signer l'Ordonnance"
+
+msgid "Gérez vos informations professionnelles, votre photo d'identification et la sécurité de votre compte."
+msgstr "Manage your professional details, profile picture, and account security."
+
+msgid "HTA, Diabète, Drépanocytose, Asthme, etc."
+msgstr "HTA, Diabète, Drépanocytose, Asthme, etc."
+
+msgid "Heure"
+msgstr "Time"
+
+msgid "Heure du soin / tour"
+msgstr "Heure du soin / tour"
+
+msgid "Heure d’arrivée"
+msgstr "Heure d’arrivée"
+
+msgid "Heure prévue"
+msgstr "Heure prévue"
+
+msgid "Historique & Audit du Dossier Patient"
+msgstr "Patient Record History & Audit Trail"
+
+msgid "Historique des Consultations"
+msgstr "Consultations History"
+
+msgid "Historique des Notifications"
+msgstr "Notifications History"
+
+msgid "Historique des Règlements"
+msgstr "Historique des Règlements"
+
+msgid "Historique des SMS de rappels de RDV (24h et 2h) et alertes stock Celery"
+msgstr "Historique des SMS de rappels de RDV (24h et 2h) et alertes stock Celery"
+
+msgid "Historique des modifications du dossier (Loi n°2010/012)"
+msgstr "Historique des modifications du dossier (Loi n°2010/012)"
+
+msgid "Homme"
+msgstr "Male"
+
+msgid "Hospitalisation & Gestion des Lits"
+msgstr "Hospitalisation & Gestion des Lits"
+
+msgid "Hospitalisations"
+msgstr "Hospitalisations"
+
+msgid "Hospitalisations & Séjours"
+msgstr "Admissions & Hospital Stays"
+
+msgid "Hospitaliser"
+msgstr "Hospitaliser"
+
+msgid "Hypertension artérielle, Drépanocytose SS..."
+msgstr "Hypertension artérielle, Drépanocytose SS..."
+
+msgid "Hypertension, Diabète, Asthme..."
+msgstr "Hypertension, Diabetes, Asthma..."
+
+msgid "Hématologie"
+msgstr "Hématologie"
+
+msgid "Hématologie / NFS"
+msgstr "Hematology / CBC"
+
+msgid "ID Transaction Opérateur (Orange/MTN)"
+msgstr "ID Transaction Opérateur (Orange/MTN)"
+
+msgid "Identifiant unique hospitalier national/régional"
+msgstr "Identifiant unique hospitalier national/régional"
+
+msgid "Identité & État Civil"
+msgstr "Identité & État Civil"
+
+msgid "Imagerie / Radiologie / Échographie"
+msgstr "Imagerie / Radiologie / Échographie"
+
+msgid "Imagerie Médicale (Radio/Écho)"
+msgstr "Medical Imaging (X-Ray/Ultrasound)"
+
+msgid "Imprimer"
+msgstr "Print"
+
+msgid "Imprimer Ordonnance"
+msgstr "Print Prescription"
+
+msgid "Imprimer Ordonnance (PDF)"
+msgstr "Imprimer Ordonnance (PDF)"
+
+msgid "Imprimer Rapport Biologique (PDF)"
+msgstr "Imprimer Rapport Biologique (PDF)"
+
+msgid "Imprimer Reçu"
+msgstr "Print Receipt"
+
+msgid "Imprimer Reçu de Caisse (PDF)"
+msgstr "Imprimer Reçu de Caisse (PDF)"
+
+msgid "Inactif"
+msgstr "Inactive"
+
+msgid "Inconnu"
+msgstr "Inconnu"
+
+msgid "Indications & Contre-indications"
+msgstr "Indications & Contre-indications"
+
+msgid "Indice de Masse Corporelle (IMC)"
+msgstr "Body Mass Index (BMI)"
+
+msgid "Infirmier"
+msgstr "Nurse"
+
+msgid "Infirmier(ère)"
+msgstr "Infirmier(ère)"
+
+msgid "Initier Paiement Mobile Money"
+msgstr "Initiate Mobile Money Payment"
+
+msgid "Injectable (IV/IM)"
+msgstr "Injectable (IV/IM)"
+
+msgid "Injectable / Perfusion"
+msgstr "Injectable / Perfusion"
+
+msgid "Instructions / Précautions"
+msgstr "Instructions / Précautions"
+
+msgid "Instructions générales"
+msgstr "Instructions générales"
+
+msgid "Invite USSD envoyée au client"
+msgstr "Invite USSD envoyée au client"
+
+msgid "Isolement Infectieux"
+msgstr "Isolement Infectieux"
+
+msgid "Journal d'Audit Médical (Loi n°2010/012)"
+msgstr "Journal d'Audit Médical (Loi n°2010/012)"
+
+msgid "Journal d'audit Loi n°2010/012 - Traçabilité complète des accès et modifications"
+msgstr "Audit log Law n°2010/012 - Complete traceability of accesses and edits"
+
+msgid "Journal de notification"
+msgstr "Journal de notification"
+
+msgid "Journal des Notifications"
+msgstr "Notification Logs"
+
+msgid "Journal des Notifications & Rappels"
+msgstr "Journal des Notifications & Rappels"
+
+msgid "Journal des Notifications & SMS"
+msgstr "Journal des Notifications & SMS"
+
+msgid "Journaux de notifications"
+msgstr "Journaux de notifications"
+
+msgid "La photo sera supprimée lors de l'enregistrement."
+msgstr "The photo will be deleted upon saving."
+
+msgid "Laborantin"
+msgstr "Lab Technician"
+
+msgid "Laborantin / Biologiste"
+msgstr "Laborantin / Biologiste"
+
+msgid "Laboratoire"
+msgstr "Laboratory"
+
+msgid "Laboratoire & Imagerie"
+msgstr "Laboratoire & Imagerie"
+
+msgid "Laboratoire & Imagerie Médicale"
+msgstr "Laboratoire & Imagerie Médicale"
+
+msgid "Laboratoire d'Analyses Médicales"
+msgstr "Medical Analysis Laboratory"
+
+msgid "Laboratoire d’Analyses & Imagerie"
+msgstr "Laboratoire d’Analyses & Imagerie"
+
+msgid "Langue"
+msgstr "Language"
+
+msgid "Le créneau sera vérifié pour éviter les doublons ou conflits d'agenda du médecin."
+msgstr "Le créneau sera vérifié pour éviter les doublons ou conflits d'agenda du médecin."
+
+msgid "Le fichier est trop volumineux (maximum 2 Mo)."
+msgstr "File is too large (maximum 2 MB)."
+
+msgid "Le patient consent au traitement et stockage de ses données médicales conformément à la loi camerounaise n°2010/012"
+msgstr "The patient consents to the processing and storage of their health data under Cameroon Law n°2010/012"
+
+msgid "Le patient est en règle avec la comptabilité de l'hôpital."
+msgstr "Le patient est en règle avec la comptabilité de l'hôpital."
+
+msgid "Le patient ou son représentant légal autorise le centre hospitalier à héberger et traiter ses données de santé à des fins de soins, en conformité avec la loi camerounaise n°2010/012 relative à la protection des données."
+msgstr "Le patient ou son représentant légal autorise le centre hospitalier à héberger et traiter ses données de santé à des fins de soins, en conformité avec la loi camerounaise n°2010/012 relative à la protection des données."
+
+msgid "Les consultations apparaîtront ici au fur et à mesure des consultations enregistrées."
+msgstr "Les consultations apparaîtront ici au fur et à mesure des consultations enregistrées."
+
+msgid "Les patients n'ont pas d'accès direct sur ce portail. Veuillez vous adresser au guichet d'accueil."
+msgstr "Patients do not have direct access to this portal. Please contact the front desk."
+
+msgid "Lien de Parenté"
+msgstr "Lien de Parenté"
+
+msgid "Lien de parenté"
+msgstr "Relationship"
+
+msgid "Lieu de Naissance"
+msgstr "Place of Birth"
+
+msgid "Ligne d’ordonnance"
+msgstr "Ligne d’ordonnance"
+
+msgid "Lignes Médicaments"
+msgstr "Lignes Médicaments"
+
+msgid "Lignes de Médicaments"
+msgstr "Lignes de Médicaments"
+
+msgid "Lignes d’ordonnances"
+msgstr "Lignes d’ordonnances"
+
+msgid "Liste des Bons"
+msgstr "Liste des Bons"
+
+msgid "Liste des Factures"
+msgstr "Liste des Factures"
+
+msgid "Lit"
+msgstr "Bed"
+
+msgid "Lit attribué"
+msgstr "Lit attribué"
+
+msgid "Lit d’hospitalisation"
+msgstr "Lit d’hospitalisation"
+
+msgid "Lits"
+msgstr "Beds"
+
+msgid "Lits & Hospitalisation"
+msgstr "Beds & Admissions"
+
+msgid "Lits Disponibles"
+msgstr "Lits Disponibles"
+
+msgid "Lits Occupés"
+msgstr "Lits Occupés"
+
+msgid "Lits d’hospitalisation"
+msgstr "Lits d’hospitalisation"
+
+msgid "Livret thérapeutique, gestion des lots, alertes péremption et seuils critiques"
+msgstr "Livret thérapeutique, gestion des lots, alertes péremption et seuils critiques"
+
+msgid "Lot FEFO décrémenté automatiquement"
+msgstr "FEFO batch automatically deducted"
+
+msgid "Lot de Stock"
+msgstr "Lot de Stock"
+
+msgid "Lot de stock %(batch)s enregistré avec succès."
+msgstr "Lot de stock %(batch)s enregistré avec succès."
+
+msgid "Lot prélevé"
+msgstr "Lot prélevé"
+
+msgid "Lots de Stock"
+msgstr "Lots de Stock"
+
+msgid "Lots proches de la date de péremption (≤ 60 jours)"
+msgstr "Lots proches de la date de péremption (≤ 60 jours)"
+
+msgid "MTN MoMo"
+msgstr "MTN MoMo"
+
+msgid "MTN Mobile Money"
+msgstr "MTN Mobile Money"
+
+msgid "MTN Mobile Money Cameroun"
+msgstr "MTN Mobile Money Cameroon"
+
+msgid "Maintenance"
+msgstr "Maintenance"
+
+msgid "Masculin"
+msgstr "Male"
+
+msgid "Matricule"
+msgstr "Patient ID"
+
+msgid "Matricule Patient"
+msgstr "Matricule Patient"
+
+msgid "Message"
+msgstr "Message"
+
+msgid "Message d’erreur"
+msgstr "Message d’erreur"
+
+msgid "Mettez à jour vos informations de contact, votre photo de profil et votre titre professionnel."
+msgstr "Update your contact details, profile photo, and professional title."
+
+msgid "Microbiologie / Bactériologie"
+msgstr "Microbiology / Bacteriology"
+
+msgid "Mode de règlement"
+msgstr "Mode de règlement"
+
+msgid "Mode développement: entrez le code de votre appli ou '123456'"
+msgstr "Mode développement: entrez le code de votre appli ou '123456'"
+
+msgid "Modifiable uniquement par un administrateur"
+msgstr "Can only be modified by an administrator"
+
+msgid "Modification données"
+msgstr "Modification données"
+
+msgid "Modification fiche"
+msgstr "Modification fiche"
+
+msgid "Modifier"
+msgstr "Edit"
+
+msgid "Modifier le Dossier Patient"
+msgstr "Edit Patient Record"
+
+msgid "Modifier mes Informations"
+msgstr "Edit My Information"
+
+msgid "Mon Profil & Paramètres"
+msgstr "My Profile & Settings"
+
+msgid "Mon Profil & Sécurité"
+msgstr "My Profile & Security"
+
+msgid "Montant Brut Total"
+msgstr "Montant Brut Total"
+
+msgid "Montant Brut Total (FCFA)"
+msgstr "Montant Brut Total (FCFA)"
+
+msgid "Montant Déjà Réglé"
+msgstr "Montant Déjà Réglé"
+
+msgid "Montant Total"
+msgstr "Total Amount"
+
+msgid "Montant déjà encaissé (FCFA)"
+msgstr "Montant déjà encaissé (FCFA)"
+
+msgid "Montant total (FCFA)"
+msgstr "Montant total (FCFA)"
+
+msgid "Montant versé (FCFA)"
+msgstr "Montant versé (FCFA)"
+
+msgid "Mot de passe"
+msgstr "Password"
+
+msgid "Motif"
+msgstr "Reason"
+
+msgid "Motif / Changement"
+msgstr "Motif / Changement"
+
+msgid "Motif d'Admission & Évolution"
+msgstr "Motif d'Admission & Évolution"
+
+msgid "Motif d'hospitalisation"
+msgstr "Reason for admission"
+
+msgid "Motif du Rendez-vous"
+msgstr "Appointment Reason"
+
+msgid "Motif du rendez-vous"
+msgstr "Motif du rendez-vous"
+
+msgid "Motif d’admission, diagnostic initial..."
+msgstr "Motif d’admission, diagnostic initial..."
+
+msgid "Motif d’hospitalisation"
+msgstr "Motif d’hospitalisation"
+
+msgid "Médecin"
+msgstr "Doctor"
+
+msgid "Médecin Prescripteur"
+msgstr "Médecin Prescripteur"
+
+msgid "Médecin prescripteur"
+msgstr "Médecin prescripteur"
+
+msgid "Médecin traitant"
+msgstr "Attending Physician"
+
+msgid "Médical & Soins"
+msgstr "Medical & Care"
+
+msgid "Médicament"
+msgstr "Medication"
+
+msgid "Médicament %(name)s ajouté au livret thérapeutique."
+msgstr "Médicament %(name)s ajouté au livret thérapeutique."
+
+msgid "Médicament (DCI / Nom commercial)"
+msgstr "Médicament (DCI / Nom commercial)"
+
+msgid "Médicament (DCI)"
+msgstr "Médicament (DCI)"
+
+msgid "Médicaments"
+msgstr "Medications"
+
+msgid "Médicaments injectés, pansements refaits..."
+msgstr "Médicaments injectés, pansements refaits..."
+
+msgid "Médicaments, aliments, latex, etc."
+msgstr "Médicaments, aliments, latex, etc."
+
+msgid "Net Patient"
+msgstr "Net Patient"
+
+msgid "Net à Payer"
+msgstr "Net to Pay"
+
+msgid "Net à Payer Patient"
+msgstr "Net à Payer Patient"
+
+msgid "Net à Payer Patient / Ticket Modérateur (FCFA)"
+msgstr "Net à Payer Patient / Ticket Modérateur (FCFA)"
+
+msgid "No Facture, patient, matricule..."
+msgstr "No Facture, patient, matricule..."
+
+msgid "Nom & Prénom"
+msgstr "Full Name"
+
+msgid "Nom Commercial"
+msgstr "Brand Name"
+
+msgid "Nom commercial"
+msgstr "Nom commercial"
+
+msgid "Nom complet contact d'urgence"
+msgstr "Emergency Contact Full Name"
+
+msgid "Nom d'utilisateur ou Email"
+msgstr "Username or Email"
+
+msgid "Nom d'utilisateur ou Mot de passe"
+msgstr "Username or Password"
+
+msgid "Nom d'utilisateur ou mot de passe incorrect."
+msgstr "Invalid username or password."
+
+msgid "Nom de famille"
+msgstr "Last Name"
+
+msgid "Nom de l’examen"
+msgstr "Nom de l’examen"
+
+msgid "Nom du Contact"
+msgstr "Nom du Contact"
+
+msgid "Nom du Pavillon / Service"
+msgstr "Nom du Pavillon / Service"
+
+msgid "Non"
+msgstr "No"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Normale"
+msgstr "Normal"
+
+msgid "Norme Max"
+msgstr "Norme Max"
+
+msgid "Norme Min"
+msgstr "Norme Min"
+
+msgid "Normes"
+msgstr "Normes"
+
+msgid "Notes Cliniques & Conduite à Tenir"
+msgstr "Notes Cliniques & Conduite à Tenir"
+
+msgid "Notes d’évolution & Conduite à tenir"
+msgstr "Notes d’évolution & Conduite à tenir"
+
+msgid "Notes internes"
+msgstr "Notes internes"
+
+msgid "Notifications"
+msgstr "Notifications"
+
+msgid "Notifications & Rappels SMS / Email"
+msgstr "Notifications & Rappels SMS / Email"
+
+msgid "Nouveau"
+msgstr "New"
+
+msgid "Nouveau Collaborateur"
+msgstr "New Staff Member"
+
+msgid "Nouveau Dossier Patient"
+msgstr "New Patient Record"
+
+msgid "Nouveau Médicament"
+msgstr "New Medication"
+
+msgid "Nouveau Patient"
+msgstr "New Patient"
+
+msgid "Nouveau Rendez-vous"
+msgstr "Nouveau Rendez-vous"
+
+msgid "Nouveau collaborateur créé avec succès: %(name)s"
+msgstr "Nouveau collaborateur créé avec succès: %(name)s"
+
+msgid "Nouvelle Admission"
+msgstr "Nouvelle Admission"
+
+msgid "Nouvelle Admission en Lit"
+msgstr "Nouvelle Admission en Lit"
+
+msgid "Nouvelle Consultation"
+msgstr "New Consultation"
+
+msgid "Nouvelle Demande d'Examen"
+msgstr "New Lab Order"
+
+msgid "Nouvelle Facture"
+msgstr "New Invoice"
+
+msgid "Noyau & Système"
+msgstr "Noyau & Système"
+
+msgid "Numéro National d'Identification (CNI)"
+msgstr "National ID Number (CNI)"
+
+msgid "Numéro d'Ordre"
+msgstr "License Number"
+
+msgid "Numéro d'Ordre Professionnel"
+msgstr "Professional License Number"
+
+msgid "Numéro d'Urgence"
+msgstr "Numéro d'Urgence"
+
+msgid "Numéro d'inscription à l'Ordre National des Médecins ou Pharmaciens"
+msgstr "Numéro d'inscription à l'Ordre National des Médecins ou Pharmaciens"
+
+msgid "Numéro de Lot"
+msgstr "Batch Number"
+
+msgid "Numéro de bon"
+msgstr "Numéro de bon"
+
+msgid "Numéro de chambre"
+msgstr "Numéro de chambre"
+
+msgid "Numéro de facture"
+msgstr "Numéro de facture"
+
+msgid "Numéro de file"
+msgstr "Numéro de file"
+
+msgid "Numéro de lit"
+msgstr "Numéro de lit"
+
+msgid "Numéro de téléphone payeur"
+msgstr "Numéro de téléphone payeur"
+
+msgid "Numéro d’assuré / Police"
+msgstr "Numéro d’assuré / Police"
+
+msgid "Objet / Sujet"
+msgstr "Objet / Sujet"
+
+msgid "Objet / Titre"
+msgstr "Objet / Titre"
+
+msgid "Obligatoire pour Orange Money (+237 69x) et MTN MoMo (+237 67x)"
+msgstr "Obligatoire pour Orange Money (+237 69x) et MTN MoMo (+237 67x)"
+
+msgid "Obligatoire pour les médecins, pharmaciens et administrateurs afin de protéger les données médicales."
+msgstr "Mandatory for doctors, pharmacists, and administrators to safeguard medical data."
+
+msgid "Obligatoire pour les rôles Médecin, Pharmacien, Administrateur"
+msgstr "Mandatory for Doctor, Pharmacist, and Admin roles"
+
+msgid "Observations cliniques"
+msgstr "Clinical observations"
+
+msgid "Observations du biologiste"
+msgstr "Biologist notes"
+
+msgid "Occupation des Lits"
+msgstr "Bed Occupancy"
+
+msgid "Occupé"
+msgstr "Occupied"
+
+msgid "Orange Money"
+msgstr "Orange Money"
+
+msgid "Orange Money Cameroun"
+msgstr "Orange Money Cameroon"
+
+msgid "Ordonnance"
+msgstr "Prescription"
+
+msgid "Ordonnance %(code)s délivrée avec succès. Montant total: %(amt)s FCFA"
+msgstr "Prescription %(code)s dispensed successfully. Total amount: %(amt)s FCFA"
+
+msgid "Ordonnance Numérique"
+msgstr "Digital Prescription"
+
+msgid "Ordonnance numérique n°%(code)s générée avec succès."
+msgstr "Digital prescription #%(code)s generated successfully."
+
+msgid "Ordonnances"
+msgstr "Prescriptions"
+
+msgid "Ordonnances Numériques"
+msgstr "Digital Prescriptions"
+
+msgid "Ordonnances Numériques Générées"
+msgstr "Ordonnances Numériques Générées"
+
+msgid "Ordonnances en Attente de Délivrance"
+msgstr "Prescriptions Pending Dispensation"
+
+msgid "Ordonnances à Délivrer"
+msgstr "Prescriptions to Dispense"
+
+msgid "Ordonnances à délivrer"
+msgstr "Prescriptions to dispense"
+
+msgid "Ordonnances électroniques prescrites en attente de délivrance et vérification"
+msgstr "Prescribed electronic orders pending verification and dispensation"
+
+msgid "Ordre National des Médecins ou Pharmaciens"
+msgstr "National Order of Physicians or Pharmacists"
+
+msgid "Ordre National des Médecins ou Pharmaciens (ONMC)"
+msgstr "National Medical Council (ONMC)"
+
+msgid "Oui"
+msgstr "Yes"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Paiement / Encaissement"
+msgstr "Payment / Collection"
+
+msgid "Paiement MTN MoMo Cameroun validé pour le numéro %(phone)s (Réf: %(ref)s)"
+msgstr "MTN MoMo Cameroon payment confirmed for phone %(phone)s (Ref: %(ref)s)"
+
+msgid "Paiement Mobile Money (Orange Money / MTN MoMo)"
+msgstr "Mobile Money Payment (Orange Money / MTN MoMo)"
+
+msgid "Paiement Orange Money Cameroun validé pour le numéro %(phone)s (Réf: %(ref)s)"
+msgstr "Orange Money Cameroon payment confirmed for phone %(phone)s (Ref: %(ref)s)"
+
+msgid "Paiement initié"
+msgstr "Paiement initié"
+
+msgid "Paiements / Encaissements"
+msgstr "Payments / Collections"
+
+msgid "Paramètres"
+msgstr "Settings"
+
+msgid "Parasitologie / Paludisme"
+msgstr "Parasitology / Malaria"
+
+msgid "Part Prise en Charge Assurance (FCFA)"
+msgstr "Insurance Coverage Share (FCFA)"
+
+msgid "Partiellement réglée"
+msgstr "Partially Paid"
+
+msgid "Pas de résultats d'examens récents."
+msgstr "No recent lab results."
+
+msgid "Patient"
+msgstr "Patient"
+
+msgid "Patient %(patient)s admis avec succès au lit %(bed)s."
+msgstr "Patient %(patient)s admitted successfully to bed %(bed)s."
+
+msgid "Patient Arrivé"
+msgstr "Patient Arrived"
+
+msgid "Patient enregistré avec succès. Matricule attribué : %(matricule)s"
+msgstr "Patient registered successfully. Assigned ID: %(matricule)s"
+
+msgid "Patients (DPI)"
+msgstr "Patients (EHR)"
+
+msgid "Patients Actuellement Hospitalisés"
+msgstr "Currently Admitted Patients"
+
+msgid "Patients Enregistrés"
+msgstr "Registered Patients"
+
+msgid "Patients Hospitalisés (Soins & Surveillance)"
+msgstr "Inpatients (Care & Monitoring)"
+
+msgid "Patients en Salle d'Attente pour Vous"
+msgstr "Patients Waiting For You"
+
+msgid "Pavillon"
+msgstr "Ward / Pavilion"
+
+msgid "Pavillon Hospitalier"
+msgstr "Hospital Ward"
+
+msgid "Pavillons Hospitaliers"
+msgstr "Hospital Wards"
+
+msgid "Payé"
+msgstr "Paid"
+
+msgid "Perfusion"
+msgstr "Infusion"
+
+msgid "Personne à Contacter en Cas d'Urgence"
+msgstr "Emergency Contact Person"
+
+msgid "Personnel Hospitalier"
+msgstr "Hospital Staff"
+
+msgid "Personnel de santé"
+msgstr "Healthcare Personnel"
+
+msgid "Pharmacie"
+msgstr "Pharmacy"
+
+msgid "Pharmacie & Gestion des Stocks"
+msgstr "Pharmacy & Stock Management"
+
+msgid "Pharmacie & Médicaments"
+msgstr "Pharmacy & Medications"
+
+msgid "Pharmacie & Stocks Médicaments"
+msgstr "Pharmacy & Medication Stocks"
+
+msgid "Pharmacie Hospitalière & Stocks"
+msgstr "Hospital Pharmacy & Stocks"
+
+msgid "Pharmacien"
+msgstr "Pharmacist"
+
+msgid "Photo de Profil"
+msgstr "Profile Picture"
+
+msgid "Photo de profil"
+msgstr "Profile Picture"
+
+msgid "Plafond de prise en charge (FCFA)"
+msgstr "Coverage Ceiling (FCFA)"
+
+msgid "Plaintes & Symptômes"
+msgstr "Complaints & Symptoms"
+
+msgid "Plaintes & Symptômes Exprimés"
+msgstr "Expressed Complaints & Symptoms"
+
+msgid "Plaintes principales exprimées par le patient..."
+msgstr "Primary symptoms reported by patient..."
+
+msgid "Plan de traitement, examens prescrits..."
+msgstr "Treatment plan, ordered tests..."
+
+msgid "Plan des Lits"
+msgstr "Bed Matrix"
+
+msgid "Plan des Lits & Hospitalisation"
+msgstr "Bed Matrix & Admissions"
+
+msgid "Plan des Lits & Occupation des Pavillons"
+msgstr "Bed Matrix & Ward Occupancy"
+
+msgid "Plan des lits"
+msgstr "Bed Matrix"
+
+msgid "Planifié"
+msgstr "Scheduled"
+
+msgid "Planning des Rendez-vous"
+msgstr "Appointment Schedule"
+
+msgid "Poids (kg)"
+msgstr "Weight (kg)"
+
+msgid "Police active"
+msgstr "Police active"
+
+msgid "Police d'Assurance / Mutuelle"
+msgstr "Insurance Policy / Mutual"
+
+msgid "Police d’Assurance / Mutuelle"
+msgstr "Police d’Assurance / Mutuelle"
+
+msgid "Polices d'Assurance / Mutuelles"
+msgstr "Insurance Policies / Mutuals"
+
+msgid "Polices d’Assurance / Mutuelles"
+msgstr "Polices d’Assurance / Mutuelles"
+
+msgid "Pommade / Crème"
+msgstr "Ointment / Cream"
+
+msgid "Portail Sécurisé Personnel Hospitalier (Loi n°2010/012)"
+msgstr "Secure Hospital Staff Portal (Law n°2010/012)"
+
+msgid "Posologie"
+msgstr "Dosage & Instructions"
+
+msgid "Poudre pour solution"
+msgstr "Powder for solution"
+
+msgid "Pouls (bpm)"
+msgstr "Pulse (bpm)"
+
+msgid "Praticien :"
+msgstr "Praticien :"
+
+msgid "Prendre Constantes"
+msgstr "Prendre Constantes"
+
+msgid "Prendre de Rendez-vous Médical"
+msgstr "Book Medical Appointment"
+
+msgid "Prendre un Rendez-vous"
+msgstr "Book Appointment"
+
+msgid "Prescription Médicale Électronique"
+msgstr "Electronic Medical Prescription"
+
+msgid "Prescriptions & Ordonnances"
+msgstr "Prescriptions & Medications"
+
+msgid "Prescriptions d'Examens"
+msgstr "Lab Orders"
+
+msgid "Prescrire Analyses"
+msgstr "Order Lab Tests"
+
+msgid "Prescrire des Examens"
+msgstr "Order Diagnostic Tests"
+
+msgid "Prescrire des Examens de Laboratoire"
+msgstr "Order Laboratory Tests"
+
+msgid "Prescrit par"
+msgstr "Prescrit par"
+
+msgid "Principal"
+msgstr "Main"
+
+msgid "Priorité"
+msgstr "Priority"
+
+msgid "Prise de Rendez-vous Médical"
+msgstr "Medical Appointment Booking"
+
+msgid "Prise des Constantes"
+msgstr "Record Vital Signs"
+
+msgid "Prise des Constantes Vitales"
+msgstr "Record Vital Signs"
+
+msgid "Prise des Constantes Vitales (File d'Attente)"
+msgstr "Vital Signs Intake (Waiting Queue)"
+
+msgid "Prise des Constantes Vitales (Soins Infirmiers)"
+msgstr "Vital Signs Intake (Nursing Care)"
+
+msgid "Prise en Charge Assurance"
+msgstr "Prise en Charge Assurance"
+
+msgid "Prise en charge assurance"
+msgstr "Prise en charge assurance"
+
+msgid "Prise en charge des prélèvements, saisie des résultats et validation biologique"
+msgstr "Specimen handling, result entry, and biological validation"
+
+msgid "Prix Unitaire"
+msgstr "Unit Price"
+
+msgid "Prix d'achat unitaire (FCFA)"
+msgstr "Unit Purchase Price (FCFA)"
+
+msgid "Prix d’achat unitaire (FCFA)"
+msgstr "Prix d’achat unitaire (FCFA)"
+
+msgid "Prix unitaire (FCFA)"
+msgstr "Unit Price (FCFA)"
+
+msgid "Profession"
+msgstr "Profession"
+
+msgid "Profil Collaborateur"
+msgstr "Staff Profile"
+
+msgid "Programmer un Rendez-vous"
+msgstr "Schedule Appointment"
+
+msgid "Prononcer la Sortie"
+msgstr "Discharge Patient"
+
+msgid "Protection conforme Loi n°2010/012"
+msgstr "Protection in accordance with Law n°2010/012"
+
+msgid "Préc"
+msgstr "Prev"
+
+msgid "Précautions particulières"
+msgstr "Précautions particulières"
+
+msgid "Précédent"
+msgstr "Previous"
+
+msgid "Prénom"
+msgstr "First Name"
+
+msgid "Présence de trophozoïtes de Plasmodium falciparum..."
+msgstr "Présence de trophozoïtes de Plasmodium falciparum..."
+
+msgid "Prêt"
+msgstr "Ready"
+
+msgid "Pénicilline, Aspirine, Cacahuètes..."
+msgstr "Penicillin, Aspirin, Peanuts..."
+
+msgid "Qté"
+msgstr "Qté"
+
+msgid "Quantité"
+msgstr "Quantité"
+
+msgid "Quantité Reçue"
+msgstr "Received Quantity"
+
+msgid "Quantité délivrée"
+msgstr "Quantity dispensed"
+
+msgid "Quantité en stock"
+msgstr "Quantity in stock"
+
+msgid "Quantité prescrite (boîtes/flacons)"
+msgstr "Prescribed Quantity (boxes/bottles)"
+
+msgid "Rappel 24h envoyé"
+msgstr "Rappel 24h envoyé"
+
+msgid "Rappel 2h envoyé"
+msgstr "Rappel 2h envoyé"
+
+msgid "Rapports"
+msgstr "Reports"
+
+msgid "Recettes du Jour"
+msgstr "Today's Revenue"
+
+msgid "Recherche instantanée HTMX"
+msgstr "Instant HTMX Search"
+
+msgid "Rechercher"
+msgstr "Search"
+
+msgid "Rechercher par nom ou DCI..."
+msgstr "Rechercher par nom ou DCI..."
+
+msgid "Rechercher par nom, matricule ou tél..."
+msgstr "Search by name, ID or phone..."
+
+msgid "Rechercher patient, matricule, diagnostic..."
+msgstr "Search patient, ID, diagnosis..."
+
+msgid "Recommandations hygiéno-diététiques & Consignes globales"
+msgstr "Lifestyle & Dietary Recommendations & Instructions"
+
+msgid "Reconfigurer l'authentificateur 2FA"
+msgstr "Reconfigure 2FA Authenticator"
+
+msgid "Remarques infirmières"
+msgstr "Remarques infirmières"
+
+msgid "Rendez-vous"
+msgstr "Appointments"
+
+msgid "Rendez-vous & File d'attente"
+msgstr "Appointments & Waiting Queue"
+
+msgid "Rendez-vous & File d’attente"
+msgstr "Rendez-vous & File d’attente"
+
+msgid "Rendez-vous associé"
+msgstr "Rendez-vous associé"
+
+msgid "Rendez-vous du Jour"
+msgstr "Today's Appointments"
+
+msgid "Rendez-vous programmé avec succès pour %(patient)s."
+msgstr "Appointment scheduled successfully for %(patient)s."
+
+msgid "Renseignements cliniques"
+msgstr "Renseignements cliniques"
+
+msgid "Replier le menu"
+msgstr "Collapse Menu"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Reste à Payer"
+msgstr "Balance Due"
+
+msgid "Reste à payer"
+msgstr "Balance Due"
+
+msgid "Retour au dossier"
+msgstr "Back to Record"
+
+msgid "Retour à l'écran de connexion"
+msgstr "Retour à l'écran de connexion"
+
+msgid "Retour à la liste"
+msgstr "Back to List"
+
+msgid "Reçu de Paiement"
+msgstr "Payment Receipt"
+
+msgid "Rupture de Stock"
+msgstr "Out of Stock"
+
+msgid "Réception de commande fournisseur et traçabilité des lots"
+msgstr "Réception de commande fournisseur et traçabilité des lots"
+
+msgid "Réceptionniste"
+msgstr "Receptionist"
+
+msgid "Rédiger Ordonnance"
+msgstr "Write Prescription"
+
+msgid "Rédiger une Ordonnance"
+msgstr "Write a Prescription"
+
+msgid "Référence paiement"
+msgstr "Référence paiement"
+
+msgid "Réglée / Soldée"
+msgstr "Settled / Fully Paid"
+
+msgid "Réservé"
+msgstr "Reserved"
+
+msgid "Résultat Mesuré"
+msgstr "Résultat Mesuré"
+
+msgid "Résultat d'analyse"
+msgstr "Lab Result"
+
+msgid "Résultat d’analyse"
+msgstr "Résultat d’analyse"
+
+msgid "Résultat pour %(test)s enregistré avec succès."
+msgstr "Result for %(test)s recorded successfully."
+
+msgid "Résultats d'Analyses Médicales"
+msgstr "Medical Lab Results"
+
+msgid "Résultats disponibles"
+msgstr "Résultats disponibles"
+
+msgid "Résultats d’analyses"
+msgstr "Résultats d’analyses"
+
+msgid "Résumé d'hospitalisation & Traitement de sortie"
+msgstr "Résumé d'hospitalisation & Traitement de sortie"
+
+msgid "Résumé de Sortie (Épicrise)"
+msgstr "Discharge Summary (Epicrisis)"
+
+msgid "Résumé de l’évolution clinique, traitement de sortie et consignes de suivi..."
+msgstr "Résumé de l’évolution clinique, traitement de sortie et consignes de suivi..."
+
+msgid "Résumé de sortie (Épicrise)"
+msgstr "Discharge summary (Epicrisis)"
+
+msgid "Rôle"
+msgstr "Rôle"
+
+msgid "Rôle / Fonction"
+msgstr "Role / Position"
+
+msgid "Rôle hospitalier :"
+msgstr "Hospital Role:"
+
+msgid "SMS Envoyés"
+msgstr "Sent SMS"
+
+msgid "SMS Mobile (Cameroun)"
+msgstr "Mobile SMS (Cameroon)"
+
+msgid "Saisie de Résultat"
+msgstr "Enter Lab Result"
+
+msgid "Saisie des Constantes Vitales"
+msgstr "Saisie des Constantes Vitales"
+
+msgid "Saisie des Résultats"
+msgstr "Result Entry"
+
+msgid "Saisir"
+msgstr "Enter"
+
+msgid "Saisir Constantes"
+msgstr "Enter Vitals"
+
+msgid "Saisir diagnostic"
+msgstr "Saisir diagnostic"
+
+msgid "Salle d'Attente Directe"
+msgstr "Live Waiting Room"
+
+msgid "Salle d'Attente Dynamique"
+msgstr "Dynamic Waiting Room"
+
+msgid "Santé Numérique"
+msgstr "Digital Health"
+
+msgid "Saturation O2 / SpO2 (%)"
+msgstr "O2 Saturation / SpO2 (%)"
+
+msgid "Scannez avec Google Authenticator ou Twilio Authy"
+msgstr "Scannez avec Google Authenticator ou Twilio Authy"
+
+msgid "Scannez ce QR Code avec votre application TOTP (Google Authenticator, Microsoft Authenticator, Twilio Authy) :"
+msgstr "Scan this QR Code with your TOTP app (Google Authenticator, Microsoft Authenticator, Twilio Authy):"
+
+msgid "Se Connecter à l'Espace Santé"
+msgstr "Sign In to Health Portal"
+
+msgid "Se Déconnecter"
+msgstr "Sign Out"
+
+msgid "Services & Pharmacie"
+msgstr "Services & Pharmacy"
+
+msgid "Seuil d'alerte stock"
+msgstr "Stock Alert Threshold"
+
+msgid "Seuil d’alerte stock"
+msgstr "Seuil d’alerte stock"
+
+msgid "Sexe"
+msgstr "Sexe"
+
+msgid "Sexe / Âge"
+msgstr "Gender / Age"
+
+msgid "Sirop / Suspension"
+msgstr "Syrup / Suspension"
+
+msgid "Soins Intensifs / Réanimation"
+msgstr "Soins Intensifs / Réanimation"
+
+msgid "Soins et traitements administrés"
+msgstr "Soins et traitements administrés"
+
+msgid "Sorti"
+msgstr "Sorti"
+
+msgid "Sortie autorisée par"
+msgstr "Sortie autorisée par"
+
+msgid "Sortie d'hospitalisation validée pour %(patient)s."
+msgstr "Discharge approved for %(patient)s."
+
+msgid "Sortie d’hospitalisation validée pour %(patient)s."
+msgstr "Sortie d’hospitalisation validée pour %(patient)s."
+
+msgid "Sortie validée par"
+msgstr "Sortie validée par"
+
+msgid "Sous-Total"
+msgstr "Subtotal"
+
+msgid "Sous-total (FCFA)"
+msgstr "Subtotal (FCFA)"
+
+msgid "Spécialité"
+msgstr "Speciality"
+
+msgid "Spécialité / Service"
+msgstr "Speciality / Department"
+
+msgid "Statut"
+msgstr "Status"
+
+msgid "Statut Stock"
+msgstr "Stock Status"
+
+msgid "Statut du paiement"
+msgstr "Statut du paiement"
+
+msgid "Statut du rendez-vous mis à jour."
+msgstr "Appointment status updated."
+
+msgid "Stock Disponible"
+msgstr "Available Stock"
+
+msgid "Stock Faible"
+msgstr "Low Stock"
+
+msgid "Stock insuffisant pour %(med)s. Requis: %(req)s, Disponible: %(avail)s"
+msgstr "Insufficient stock for %(med)s. Required: %(req)s, Available: %(avail)s"
+
+msgid "Succès / Encaissé"
+msgstr "Succès / Encaissé"
+
+msgid "Succès / Envoyé"
+msgstr "Success / Sent"
+
+msgid "Suiv"
+msgstr "Next"
+
+msgid "Suivant"
+msgstr "Next"
+
+msgid "Suppositoire"
+msgstr "Suppository"
+
+msgid "Suppression"
+msgstr "Suppression"
+
+msgid "Supprimer"
+msgstr "Delete"
+
+msgid "Supprimer cette ligne"
+msgstr "Remove this item"
+
+msgid "Supprimer la photo actuelle"
+msgstr "Remove Current Photo"
+
+msgid "Suspicion paludisme, bilan préopératoire..."
+msgstr "Suspicion paludisme, bilan préopératoire..."
+
+msgid "Synthèse Médicale"
+msgstr "Synthèse Médicale"
+
+msgid "Système"
+msgstr "System"
+
+msgid "Système Opérationnel"
+msgstr "System Operational"
+
+msgid "Système d'Information Hospitalier"
+msgstr "Hospital Information System"
+
+msgid "Système d'Information Hospitalier Conforme Loi n°2010/012 (Cameroun)"
+msgstr "Hospital Information System Compliant with Law n°2010/012 (Cameroon)"
+
+msgid "Système de Gestion Hospitalière Régional. Fuseau horaire : Africa/Douala"
+msgstr "Regional Hospital Management System. Timezone: Africa/Douala"
+
+msgid "Sécurité 2FA"
+msgstr "Sécurité 2FA"
+
+msgid "Séjour"
+msgstr "Séjour"
+
+msgid "Séjour Hospitalier"
+msgstr "Hospital Stay"
+
+msgid "Séjour Hospitalier (Admission)"
+msgstr "Séjour Hospitalier (Admission)"
+
+msgid "Séjour lié"
+msgstr "Séjour lié"
+
+msgid "Séjours Hospitaliers (Admissions)"
+msgstr "Hospital Stays (Admissions)"
+
+msgid "Sélectionnez les examens à réaliser par le laboratoire"
+msgstr "Select tests to be performed by laboratory"
+
+msgid "Sérologie / Immunologie"
+msgstr "Serology / Immunology"
+
+msgid "Tableau de Bord"
+msgstr "Dashboard"
+
+msgid "Tableau de Bord Hospitalier"
+msgstr "Hospital Dashboard"
+
+msgid "Tableau de bord"
+msgstr "Dashboard"
+
+msgid "Taille (cm)"
+msgstr "Height (cm)"
+
+msgid "Tarif conventionné (FCFA)"
+msgstr "Tarif conventionné (FCFA)"
+
+msgid "Tarif journalier (FCFA)"
+msgstr "Daily rate (FCFA)"
+
+msgid "Taux d'Occupation"
+msgstr "Occupancy Rate"
+
+msgid "Taux de couverture (%)"
+msgstr "Coverage Rate (%)"
+
+msgid "Température (°C)"
+msgstr "Temperature (°C)"
+
+msgid "Température, pression artérielle, fréquence cardiaque, saturation O2, poids et taille"
+msgstr "Température, pression artérielle, fréquence cardiaque, saturation O2, poids et taille"
+
+msgid "Tension Artérielle"
+msgstr "Blood Pressure"
+
+msgid "Tension Diastolique (mmHg)"
+msgstr "Diastolic BP (mmHg)"
+
+msgid "Tension Systolique (mmHg)"
+msgstr "Systolic BP (mmHg)"
+
+msgid "Terminé"
+msgstr "Completed"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Total Brut"
+msgstr "Gross Total"
+
+msgid "Total Encaissé Aujourd'hui"
+msgstr "Total Collected Today"
+
+msgid "Tous les groupes"
+msgstr "All Blood Groups"
+
+msgid "Tous les patients en attente ont leurs constantes à jour."
+msgstr "All waiting patients have updated vitals."
+
+msgid "Tous les statuts"
+msgstr "All Statuses"
+
+msgid "Tous les stocks sont au-dessus des seuils critiques."
+msgstr "All inventory levels are above critical thresholds."
+
+msgid "Toutes les factures"
+msgstr "All Invoices"
+
+msgid "Toutes les formes"
+msgstr "All Dosage Forms"
+
+msgid "Traiter"
+msgstr "Process"
+
+msgid "Transmettre la Demande au Laboratoire"
+msgstr "Send Order to Laboratory"
+
+msgid "Transmission Infirmière"
+msgstr "Nursing Handover"
+
+msgid "Transmission de soins enregistrée avec succès."
+msgstr "Care report logged successfully."
+
+msgid "Transmissions Infirmières"
+msgstr "Nursing Reports"
+
+msgid "Transmissions de Soins Infirmiers & Surveillance"
+msgstr "Nursing Care Reports & Monitoring"
+
+msgid "Traçabilité & Audit"
+msgstr "Traceability & Audit"
+
+msgid "Traçabilité des consultations, modifications et accès pour le patient"
+msgstr "Traceability of consultations, edits, and access for patient"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Type d'Examen"
+msgstr "Test Category"
+
+msgid "Type d’examen de laboratoire"
+msgstr "Type d’examen de laboratoire"
+
+msgid "Types d’examens de laboratoire"
+msgstr "Types d’examens de laboratoire"
+
+msgid "Télécharger"
+msgstr "Download"
+
+msgid "Télécharger PDF"
+msgstr "Download PDF"
+
+msgid "Téléphone"
+msgstr "Phone"
+
+msgid "Téléphone contact d'urgence"
+msgstr "Emergency Contact Phone"
+
+msgid "Téléphone professionnel"
+msgstr "Professional Phone"
+
+msgid "Téléverser une photo"
+msgstr "Upload Photo"
+
+msgid "Unité de Mesure"
+msgstr "Unit of Measurement"
+
+msgid "Unité de mesure"
+msgstr "Unit of measurement"
+
+msgid "Urgence Vitale"
+msgstr "Critical Emergency"
+
+msgid "Urgent"
+msgstr "Urgent"
+
+msgid "Urgente"
+msgstr "Urgent"
+
+msgid "Utilisateur / Auteur"
+msgstr "Utilisateur / Auteur"
+
+msgid "Valeur Mesurée"
+msgstr "Measured Value"
+
+msgid "Valeur anormale / Alerte"
+msgstr "Abnormal value / Alert"
+
+msgid "Valeur hors-normes / Pathologique"
+msgstr "Out of range / Pathological"
+
+msgid "Valeur mesurée / Constat"
+msgstr "Measured Value / Finding"
+
+msgid "Valeurs de Référence"
+msgstr "Reference Values"
+
+msgid "Validation Biologique"
+msgstr "Biological Validation"
+
+msgid "Validation Délivrance"
+msgstr "Dispense Confirmation"
+
+msgid "Validation de la Sortie d'Hospitalisation"
+msgstr "Discharge Approval"
+
+msgid "Valider"
+msgstr "Validate"
+
+msgid "Valider Délivrance & Décrémenter Stock"
+msgstr "Confirm Dispensing & Decrement Stock"
+
+msgid "Valider et Accéder"
+msgstr "Verify and Access"
+
+msgid "Valider la Consultation"
+msgstr "Complete Consultation"
+
+msgid "Valider la Consultation Médicale"
+msgstr "Validate Medical Consultation"
+
+msgid "Ventilation Caisse du Jour"
+msgstr "Today's Cash Breakdown"
+
+msgid "Veuillez corriger les erreurs dans le formulaire."
+msgstr "Please correct the errors in the form."
+
+msgid "Veuillez saisir le code à 6 chiffres généré par votre application d'authentification (Google Authenticator, etc.)"
+msgstr "Please enter the 6-digit code generated by your authenticator app (Google Authenticator, etc.)"
+
+msgid "Ville / Région"
+msgstr "City / Region"
+
+msgid "Virement Bancaire"
+msgstr "Bank Transfer"
+
+msgid "Visualisation de la disponibilité des lits par pavillon et gestion des admissions"
+msgstr "View bed availability by ward and manage inpatient admissions"
+
+msgid "Voir"
+msgstr "View"
+
+msgid "Voir Facture"
+msgstr "View Invoice"
+
+msgid "Voir file"
+msgstr "View queue"
+
+msgid "Voir tout"
+msgstr "View All"
+
+msgid "Votre compte est sécurisé par un code TOTP à 6 chiffres."
+msgstr "Your account is protected by a 6-digit TOTP code."
+
+msgid "Votre profil a été mis à jour avec succès."
+msgstr "Your profile has been updated successfully."
+
+msgid "Vous avez été déconnecté."
+msgstr "You have been signed out."
+
+msgid "Vue Calendrier"
+msgstr "Vue Calendrier"
+
+msgid "Vérification 2FA Requise"
+msgstr "2FA Verification Required"
+
+msgid "ans"
+msgstr "years old"
+
+msgid "boîtes"
+msgstr "boxes"
+
+msgid "jour(s)"
+msgstr "jour(s)"
+
+msgid "lits"
+msgstr "lits"
+
+msgid "produit(s)"
+msgstr "product(s)"
+
+msgid "sur"
+msgstr "of"
+
+msgid "Échec d'envoi"
+msgstr "Failed to Send"
+
+msgid "Échec de la requête MTN MoMo: %(err)s"
+msgstr "Échec de la requête MTN MoMo: %(err)s"
+
+msgid "Échec de la transaction"
+msgstr "Échec de la transaction"
+
+msgid "Échec de la transaction Orange Money: %(err)s"
+msgstr "Échec de la transaction Orange Money: %(err)s"
+
+msgid "Échec d’envoi"
+msgstr "Échec d’envoi"
+
+msgid "Émise le"
+msgstr "Issued on"
+
+msgid "Époux(se), Parent, Frère..."
+msgstr "Spouse, Parent, Sibling..."
+
+msgid "Étage / Emplacement"
+msgstr "Étage / Emplacement"
+
+msgid "État du patient, réactivité, douleur, constantes..."
+msgstr "État du patient, réactivité, douleur, constantes..."

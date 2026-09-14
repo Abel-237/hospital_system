@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load i18n hospital_tags %}
+
+{% block title %}{% trans "Laboratoire & Imagerie Médicale" %}{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{% trans "Laboratoire & Imagerie" %}</h1>
+            <p class="text-sm text-slate-500">{% trans "Prise en charge des prélèvements, saisie des résultats et validation biologique" %}</p>
+        </div>
+        {% if IS_DOCTOR or IS_ADMIN %}
+        <a href="{% url 'laboratory:order_create' %}" class="btn-primary">
+            + {% trans "Prescrire des Examens" %}
+        </a>
+        {% endif %}
+    </div>
+
+    <!-- Filter by Status -->
+    <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-3">
+        <form method="get" class="flex items-center gap-3">
+            <select name="status" class="form-select text-sm w-56">
+                <option value="">{% trans "Tous les statuts" %}</option>
+                {% for st_val, st_lbl in statuses %}
+                    <option value="{{ st_val }}" {% if selected_status == st_val %}selected{% endif %}>{{ st_lbl }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn-primary text-xs">{% trans "Filtrer" %}</button>
+        </form>
+    </div>
+
+    <!-- Orders Table -->
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-600 dark:text-slate-300">
+                <thead class="bg-slate-50 dark:bg-slate-800 text-xs font-semibold uppercase text-slate-500 border-b border-slate-200 dark:border-slate-800">
+                    <tr>
+                        <th class="px-6 py-4">{% trans "Bon No" %}</th>
+                        <th class="px-6 py-4">{% trans "Patient" %}</th>
+                        <th class="px-6 py-4">{% trans "Médecin Prescripteur" %}</th>
+                        <th class="px-6 py-4">{% trans "Examens Demandés" %}</th>
+                        <th class="px-6 py-4">{% trans "Statut" %}</th>
+                        <th class="px-6 py-4 text-right">{% trans "Action" %}</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                    {% for order in orders %}
+                    <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50">
+                        <td class="px-6 py-4 font-mono font-bold text-xs text-blue-600">
+                            {{ order.order_number }}
+                            <div class="text-[10px] text-slate-400 font-normal">{{ order.created_at|date:"d/m/Y H:i" }}</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="font-bold text-slate-900 dark:text-white">{{ order.patient.full_name }}</span>
+                            <div class="text-xs text-slate-400 font-mono">{{ order.patient.matricule }}</div>
+                        </td>
+                        <td class="px-6 py-4 text-xs">{{ order.prescribed_by.display_title }}</td>
+                        <td class="px-6 py-4 text-xs">
+                            <div class="flex flex-wrap gap-1">
+                                {% for item in order.items.all %}
+                                <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[11px] font-medium">
+                                    {{ item.test_type.code }}
+                                </span>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="badge {% if order.status == 'COMPLETED' %}badge-success{% elif order.status == 'IN_PROGRESS' %}badge-info{% else %}badge-warning{% endif %}">
+                                {{ order.get_status_display }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="{% url 'laboratory:order_detail' pk=order.pk %}" class="btn-secondary text-xs py-1.5 px-3">
+                                {% trans "Traiter" %} →
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="px-6 py-12 text-center text-slate-400">
+                            {% trans "Aucun bon d'analyses trouvé." %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

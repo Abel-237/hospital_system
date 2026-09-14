@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Saisie des Constantes Vitales" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto py-6">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
+        
+        <div class="border-b border-slate-100 dark:border-slate-800 pb-4 mb-6">
+            <h1 class="text-xl font-bold text-slate-900 dark:text-white">💓 {% trans "Prise des Constantes Vitales (Soins Infirmiers)" %}</h1>
+            <p class="text-xs text-slate-500">{% trans "Température, pression artérielle, fréquence cardiaque, saturation O2, poids et taille" %}</p>
+        </div>
+
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+
+            <div>
+                <label class="block text-xs font-semibold mb-1 uppercase text-slate-500">{{ form.patient.label }} *</label>
+                {{ form.patient }}
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                        🌡️ {{ form.temperature.label }}
+                    </label>
+                    {{ form.temperature }}
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                        🩸 {{ form.blood_pressure_systolic.label }}
+                    </label>
+                    {{ form.blood_pressure_systolic }}
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                        🩸 {{ form.blood_pressure_diastolic.label }}
+                    </label>
+                    {{ form.blood_pressure_diastolic }}
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                        ❤️ {{ form.pulse_rate.label }}
+                    </label>
+                    {{ form.pulse_rate }}
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                        🫁 {{ form.respiratory_rate.label }}
+                    </label>
+                    {{ form.respiratory_rate }}
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                        💨 {{ form.oxygen_saturation.label }}
+                    </label>
+                    {{ form.oxygen_saturation }}
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                        ⚖️ {{ form.weight.label }}
+                    </label>
+                    {{ form.weight }}
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
+                        📏 {{ form.height.label }}
+                    </label>
+                    {{ form.height }}
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold mb-1 uppercase text-slate-500">{{ form.notes.label }}</label>
+                {{ form.notes }}
+            </div>
+
+            <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-100 dark:border-slate-800">
+                <button type="submit" class="btn-primary">{% trans "Enregistrer les Constantes" %}</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

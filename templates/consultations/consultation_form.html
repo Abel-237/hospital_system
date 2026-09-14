@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Consultation Médicale" %} - {{ patient.full_name }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-6 space-y-6">
+    
+    <!-- Patient Medical Banner -->
+    <div class="bg-blue-600 text-white rounded-2xl p-6 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <div class="flex items-center gap-2">
+                <h1 class="text-xl font-bold">{{ patient.full_name }}</h1>
+                <span class="font-mono text-xs bg-white/20 px-2 py-0.5 rounded font-bold">{{ patient.matricule }}</span>
+                <span class="bg-red-500 text-white px-2 py-0.5 rounded text-xs font-bold">{{ patient.blood_group }}</span>
+            </div>
+            <p class="text-xs text-blue-100 mt-1">{{ patient.birth_date|date:"d/m/Y" }} ({{ patient.age }} ans) • {{ patient.phone }}</p>
+        </div>
+        <div class="text-right">
+            <span class="text-xs text-blue-200 uppercase font-semibold">{% trans "Praticien :" %}</span>
+            <p class="font-bold text-sm">{{ request.user.display_title }}</p>
+        </div>
+    </div>
+
+    <!-- Latest Vitals Quick Pill -->
+    {% if latest_vitals %}
+    <div class="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900 rounded-2xl p-4">
+        <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase text-emerald-800 dark:text-emerald-300">
+                💓 {% trans "Dernières Constantes Vitales Enregistrées" %} ({{ latest_vitals.created_at|date:"H:i" }})
+            </span>
+            <span class="text-[11px] text-emerald-600">Par {{ latest_vitals.recorded_by.full_name }}</span>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs">
+            <div><span class="text-slate-500">Temp :</span> <strong class="text-slate-900 dark:text-white">{{ latest_vitals.temperature }} °C</strong></div>
+            <div><span class="text-slate-500">TA :</span> <strong class="text-slate-900 dark:text-white">{{ latest_vitals.blood_pressure_systolic }}/{{ latest_vitals.blood_pressure_diastolic }} mmHg</strong></div>
+            <div><span class="text-slate-500">Pouls :</span> <strong class="text-slate-900 dark:text-white">{{ latest_vitals.pulse_rate }} bpm</strong></div>
+            <div><span class="text-slate-500">SpO2 :</span> <strong class="text-slate-900 dark:text-white">{{ latest_vitals.oxygen_saturation|default:"—" }} %</strong></div>
+            <div><span class="text-slate-500">Poids/IMC :</span> <strong class="text-slate-900 dark:text-white">{{ latest_vitals.weight|default:"—" }} kg ({{ latest_vitals.bmi|default:"—" }})</strong></div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Consultation Form Card -->
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">
+                    {{ form.symptoms.label }} *
+                </label>
+                {{ form.symptoms }}
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">
+                    {{ form.physical_examination.label }}
+                </label>
+                {{ form.physical_examination }}
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold uppercase text-blue-600 dark:text-blue-400 mb-1">
+                    {{ form.diagnosis.label }} *
+                </label>
+                {{ form.diagnosis }}
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">
+                    {{ form.clinical_notes.label }}
+                </label>
+                {{ form.clinical_notes }}
+            </div>
+
+            <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-100 dark:border-slate-800">
+                <a href="{% url 'patients:patient_detail' pk=patient.pk %}" class="btn-secondary text-xs">{% trans "Annuler" %}</a>
+                <button type="submit" class="btn-primary">
+                    ✓ {% trans "Valider la Consultation Médicale" %}
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

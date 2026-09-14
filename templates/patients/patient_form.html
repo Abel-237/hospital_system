@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-6">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
+        
+        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4 mb-6">
+            <div>
+                <h1 class="text-xl font-bold text-slate-900 dark:text-white">{{ title }}</h1>
+                <p class="text-xs text-slate-500">{% trans "Champs obligatoires marqués d'une astérisque. Conformité Loi camerounaise n°2010/012." %}</p>
+            </div>
+            <a href="{% url 'patients:patient_list' %}" class="text-xs text-slate-500 hover:text-slate-700">
+                ← {% trans "Retour à la liste" %}
+            </a>
+        </div>
+
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+
+            <!-- État civil -->
+            <div>
+                <h2 class="text-sm font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-4">
+                    1. {% trans "Identité & État Civil" %}
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">{{ form.first_name.label }} *</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">{{ form.last_name.label }} *</label>
+                        {{ form.last_name }}
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">{{ form.birth_date.label }} *</label>
+                        {{ form.birth_date }}
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">{{ form.gender.label }} *</label>
+                        {{ form.gender }}
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">{{ form.blood_group.label }}</label>
+                        {{ form.blood_group }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coordonnées -->
+            <div class="border-t border-slate-100 dark:border-slate-800 pt-6">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-4">
+                    2. {% trans "Coordonnées & Résidence" %}
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">{{ form.phone.label }} *</label>
+                        {{ form.phone }}
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">{{ form.email.label }}</label>
+                        {{ form.email }}
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">{{ form.city.label }}</label>
+                        {{ form.city }}
+                    </div>
+                    <div class="sm:col-span-2 lg:col-span-3">
+                        <label class="block text-xs font-semibold mb-1">{{ form.address.label }}</label>
+                        {{ form.address }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact d'urgence -->
+            <div class="border-t border-slate-100 dark:border-slate-800 pt-6">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-4">
+                    3. {% trans "Contact d'Urgence" %}
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">{{ form.emergency_contact_name.label }}</label>
+                        {{ form.emergency_contact_name }}
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">{{ form.emergency_contact_phone.label }}</label>
+                        {{ form.emergency_contact_phone }}
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">{{ form.emergency_contact_relation.label }}</label>
+                        {{ form.emergency_contact_relation }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Antécédents Médicaux -->
+            <div class="border-t border-slate-100 dark:border-slate-800 pt-6">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-4">
+                    4. {% trans "Antécédents Médicaux & Allergies" %}
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold mb-1 text-red-600">{{ form.allergies.label }}</label>
+                        {{ form.allergies }}
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">{{ form.chronic_conditions.label }}</label>
+                        {{ form.chronic_conditions }}
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">{{ form.family_history.label }}</label>
+                        {{ form.family_history }}
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">{{ form.surgical_history.label }}</label>
+                        {{ form.surgical_history }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consentement Loi n°2010/012 -->
+            <div class="border-t border-slate-100 dark:border-slate-800 pt-6 bg-blue-50/50 dark:bg-slate-800/40 p-4 rounded-xl">
+                <div class="flex items-start gap-3">
+                    <div class="pt-0.5">
+                        {{ form.consent_given }}
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-900 dark:text-white cursor-pointer">
+                            {% trans "Consentement éclairé au traitement des données médicales" %}
+                        </label>
+                        <p class="text-[11px] text-slate-500 mt-0.5">
+                            {% trans "Le patient ou son représentant légal autorise le centre hospitalier à héberger et traiter ses données de santé à des fins de soins, en conformité avec la loi camerounaise n°2010/012 relative à la protection des données." %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+                <a href="{% url 'patients:patient_list' %}" class="btn-secondary text-xs">{% trans "Annuler" %}</a>
+                <button type="submit" class="btn-primary">{% trans "Enregistrer le Dossier Patient" %}</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

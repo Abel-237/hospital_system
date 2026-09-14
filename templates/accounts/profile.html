@@ -1,0 +1,375 @@
+{% extends 'base.html' %}
+{% load i18n hospital_tags %}
+
+{% block title %}{% trans "Profil Collaborateur" %}{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto py-4 space-y-6">
+    
+    <!-- Top Breadcrumb & Page Title -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <div class="flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500 mb-1">
+                <a href="{% url 'core:dashboard' %}" class="hover:text-blue-600 dark:hover:text-blue-400 transition">{% trans "Tableau de Bord" %}</a>
+                <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                <span class="text-slate-600 dark:text-slate-300 font-semibold">{% trans "Profil Collaborateur" %}</span>
+            </div>
+            <h1 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+                {% trans "Mon Profil & Paramètres" %}
+            </h1>
+            <p class="text-sm text-slate-500 dark:text-slate-400">
+                {% trans "Gérez vos informations professionnelles, votre photo d'identification et la sécurité de votre compte." %}
+            </p>
+        </div>
+        
+        <div class="flex items-center gap-2">
+            <a href="{% url 'accounts:2fa_setup' %}" class="btn-secondary text-xs flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-blue-600 dark:text-blue-400"></i>
+                {% trans "Sécurité 2FA" %}
+            </a>
+            <a href="{% url 'accounts:logout' %}" class="px-3 py-2 rounded-xl text-xs font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 border border-red-200 dark:border-red-900/40 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                {% trans "Déconnexion" %}
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Grid: Left Identity & Right Edit Form -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Column: Identity Card & 2FA Info (4 cols) -->
+        <div class="lg:col-span-4 space-y-6">
+            
+            <!-- Identity Summary Card -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-bl-full pointer-events-none"></div>
+                
+                <div class="flex flex-col items-center text-center">
+                    <!-- Avatar Display -->
+                    <div class="relative mb-4 group">
+                        {% if user.avatar_url %}
+                            <img 
+                                src="{{ user.avatar_url }}" 
+                                alt="{{ user.full_name }}" 
+                                class="w-24 h-24 rounded-2xl object-cover ring-4 ring-blue-500/20 shadow-lg"
+                            >
+                        {% else %}
+                            <div class="w-24 h-24 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-3xl font-black uppercase ring-4 ring-blue-500/20 shadow-lg">
+                                {{ user.initials }}
+                            </div>
+                        {% endif %}
+                        <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-900" title="{% trans "Connecté" %}"></span>
+                    </div>
+
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">
+                        {{ user.display_title }}
+                    </h2>
+                    <p class="text-xs text-slate-400 dark:text-slate-500 font-mono mt-0.5">
+                        @{{ user.username }}
+                    </p>
+                    
+                    <div class="mt-3">
+                        {{ user.role|role_badge }}
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 space-y-3.5 text-xs">
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-500 dark:text-slate-400">{% trans "Email" %}</span>
+                        <span class="font-medium text-slate-800 dark:text-slate-200 font-mono truncate max-w-[170px]" title="{{ user.email }}">{{ user.email|default:"—" }}</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-500 dark:text-slate-400">{% trans "Téléphone" %}</span>
+                        <span class="font-medium text-slate-800 dark:text-slate-200 font-mono">{{ user.phone_number|default:"—" }}</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-500 dark:text-slate-400">{% trans "Spécialité / Service" %}</span>
+                        <span class="font-medium text-slate-800 dark:text-slate-200">{{ user.speciality|default:"—" }}</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-500 dark:text-slate-400">{% trans "Numéro d'Ordre" %}</span>
+                        <span class="font-medium text-slate-800 dark:text-slate-200 font-mono">{{ user.license_number|default:"—" }}</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-500 dark:text-slate-400">{% trans "Date d'inscription" %}</span>
+                        <span class="font-medium text-slate-800 dark:text-slate-200">{{ user.date_joined|date:"d/m/Y" }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security & 2FA Card -->
+            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl {% if user.is_2fa_enabled %}bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400{% else %}bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400{% endif %} flex items-center justify-center text-base">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">{% trans "Authentification à Deux Facteurs" %}</h3>
+                        <p class="text-xs text-slate-500">{% trans "Protection conforme Loi n°2010/012" %}</p>
+                    </div>
+                </div>
+
+                <div class="p-3.5 rounded-xl {% if user.is_2fa_enabled %}bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/40{% else %}bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40{% endif %}">
+                    {% if user.is_2fa_enabled %}
+                        <div class="flex items-center gap-2 text-xs text-emerald-700 dark:text-emerald-300 font-semibold">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>{% trans "2FA Activé et Opérationnel" %}</span>
+                        </div>
+                        <p class="text-[11px] text-emerald-600 dark:text-emerald-400/80 mt-1">
+                            {% trans "Votre compte est sécurisé par un code TOTP à 6 chiffres." %}
+                        </p>
+                    {% else %}
+                        <div class="flex items-center gap-2 text-xs text-amber-700 dark:text-amber-300 font-semibold">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span>{% trans "2FA Non Configuré" %}</span>
+                        </div>
+                        <p class="text-[11px] text-amber-600 dark:text-amber-400/80 mt-1">
+                            {% trans "Activez l'application Google Authenticator ou Twilio Authy pour sécuriser vos accès médicaux." %}
+                        </p>
+                    {% endif %}
+                </div>
+
+                <a href="{% url 'accounts:2fa_setup' %}" class="w-full btn-secondary text-xs flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-key"></i>
+                    {% trans "Configurer l'application 2FA" %}
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Right Column: Profile Edit Form (8 cols) -->
+        <div class="lg:col-span-8">
+            <div 
+                x-data="{ 
+                    avatarPreview: '{{ user.avatar_url|default:'' }}',
+                    hasInitialAvatar: {% if user.avatar %}true{% else %}false{% endif %},
+                    removeAvatar: false,
+                    onFileChange(e) {
+                        const file = e.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (ev) => {
+                                this.avatarPreview = ev.target.result;
+                                this.removeAvatar = false;
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    },
+                    clearPhoto() {
+                        this.avatarPreview = '';
+                        this.removeAvatar = true;
+                        if (this.$refs.fileInput) {
+                            this.$refs.fileInput.value = '';
+                        }
+                    }
+                }"
+                class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm"
+            >
+                <div class="border-b border-slate-100 dark:border-slate-800 pb-5 mb-6">
+                    <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-user-pen text-blue-600 dark:text-blue-400"></i>
+                        {% trans "Modifier mes Informations" %}
+                    </h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                        {% trans "Mettez à jour vos informations de contact, votre photo de profil et votre titre professionnel." %}
+                    </p>
+                </div>
+
+                <form method="post" enctype="multipart/form-data" class="space-y-6">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                    <div class="p-4 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 text-xs text-red-700 dark:text-red-300 space-y-1">
+                        {% for error in form.non_field_errors %}
+                            <p class="flex items-center gap-1.5"><i class="fa-solid fa-circle-exclamation"></i> {{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Photo Upload Section with Live Preview -->
+                    <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/80">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-3">
+                            {% trans "Photo de Profil" %}
+                        </label>
+
+                        <div class="flex flex-col sm:flex-row items-center gap-5">
+                            <!-- Preview Box -->
+                            <div class="relative shrink-0">
+                                <template x-if="avatarPreview">
+                                    <img 
+                                        :src="avatarPreview" 
+                                        alt="Preview" 
+                                        class="w-20 h-20 rounded-2xl object-cover ring-2 ring-blue-500/30 shadow-md"
+                                    >
+                                </template>
+                                <template x-if="!avatarPreview">
+                                    <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-2xl font-black uppercase ring-2 ring-blue-500/30 shadow-md">
+                                        {{ user.initials }}
+                                    </div>
+                                </template>
+                            </div>
+
+                            <!-- Controls & Helper text -->
+                            <div class="flex-1 space-y-2 text-center sm:text-left">
+                                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                                    <!-- Hidden real input -->
+                                    <input 
+                                        type="file" 
+                                        name="avatar" 
+                                        id="avatar-file-input" 
+                                        x-ref="fileInput" 
+                                        @change="onFileChange($event)"
+                                        accept="image/png, image/jpeg, image/webp, image/gif"
+                                        class="hidden"
+                                    >
+                                    
+                                    <!-- Hidden remove checkbox bound to Alpine -->
+                                    <input 
+                                        type="checkbox" 
+                                        name="remove_avatar" 
+                                        id="id_remove_avatar" 
+                                        x-model="removeAvatar"
+                                        class="hidden"
+                                    >
+
+                                    <!-- Pick File Button -->
+                                    <button 
+                                        type="button" 
+                                        @click="$refs.fileInput.click()" 
+                                        class="btn-secondary text-xs py-2 px-3.5 flex items-center gap-2"
+                                    >
+                                        <i class="fa-solid fa-camera text-blue-600 dark:text-blue-400"></i>
+                                        <span x-text="avatarPreview ? '{% trans "Changer de photo" %}' : '{% trans "Téléverser une photo" %}'"></span>
+                                    </button>
+
+                                    <!-- Remove Photo Button -->
+                                    <button 
+                                        type="button" 
+                                        x-show="avatarPreview" 
+                                        @click="clearPhoto()" 
+                                        class="px-3 py-2 rounded-xl text-xs font-semibold text-red-600 hover:text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition flex items-center gap-1.5"
+                                    >
+                                        <i class="fa-solid fa-trash text-xs"></i>
+                                        {% trans "Supprimer" %}
+                                    </button>
+                                </div>
+
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400">
+                                    {% trans "Formats acceptés : PNG, JPG, WebP. Taille maximale : 2 Mo." %}
+                                </p>
+
+                                <div x-show="removeAvatar" class="text-[11px] text-amber-600 dark:text-amber-400 font-semibold flex items-center gap-1">
+                                    <i class="fa-solid fa-info-circle"></i>
+                                    {% trans "La photo sera supprimée lors de l'enregistrement." %}
+                                </div>
+
+                                {% if form.avatar.errors %}
+                                    <div class="text-xs text-red-600 dark:text-red-400 space-y-0.5">
+                                        {% for err in form.avatar.errors %}
+                                            <p>{{ err }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Personal & Professional Fields Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        
+                        <!-- First Name -->
+                        <div>
+                            <label for="{{ form.first_name.id_for_label }}" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                                {% trans "Prénom" %} <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <p class="text-xs text-red-600 mt-1">{{ form.first_name.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Last Name -->
+                        <div>
+                            <label for="{{ form.last_name.id_for_label }}" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                                {% trans "Nom de famille" %} <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                                <p class="text-xs text-red-600 mt-1">{{ form.last_name.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Professional Email -->
+                        <div>
+                            <label for="{{ form.email.id_for_label }}" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                                {% trans "Adresse Email Professionnelle" %} <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <p class="text-xs text-red-600 mt-1">{{ form.email.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div>
+                            <label for="{{ form.phone_number.id_for_label }}" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                                {% trans "Téléphone professionnel" %}
+                            </label>
+                            {{ form.phone_number }}
+                            <p class="text-[10px] text-slate-400 mt-1">{% trans "Format camerounais : +237 6XX XX XX XX" %}</p>
+                            {% if form.phone_number.errors %}
+                                <p class="text-xs text-red-600 mt-1">{{ form.phone_number.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Speciality / Service -->
+                        <div>
+                            <label for="{{ form.speciality.id_for_label }}" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                                {% trans "Spécialité / Service" %}
+                            </label>
+                            {{ form.speciality }}
+                            {% if form.speciality.errors %}
+                                <p class="text-xs text-red-600 mt-1">{{ form.speciality.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- License Number -->
+                        <div>
+                            <label for="{{ form.license_number.id_for_label }}" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                                {% trans "Numéro d'Ordre Professionnel" %}
+                            </label>
+                            {{ form.license_number }}
+                            <p class="text-[10px] text-slate-400 mt-1">{% trans "Ordre National des Médecins ou Pharmaciens (ONMC)" %}</p>
+                            {% if form.license_number.errors %}
+                                <p class="text-xs text-red-600 mt-1">{{ form.license_number.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                    <!-- Read-only Account Info Notice -->
+                    <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-lock text-slate-400"></i>
+                            <span>{% trans "Rôle hospitalier :" %} <strong class="text-slate-800 dark:text-slate-200">{{ user.get_role_display }}</strong></span>
+                        </div>
+                        <span class="text-[11px] text-slate-400 italic">{% trans "Modifiable uniquement par un administrateur" %}</span>
+                    </div>
+
+                    <!-- Submission Actions -->
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-3">
+                        <a href="{% url 'core:dashboard' %}" class="btn-secondary text-xs py-2.5 px-4">
+                            {% trans "Annuler" %}
+                        </a>
+                        <button type="submit" class="btn-primary text-xs py-2.5 px-5 flex items-center gap-2 shadow-md shadow-blue-500/20">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            {% trans "Enregistrer les modifications" %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

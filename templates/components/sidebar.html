@@ -1,0 +1,242 @@
+{% load i18n static hospital_tags %}
+
+<!-- Mobile Backdrop Overlay -->
+<div 
+    x-show="sidebarOpen" 
+    x-transition:enter="transition-opacity ease-linear duration-300"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="transition-opacity ease-linear duration-300"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    @click="sidebarOpen = false" 
+    class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 lg:hidden"
+    style="display: none;"
+></div>
+
+<!-- Sidebar Component -->
+<aside 
+    id="main-sidebar"
+    :class="{
+        'translate-x-0': sidebarOpen,
+        '-translate-x-full lg:translate-x-0': !sidebarOpen,
+        'lg:w-64': !sidebarCollapsed,
+        'lg:w-20': sidebarCollapsed
+    }"
+    class="fixed lg:sticky lg:top-0 inset-y-0 left-0 z-50 flex flex-col bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 transition-all duration-300 ease-in-out select-none shadow-xl lg:shadow-none h-screen shrink-0"
+>
+    <!-- Brand Header -->
+    <div class="h-16 flex items-center border-b border-slate-200 dark:border-slate-800 shrink-0 relative transition-all duration-300"
+         :class="{ 'justify-center px-2': sidebarCollapsed, 'justify-between px-4': !sidebarCollapsed }">
+        <a href="{% url 'core:dashboard' %}" 
+           class="flex items-center gap-3 overflow-hidden relative z-10"
+           :class="{ 'justify-center': sidebarCollapsed }">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-emerald-500 flex items-center justify-center text-white shrink-0 shadow-md shadow-blue-500/20 relative z-10">
+                <i class="fa-solid fa-heart-pulse text-lg"></i>
+            </div>
+            <div class="flex flex-col whitespace-nowrap overflow-hidden transition-opacity duration-200" x-show="!sidebarCollapsed" x-transition>
+                <span class="font-extrabold text-sm tracking-tight text-slate-900 dark:text-white leading-tight">HOSPITAL-CMR</span>
+                <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold tracking-wider uppercase">{% trans "Santé Numérique" %}</span>
+            </div>
+        </a>
+
+        <!-- Collapse Toggle (Desktop) -->
+        <button 
+            @click="toggleCollapse()"
+            class="hidden lg:flex p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition z-20"
+            :class="{ 'absolute -right-3 top-5 w-6 h-6 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-md items-center justify-center p-0': sidebarCollapsed }"
+            :title="sidebarCollapsed ? '{% trans "Déplier le menu" %}' : '{% trans "Replier le menu" %}'"
+        >
+            <i class="fa-solid" :class="sidebarCollapsed ? 'fa-chevron-right text-[10px]' : 'fa-chevron-left text-xs'"></i>
+        </button>
+
+        <!-- Close Button (Mobile) -->
+        <button 
+            @click="sidebarOpen = false" 
+            class="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 z-20"
+        >
+            <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+    </div>
+
+    <!-- Navigation Menu Items -->
+    <div class="flex-1 overflow-y-auto px-3 py-4 space-y-6 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-800">
+        
+        <!-- Section: Principal -->
+        <div class="space-y-1">
+            <div 
+                x-show="!sidebarCollapsed" 
+                class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 transition-opacity"
+            >
+                {% trans "Principal" %}
+            </div>
+            <div x-show="sidebarCollapsed" class="w-8 border-t border-slate-200 dark:border-slate-800 mx-auto my-2"></div>
+
+            <!-- Dashboard Link -->
+            <a 
+                href="{% url 'core:dashboard' %}" 
+                class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 {% if request.resolver_match.url_name == 'dashboard' %}bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 font-semibold shadow-sm{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white{% endif %}"
+                :class="{ 'justify-center': sidebarCollapsed }"
+                title="{% trans "Tableau de bord" %}"
+            >
+                <i class="fa-solid fa-gauge-high text-base shrink-0 w-5 text-center group-hover:scale-110 transition-transform"></i>
+                <span x-show="!sidebarCollapsed" class="whitespace-nowrap transition-opacity">{% trans "Tableau de bord" %}</span>
+            </a>
+
+            <!-- File d'attente (Queue) -->
+            {% if IS_ADMIN or IS_DOCTOR or IS_RECEPTIONIST or IS_NURSE %}
+            <a 
+                href="{% url 'appointments:queue_board' %}" 
+                class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 {% if request.resolver_match.url_name == 'queue_board' %}bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 font-semibold shadow-sm{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white{% endif %}"
+                :class="{ 'justify-center': sidebarCollapsed }"
+                title="{% trans "File d'attente" %}"
+            >
+                <div class="relative shrink-0 w-5 text-center">
+                    <i class="fa-solid fa-stopwatch-20 text-base group-hover:scale-110 transition-transform"></i>
+                    <span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-900 animate-pulse"></span>
+                </div>
+                <span x-show="!sidebarCollapsed" class="whitespace-nowrap transition-opacity">{% trans "File d'attente" %}</span>
+            </a>
+            {% endif %}
+        </div>
+
+        <!-- Section: Soins & Médical -->
+        {% if IS_ADMIN or IS_DOCTOR or IS_NURSE or IS_RECEPTIONIST %}
+        <div class="space-y-1">
+            <div 
+                x-show="!sidebarCollapsed" 
+                class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 transition-opacity"
+            >
+                {% trans "Médical & Soins" %}
+            </div>
+            <div x-show="sidebarCollapsed" class="w-8 border-t border-slate-200 dark:border-slate-800 mx-auto my-2"></div>
+
+            <!-- Patients (DPI) -->
+            <a 
+                href="{% url 'patients:patient_list' %}" 
+                class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 {% if 'patients' in request.path %}bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 font-semibold shadow-sm{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white{% endif %}"
+                :class="{ 'justify-center': sidebarCollapsed }"
+                title="{% trans "Patients (DPI)" %}"
+            >
+                <i class="fa-solid fa-hospital-user text-base shrink-0 w-5 text-center group-hover:scale-110 transition-transform"></i>
+                <span x-show="!sidebarCollapsed" class="whitespace-nowrap transition-opacity">{% trans "Patients (DPI)" %}</span>
+            </a>
+
+            <!-- Lits & Hospitalisation -->
+            {% if IS_ADMIN or IS_DOCTOR or IS_NURSE %}
+            <a 
+                href="{% url 'rooms:bed_matrix' %}" 
+                class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 {% if 'rooms' in request.path %}bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 font-semibold shadow-sm{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white{% endif %}"
+                :class="{ 'justify-center': sidebarCollapsed }"
+                title="{% trans "Lits & Hospitalisation" %}"
+            >
+                <i class="fa-solid fa-bed-pulse text-base shrink-0 w-5 text-center group-hover:scale-110 transition-transform"></i>
+                <span x-show="!sidebarCollapsed" class="whitespace-nowrap transition-opacity">{% trans "Lits & Hospitalisation" %}</span>
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Section: Services Médicotechniques -->
+        {% if IS_ADMIN or IS_PHARMACIST or IS_LABORANT or IS_DOCTOR %}
+        <div class="space-y-1">
+            <div 
+                x-show="!sidebarCollapsed" 
+                class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 transition-opacity"
+            >
+                {% trans "Services & Pharmacie" %}
+            </div>
+            <div x-show="sidebarCollapsed" class="w-8 border-t border-slate-200 dark:border-slate-800 mx-auto my-2"></div>
+
+            <!-- Pharmacie -->
+            {% if IS_ADMIN or IS_PHARMACIST or IS_DOCTOR %}
+            <a 
+                href="{% url 'pharmacy:medication_list' %}" 
+                class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 {% if 'pharmacy' in request.path %}bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 font-semibold shadow-sm{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white{% endif %}"
+                :class="{ 'justify-center': sidebarCollapsed }"
+                title="{% trans "Pharmacie" %}"
+            >
+                <i class="fa-solid fa-pills text-base shrink-0 w-5 text-center group-hover:scale-110 transition-transform"></i>
+                <span x-show="!sidebarCollapsed" class="whitespace-nowrap transition-opacity">{% trans "Pharmacie" %}</span>
+            </a>
+            {% endif %}
+
+            <!-- Laboratoire -->
+            {% if IS_ADMIN or IS_LABORANT or IS_DOCTOR %}
+            <a 
+                href="{% url 'laboratory:order_list' %}" 
+                class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 {% if 'laboratory' in request.path %}bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 font-semibold shadow-sm{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white{% endif %}"
+                :class="{ 'justify-center': sidebarCollapsed }"
+                title="{% trans "Laboratoire" %}"
+            >
+                <i class="fa-solid fa-flask-vial text-base shrink-0 w-5 text-center group-hover:scale-110 transition-transform"></i>
+                <span x-show="!sidebarCollapsed" class="whitespace-nowrap transition-opacity">{% trans "Laboratoire" %}</span>
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Section: Finances & Administration -->
+        {% if IS_ADMIN or IS_CASHIER %}
+        <div class="space-y-1">
+            <div 
+                x-show="!sidebarCollapsed" 
+                class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 transition-opacity"
+            >
+                {% trans "Finances & Administration" %}
+            </div>
+            <div x-show="sidebarCollapsed" class="w-8 border-t border-slate-200 dark:border-slate-800 mx-auto my-2"></div>
+
+            <!-- Caisse & Facturation -->
+            <a 
+                href="{% url 'billing:invoice_list' %}" 
+                class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 {% if 'billing' in request.path %}bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 font-semibold shadow-sm{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white{% endif %}"
+                :class="{ 'justify-center': sidebarCollapsed }"
+                title="{% trans "Caisse & MoMo" %}"
+            >
+                <i class="fa-solid fa-cash-register text-base shrink-0 w-5 text-center group-hover:scale-110 transition-transform"></i>
+                <span x-show="!sidebarCollapsed" class="whitespace-nowrap transition-opacity">{% trans "Caisse & MoMo" %}</span>
+            </a>
+
+            <!-- Gestion du Personnel (Admin) -->
+            {% if IS_ADMIN %}
+            <a 
+                href="{% url 'accounts:staff_list' %}" 
+                class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 {% if 'staff' in request.path %}bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 font-semibold shadow-sm{% else %}text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white{% endif %}"
+                :class="{ 'justify-center': sidebarCollapsed }"
+                title="{% trans "Gestion du Personnel" %}"
+            >
+                <i class="fa-solid fa-users-gear text-base shrink-0 w-5 text-center group-hover:scale-110 transition-transform"></i>
+                <span x-show="!sidebarCollapsed" class="whitespace-nowrap transition-opacity">{% trans "Gestion du Personnel" %}</span>
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+    </div>
+
+    <!-- Bottom Sidebar Section: User Quick Profile & Collapse Bar -->
+    <div class="p-3 border-t border-slate-200 dark:border-slate-800 shrink-0 bg-slate-50/50 dark:bg-slate-900/50">
+        <div class="flex items-center gap-3" :class="{ 'justify-center': sidebarCollapsed }">
+            <div class="relative shrink-0">
+                {% if request.user.avatar_url %}
+                    <img src="{{ request.user.avatar_url }}" alt="{{ request.user.full_name }}" class="w-9 h-9 rounded-xl object-cover border border-slate-300 dark:border-slate-600 shadow-sm">
+                {% else %}
+                    <div class="w-9 h-9 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 flex items-center justify-center font-bold text-xs uppercase border border-slate-300 dark:border-slate-600 shadow-sm">
+                        {{ request.user.initials }}
+                    </div>
+                {% endif %}
+                <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-900"></span>
+            </div>
+            
+            <div class="flex-1 min-w-0" x-show="!sidebarCollapsed" x-transition>
+                <p class="text-xs font-bold text-slate-900 dark:text-white truncate leading-tight">
+                    {{ request.user.display_title|default:request.user.get_full_name|default:request.user.username }}
+                </p>
+                <p class="text-[10px] text-slate-500 dark:text-slate-400 font-medium truncate">
+                    {{ request.user.role|role_badge }}
+                </p>
+            </div>
+        </div>
+    </div>
+</aside>

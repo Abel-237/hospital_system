@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Saisie de Résultat" %} - {{ item.test_type.name }}{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto py-6">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm space-y-4">
+        
+        <div class="border-b border-slate-100 dark:border-slate-800 pb-3">
+            <h1 class="text-lg font-bold text-slate-900 dark:text-white">{{ item.test_type.name }}</h1>
+            <p class="text-xs text-slate-500">
+                {% trans "Patient" %} : <strong>{{ item.order.patient.full_name }}</strong> • {% trans "Normes" %} : [{{ item.test_type.normal_range_min }} - {{ item.test_type.normal_range_max }}] {{ item.test_type.unit }}
+            </p>
+        </div>
+
+        <form method="post" enctype="multipart/form-data" class="space-y-4">
+            {% csrf_token %}
+
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">
+                    {{ form.result_value.label }} *
+                </label>
+                {{ form.result_value }}
+            </div>
+
+            <div class="flex items-center gap-2 p-3 rounded-xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900">
+                {{ form.is_abnormal }}
+                <label class="text-xs font-bold text-red-700 dark:text-red-300">
+                    {{ form.is_abnormal.label }} ({% trans "Valeur hors-normes / Pathologique" %})
+                </label>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">
+                    {{ form.technician_notes.label }}
+                </label>
+                {{ form.technician_notes }}
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">
+                    {{ form.attachment.label }}
+                </label>
+                {{ form.attachment }}
+            </div>
+
+            <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-100 dark:border-slate-800">
+                <a href="{% url 'laboratory:order_detail' pk=item.order.pk %}" class="btn-secondary text-xs">{% trans "Annuler" %}</a>
+                <button type="submit" class="btn-primary">{% trans "Enregistrer le Résultat" %}</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

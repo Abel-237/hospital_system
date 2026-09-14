@@ -1,0 +1,79 @@
+{% load i18n hospital_tags %}
+<div id="patient-table-container">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-600 dark:text-slate-300">
+            <thead class="bg-slate-50 dark:bg-slate-800/60 text-xs font-semibold uppercase text-slate-500 border-b border-slate-200 dark:border-slate-800">
+                <tr>
+                    <th class="px-6 py-4">{% trans "Matricule" %}</th>
+                    <th class="px-6 py-4">{% trans "Patient" %}</th>
+                    <th class="px-6 py-4">{% trans "Sexe / Âge" %}</th>
+                    <th class="px-6 py-4">{% trans "Groupe Sanguin" %}</th>
+                    <th class="px-6 py-4">{% trans "Téléphone" %}</th>
+                    <th class="px-6 py-4">{% trans "Consentement RGPD/CMR" %}</th>
+                    <th class="px-6 py-4 text-right">{% trans "Action" %}</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                {% for patient in patients %}
+                <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
+                    <td class="px-6 py-4 font-mono font-bold text-xs text-blue-600 dark:text-blue-400">
+                        {{ patient.matricule }}
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="font-bold text-slate-900 dark:text-white">{{ patient.full_name }}</div>
+                        <div class="text-xs text-slate-400">{{ patient.city }}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="font-medium">{{ patient.get_gender_display }}</span>, {{ patient.age }} {% trans "ans" %}
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-red-50 text-red-700 dark:bg-red-950/40 dark:text-red-300 border border-red-200 dark:border-red-900">
+                            {{ patient.blood_group }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 font-mono text-xs">{{ patient.phone }}</td>
+                    <td class="px-6 py-4">
+                        {% if patient.consent_given %}
+                            <span class="text-emerald-600 font-semibold text-xs flex items-center gap-1">
+                                ✓ {% trans "Conforme" %}
+                            </span>
+                        {% else %}
+                            <span class="text-amber-500 font-semibold text-xs">
+                                ⚠ {% trans "En attente" %}
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="{% url 'patients:patient_detail' pk=patient.pk %}" class="btn-secondary text-xs py-1.5 px-3">
+                            {% trans "Dossier DPI" %} →
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="px-6 py-12 text-center text-slate-400">
+                        {% trans "Aucun patient ne correspond aux critères de recherche." %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <div class="px-6 py-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500">
+        <div>
+            {% trans "Page" %} {{ page_obj.number }} {% trans "sur" %} {{ page_obj.paginator.num_pages }}
+        </div>
+        <div class="flex items-center gap-2">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}&q={{ q }}&blood_group={{ blood_group }}" class="px-3 py-1.5 rounded-lg border hover:bg-slate-50">{% trans "Précédent" %}</a>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&q={{ q }}&blood_group={{ blood_group }}" class="px-3 py-1.5 rounded-lg border hover:bg-slate-50">{% trans "Suivant" %}</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>

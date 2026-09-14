@@ -1,0 +1,172 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <title>Rapport d'Analyses Médicales - {{ order.order_number }}</title>
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 1.5cm;
+        }
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 10pt;
+            color: #0f172a;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #0284c7;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+        .republic {
+            font-size: 8pt;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #64748b;
+        }
+        .hospital-name {
+            font-size: 14pt;
+            font-weight: 800;
+            color: #0369a1;
+            margin-top: 4px;
+        }
+        .meta-grid {
+            margin: 14px 0;
+            padding: 10px 14px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+        }
+        .meta-col {
+            float: left;
+            width: 50%;
+            font-size: 9pt;
+        }
+        .clear { clear: both; }
+
+        .report-title {
+            text-align: center;
+            font-size: 12pt;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #0284c7;
+            margin: 16px 0 12px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 9pt;
+        }
+        th {
+            background-color: #f1f5f9;
+            border-bottom: 2px solid #cbd5e1;
+            text-align: left;
+            padding: 8px 10px;
+            text-transform: uppercase;
+            font-size: 8pt;
+            color: #475569;
+        }
+        td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .abnormal {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 40px;
+        }
+        .signature-box {
+            float: right;
+            width: 45%;
+            text-align: center;
+            font-size: 9pt;
+        }
+        .signature-line {
+            margin-top: 45px;
+            border-top: 1px solid #0f172a;
+            padding-top: 4px;
+            font-weight: bold;
+        }
+        @media print {
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="background:#0284c7; color:white; padding:8px 16px; text-align:center; font-size:10pt; font-weight:bold; margin-bottom:12px; cursor:pointer;" onclick="window.print()">
+        🖨️ Cliquez ici pour Imprimer le Rapport / Enregistrer en PDF
+    </div>
+
+    <div class="header">
+        <div class="republic">RÉPUBLIQUE DU CAMEROUN — MINISTÈRE DE LA SANTÉ PUBLIQUE</div>
+        <div class="hospital-name">{{ HOSPITAL.NAME }} — SERVICE DE BIOLOGIE MÉDICALE</div>
+        <div style="font-size:8pt; color:#64748b;">{{ HOSPITAL.ADDRESS }} • {{ HOSPITAL.PHONE }}</div>
+    </div>
+
+    <div class="meta-grid">
+        <div class="meta-col">
+            <strong>PATIENT :</strong> {{ patient.full_name }}<br>
+            <strong>Matricule :</strong> <span style="font-family:monospace;">{{ patient.matricule }}</span><br>
+            <strong>Âge / Sexe :</strong> {{ patient.age }} ans ({{ patient.get_gender_display }})
+        </div>
+        <div class="meta-col">
+            <strong>Bon d'analyse :</strong> <span style="font-family:monospace; color:#0284c7;">{{ order.order_number }}</span><br>
+            <strong>Médecin Prescripteur :</strong> {{ doctor.display_title }}<br>
+            <strong>Date du prélèvement :</strong> {{ order.created_at|date:"d/m/Y H:i" }}
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="report-title">COMPTE-RENDU D'ANALYSES BIOLOGIQUES</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Paramètre / Examen</th>
+                <th>Résultat</th>
+                <th>Unité</th>
+                <th>Valeurs de Référence</th>
+                <th>Remarques</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td><strong>{{ item.test_type.name }}</strong> [{{ item.test_type.code }}]</td>
+                <td class="{% if item.is_abnormal %}abnormal{% endif %}">
+                    {% if item.is_abnormal %}⚠️ {% endif %}{{ item.result_value|default:"En attente" }}
+                </td>
+                <td style="font-family:monospace;">{{ item.test_type.unit|default:"—" }}</td>
+                <td style="font-family:monospace; color:#64748b;">
+                    {% if item.test_type.normal_range_min or item.test_type.normal_range_max %}
+                        {{ item.test_type.normal_range_min }} - {{ item.test_type.normal_range_max }}
+                    {% else %}
+                        Négatif / Normal
+                    {% endif %}
+                </td>
+                <td style="font-size:8pt; color:#475569;">{{ item.technician_notes|default:"—" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="footer">
+        <div class="signature-box">
+            <div>Validation Biologique :</div>
+            <div class="signature-line">Biologiste / Chef de Laboratoire</div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>
