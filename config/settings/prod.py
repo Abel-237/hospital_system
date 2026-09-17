@@ -6,11 +6,12 @@ from .base import *
 
 DEBUG = False
 
-# Serve the collected CSS, JavaScript and image assets in production.
+# Serve the collected CSS, JavaScript and image assets in production without
+# requiring a staticfiles manifest from a previous deployment.
 STORAGES = {
     **globals().get('STORAGES', {}),
     'staticfiles': {
-        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
     },
 }
 
