@@ -15,6 +15,9 @@ STORAGES = {
     },
 }
 
+# Do not raise 500 errors if a static file reference is missing from the manifest
+WHITENOISE_MANIFEST_STRICT = False
+
 # HTTPS / HSTS Security
 SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', default=True)
 SESSION_COOKIE_SECURE = True

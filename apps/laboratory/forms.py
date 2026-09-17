@@ -13,9 +13,9 @@ class LabOrderCreateForm(forms.ModelForm):
         model = LabOrder
         fields = ['patient', 'priority', 'clinical_indications']
         widgets = {
-            'patient': forms.Select(attrs={'class': 'form-select'}),
-            'priority': forms.Select(attrs={'class': 'form-select'}),
-            'clinical_indications': forms.Textarea(attrs={'class': 'form-textarea', 'rows': 2, 'placeholder': _('Suspicion paludisme, bilan préopératoire...')}),
+            'patient': forms.Select(attrs={'class': 'form-select w-full'}),
+            'priority': forms.Select(attrs={'class': 'form-select w-full'}),
+            'clinical_indications': forms.Textarea(attrs={'class': 'form-textarea w-full', 'rows': 3, 'placeholder': _('Suspicion paludisme, bilan préopératoire...')}),
         }
 
 

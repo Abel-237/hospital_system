@@ -4,42 +4,119 @@
 {% block title %}{% trans "Prescrire des Examens de Laboratoire" %}{% endblock %}
 
 {% block content %}
-<div class="max-w-3xl mx-auto py-6">
-    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
-        <h1 class="text-xl font-bold text-slate-900 dark:text-white mb-2"><i class="fa-solid fa-flask" aria-hidden="true"></i> {% trans "Demande d'Analyses Biologiques & Imagerie" %}</h1>
-        <p class="text-xs text-slate-500 mb-6">{% trans "Sélectionnez les examens à réaliser par le laboratoire" %}</p>
+<div class="w-full max-w-3xl mx-auto py-4 sm:py-6 px-3 sm:px-6">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-6 md:p-8 shadow-sm">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+            <div class="w-11 h-11 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 shadow-xs">
+                <i class="fa-solid fa-flask text-lg" aria-hidden="true"></i>
+            </div>
+            <div class="min-w-0">
+                <h1 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white truncate">{% trans "Demande d'Analyses Biologiques & Imagerie" %}</h1>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{% trans "Sélectionnez les examens à réaliser par le laboratoire" %}</p>
+            </div>
+        </div>
 
-        <form method="post" class="space-y-6">
+        <form method="post" class="space-y-5">
             {% csrf_token %}
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-xs font-semibold mb-1 uppercase text-slate-500">{{ form.patient.label }} *</label>
-                    {{ form.patient }}
+                <div class="w-full min-w-0">
+                    <label class="block text-xs font-bold uppercase tracking-wider mb-1.5 text-slate-600 dark:text-slate-400">
+                        {{ form.patient.label }} <span class="text-red-500">*</span>
+                    </label>
+                    <div class="w-full min-w-0">
+                        {{ form.patient }}
+                    </div>
+                    {% if form.patient.errors %}
+                        <p class="text-xs text-red-500 mt-1">{{ form.patient.errors.0 }}</p>
+                    {% endif %}
                 </div>
-                <div>
-                    <label class="block text-xs font-semibold mb-1 uppercase text-slate-500">{{ form.priority.label }} *</label>
-                    {{ form.priority }}
+                <div class="w-full min-w-0">
+                    <label class="block text-xs font-bold uppercase tracking-wider mb-1.5 text-slate-600 dark:text-slate-400">
+                        {{ form.priority.label }} <span class="text-red-500">*</span>
+                    </label>
+                    <div class="w-full min-w-0">
+                        {{ form.priority }}
+                    </div>
+                    {% if form.priority.errors %}
+                        <p class="text-xs text-red-500 mt-1">{{ form.priority.errors.0 }}</p>
+                    {% endif %}
                 </div>
             </div>
 
-            <div>
-                <label class="block text-xs font-semibold mb-1 uppercase text-slate-500">{{ form.clinical_indications.label }}</label>
-                {{ form.clinical_indications }}
-            </div>
-
-            <div>
-                <label class="block text-xs font-bold uppercase text-blue-600 dark:text-blue-400 mb-2">
-                    {{ form.tests.label }} *
+            <div class="w-full min-w-0">
+                <label class="block text-xs font-bold uppercase tracking-wider mb-1.5 text-slate-600 dark:text-slate-400">
+                    {{ form.clinical_indications.label }}
                 </label>
-                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 max-h-72 overflow-y-auto space-y-2 text-xs">
-                    {{ form.tests }}
+                <div class="w-full min-w-0">
+                    {{ form.clinical_indications }}
                 </div>
+                {% if form.clinical_indications.errors %}
+                    <p class="text-xs text-red-500 mt-1">{{ form.clinical_indications.errors.0 }}</p>
+                {% endif %}
             </div>
 
-            <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-100 dark:border-slate-800">
-                <a href="{% url 'laboratory:order_list' %}" class="btn-secondary text-xs">{% trans "Annuler" %}</a>
-                <button type="submit" class="btn-primary">{% trans "Transmettre la Demande au Laboratoire" %}</button>
+            <div class="w-full min-w-0" x-data="{ 
+                search: '',
+                selectedCount: 0,
+                updateCount() {
+                    this.selectedCount = $el.querySelectorAll('input[type=checkbox]:checked').length;
+                },
+                init() {
+                    this.updateCount();
+                }
+            }">
+                <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+                    <div class="flex items-center gap-2">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                            {{ form.tests.label }} <span class="text-red-500">*</span>
+                        </label>
+                        <span x-show="selectedCount > 0" class="badge badge-info text-[11px] font-semibold" x-text="selectedCount + ' {% trans 'sélectionné(s)' %}'"></span>
+                    </div>
+                    <div class="relative w-full sm:w-64 min-w-0">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
+                        <input type="text" x-model="search" placeholder="{% trans 'Filtrer un examen...' %}" class="form-input text-xs pl-8 py-1.5 w-full">
+                    </div>
+                </div>
+
+                <div class="p-3 sm:p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 max-h-80 overflow-y-auto w-full min-w-0">
+                    {% if form.tests.field.choices %}
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            {% for test in form.tests %}
+                                <label 
+                                    x-show="!search || '{{ test.choice_label|escapejs }}'.toLowerCase().includes(search.toLowerCase())"
+                                    @change="updateCount()"
+                                    class="flex items-start gap-3 p-2.5 sm:p-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 cursor-pointer transition-all select-none">
+                                    <span class="mt-0.5 shrink-0 text-blue-600 [&>input]:h-4 [&>input]:w-4 [&>input]:rounded [&>input]:text-blue-600 [&>input]:border-slate-300 [&>input]:focus:ring-blue-500">
+                                        {{ test.tag }}
+                                    </span>
+                                    <span class="text-xs font-medium text-slate-700 dark:text-slate-200 leading-snug break-words min-w-0 flex-1">
+                                        {{ test.choice_label }}
+                                    </span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-6 px-4">
+                            <i class="fa-solid fa-flask-vial text-slate-400 text-3xl mb-2"></i>
+                            <p class="text-sm font-medium text-slate-700 dark:text-slate-300">{% trans "Aucun examen n'est encore disponible dans le catalogue." %}</p>
+                            <p class="text-xs text-slate-500 mt-1">{% trans "Les examens de référence sont automatiquement configurés lors des migrations." %}</p>
+                        </div>
+                    {% endif %}
+                </div>
+                {% if form.tests.errors %}
+                    <p class="text-xs text-red-500 mt-1.5 font-medium">{{ form.tests.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="pt-5 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 border-t border-slate-100 dark:border-slate-800">
+                <a href="{% url 'laboratory:order_list' %}" class="btn-secondary w-full sm:w-auto text-center justify-center">
+                    {% trans "Annuler" %}
+                </a>
+                <button type="submit" class="btn-primary w-full sm:w-auto text-center justify-center">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                    <span>{% trans "Transmettre la Demande au Laboratoire" %}</span>
+                </button>
             </div>
         </form>
     </div>

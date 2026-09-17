@@ -51,7 +51,15 @@ class AdmissionCreateView(RoleRequiredMixin, View):
         form = AdmissionForm(request.POST)
         if form.is_valid():
             admission = form.save(commit=False)
-            admission.admitting_doctor = request.user if request.user.role == 'DOCTOR' else admission.patient.appointments.last().doctor if admission.patient.appointments.exists() else request.user
+            if request.user.role == 'DOCTOR':
+                admission.admitting_doctor = request.user
+            elif admission.patient.appointments.filter(doctor__isnull=False).exists():
+                admission.admitting_doctor = admission.patient.appointments.filter(doctor__isnull=False).last().doctor
+            else:
+                from django.contrib.auth import get_user_model
+                User = get_user_model()
+                doctor = User.objects.filter(role='DOCTOR', is_active=True).first()
+                admission.admitting_doctor = doctor if doctor else request.user
             admission.save()
 
             # Mark bed as occupied

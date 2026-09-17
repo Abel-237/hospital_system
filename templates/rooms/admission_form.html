@@ -4,27 +4,96 @@
 {% block title %}{% trans "Nouvelle Admission en Lit" %}{% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto py-6">
-    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
-        <h1 class="text-xl font-bold text-slate-900 dark:text-white mb-2"><i class="fa-solid fa-bed" aria-hidden="true"></i> {% trans "Admission & Attribution de Lit" %}</h1>
-        <p class="text-xs text-slate-500 mb-6">{% trans "Affectez un patient à un lit d'hospitalisation disponible" %}</p>
+<div class="w-full max-w-2xl mx-auto py-4 sm:py-6 px-3 sm:px-6">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-6 md:p-8 shadow-sm">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+            <div class="w-11 h-11 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 shadow-xs">
+                <i class="fa-solid fa-bed text-lg" aria-hidden="true"></i>
+            </div>
+            <div class="min-w-0">
+                <h1 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white truncate">
+                    {% trans "Admission & Attribution de Lit" %}
+                </h1>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    {% trans "Affectez un patient à un lit d'hospitalisation disponible" %}
+                </p>
+            </div>
+        </div>
 
-        <form method="post" class="space-y-4">
+        {% if form.bed.field.queryset.count == 0 %}
+        <div class="mb-6 p-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-xs flex items-start gap-3">
+            <i class="fa-solid fa-triangle-exclamation text-base mt-0.5 shrink-0 text-amber-600"></i>
+            <div class="min-w-0 flex-1">
+                <p class="font-bold text-sm">{% trans "Aucun lit disponible actuellement" %}</p>
+                <p class="mt-1 text-slate-600 dark:text-slate-400">
+                    {% trans "Tous les lits de l'établissement sont actuellement occupés ou aucun lit n'a encore été créé dans les pavillons." %}
+                </p>
+                <div class="mt-3 flex flex-wrap gap-2">
+                    <a href="{% url 'rooms:bed_matrix' %}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold hover:border-slate-400">
+                        <i class="fa-solid fa-table-cells text-xs"></i> {% trans "Voir la matrice des lits" %}
+                    </a>
+                    {% if user.is_staff or user.role == 'ADMIN' %}
+                    <a href="{% url 'admin:rooms_bed_add' %}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-semibold hover:bg-blue-100">
+                        <i class="fa-solid fa-plus text-xs"></i> {% trans "Créer un lit (Admin)" %}
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="post" class="space-y-5">
             {% csrf_token %}
 
-            {% for field in form %}
-            <div>
-                <label class="block text-xs font-semibold mb-1 uppercase text-slate-500">{{ field.label }} *</label>
-                {{ field }}
-                {% if field.errors %}
-                <p class="text-xs text-red-500 mt-1">{{ field.errors.0 }}</p>
+            <div class="w-full min-w-0">
+                <label class="block text-xs font-bold uppercase tracking-wider mb-1.5 text-slate-600 dark:text-slate-400">
+                    {{ form.patient.label }} <span class="text-red-500">*</span>
+                </label>
+                <div class="w-full min-w-0">
+                    {{ form.patient }}
+                </div>
+                {% if form.patient.errors %}
+                    <p class="text-xs text-red-500 mt-1 font-medium">{{ form.patient.errors.0 }}</p>
                 {% endif %}
             </div>
-            {% endfor %}
 
-            <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-100 dark:border-slate-800">
-                <a href="{% url 'rooms:bed_matrix' %}" class="btn-secondary text-xs">{% trans "Annuler" %}</a>
-                <button type="submit" class="btn-primary">{% trans "Confirmer l'Admission" %}</button>
+            <div class="w-full min-w-0">
+                <div class="flex items-center justify-between mb-1.5">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">
+                        {{ form.bed.label }} <span class="text-red-500">*</span>
+                    </label>
+                    <span class="text-[11px] text-slate-400 font-medium">
+                        {{ form.bed.field.queryset.count }} {% trans "lit(s) disponible(s)" %}
+                    </span>
+                </div>
+                <div class="w-full min-w-0">
+                    {{ form.bed }}
+                </div>
+                {% if form.bed.errors %}
+                    <p class="text-xs text-red-500 mt-1 font-medium">{{ form.bed.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="w-full min-w-0">
+                <label class="block text-xs font-bold uppercase tracking-wider mb-1.5 text-slate-600 dark:text-slate-400">
+                    {{ form.admission_reason.label }}
+                </label>
+                <div class="w-full min-w-0">
+                    {{ form.admission_reason }}
+                </div>
+                {% if form.admission_reason.errors %}
+                    <p class="text-xs text-red-500 mt-1 font-medium">{{ form.admission_reason.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="pt-5 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 border-t border-slate-100 dark:border-slate-800">
+                <a href="{% url 'rooms:bed_matrix' %}" class="btn-secondary w-full sm:w-auto text-center justify-center">
+                    {% trans "Annuler" %}
+                </a>
+                <button type="submit" class="btn-primary w-full sm:w-auto text-center justify-center" {% if form.bed.field.queryset.count == 0 %}disabled{% endif %}>
+                    <i class="fa-solid fa-check text-xs"></i>
+                    <span>{% trans "Confirmer l'Admission" %}</span>
+                </button>
             </div>
         </form>
     </div>

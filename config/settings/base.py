@@ -72,20 +72,27 @@ CLOUDINARY_CLOUD_NAME = env.str('CLOUDINARY_CLOUD_NAME', default='')
 CLOUDINARY_API_KEY = env.str('CLOUDINARY_API_KEY', default='')
 CLOUDINARY_API_SECRET = env.str('CLOUDINARY_API_SECRET', default='')
 
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+    },
+}
+
 if all((CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET)):
-    INSTALLED_APPS += ['cloudinary', 'cloudinary_storage']
+    # Note: Only 'cloudinary' is needed in INSTALLED_APPS for media uploads.
+    # Do NOT add 'cloudinary_storage' to INSTALLED_APPS because its custom
+    # collectstatic command would hijack Django's collectstatic and skip static files.
+    INSTALLED_APPS += ['cloudinary']
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': CLOUDINARY_CLOUD_NAME,
         'API_KEY': CLOUDINARY_API_KEY,
         'API_SECRET': CLOUDINARY_API_SECRET,
     }
-    STORAGES = {
-        'default': {
-            'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
-        },
-        'staticfiles': {
-            'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
-        },
+    STORAGES['default'] = {
+        'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
     }
 
 MIDDLEWARE = [
