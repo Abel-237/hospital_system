@@ -23,6 +23,7 @@ django-environ==0.14.0
 django-otp==1.7.3
 django-simple-history==3.13.0
 djangorestframework==3.18.1
+dotenv==0.9.9
 factory_boy==3.3.3
 Faker==40.38.0
 fonttools==4.65.0
@@ -50,6 +51,7 @@ pytest==9.1.1
 pytest-cov==7.1.0
 pytest-django==4.14.0
 python-dateutil==2.9.0.post0
+python-dotenv==1.2.3
 pytokens==0.4.1
 qrcode==8.2
 redis==8.1.0

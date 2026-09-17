@@ -6,6 +6,8 @@ from pathlib import Path
 import os
 import environ
 from django.utils.translation import gettext_lazy as _
+from dotenv import load_dotenv
+from urllib.parse import urlparse, parse_qsl
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -100,10 +102,28 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.asgi.application'
 
-# Database configuration
+
+load_dotenv()
+
+# Replace the DATABASES section of your settings.py with this
+tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+
 DATABASES = {
-    'default': env.db('DATABASE_URL', default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': tmpPostgres.path.replace('/', ''),
+        'USER': tmpPostgres.username,
+        'PASSWORD': tmpPostgres.password,
+        'HOST': tmpPostgres.hostname,
+        'PORT': 5432,
+        'OPTIONS': dict(parse_qsl(tmpPostgres.query)),
+    }
 }
+
+# Database configuration
+# DATABASES = {
+#     'default': env.db('DATABASE_URL', default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
+# }
 
 # Custom User Model
 AUTH_USER_MODEL = 'accounts.User'
