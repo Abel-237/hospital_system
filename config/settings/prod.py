@@ -6,6 +6,14 @@ from .base import *
 
 DEBUG = False
 
+# Serve the collected CSS, JavaScript and image assets in production.
+STORAGES = {
+    **globals().get('STORAGES', {}),
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+}
+
 # HTTPS / HSTS Security
 SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', default=True)
 SESSION_COOKIE_SECURE = True

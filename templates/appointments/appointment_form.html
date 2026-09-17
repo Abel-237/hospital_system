@@ -4,31 +4,138 @@
 {% block title %}{% trans "Programmer un Rendez-vous" %}{% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto py-6">
-    <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
-        <h1 class="text-xl font-bold text-slate-900 dark:text-white mb-2">{% trans "Prise de Rendez-vous Médical" %}</h1>
-        <p class="text-xs text-slate-500 mb-6">{% trans "Le créneau sera vérifié pour éviter les doublons ou conflits d'agenda du médecin." %}</p>
+<div class="max-w-6xl mx-auto py-4 sm:py-8">
+    <div class="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+            <div class="inline-flex items-center gap-2 rounded-full bg-sky-50 px-3 py-1 text-xs font-bold text-sky-700 dark:bg-sky-950/50 dark:text-sky-300">
+                <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i>
+                {% trans "AGENDA MÉDICAL" %}
+            </div>
+            <h1 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                {% trans "Programmer un rendez-vous" %}
+            </h1>
+            <p class="mt-2 max-w-2xl text-sm text-slate-500 dark:text-slate-400">
+                {% trans "Planifiez une consultation et réservez un créneau disponible pour le patient." %}
+            </p>
+        </div>
+        <a href="{% url 'appointments:appointment_list' %}" class="btn-secondary text-xs">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            {% trans "Retour à l'agenda" %}
+        </a>
+    </div>
 
-        <form method="post" class="space-y-4">
-            {% csrf_token %}
+    <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_18rem]">
+        <section class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <div class="border-b border-slate-100 px-6 py-5 dark:border-slate-800 sm:px-8">
+                <h2 class="flex items-center gap-2 text-base font-bold text-slate-900 dark:text-white">
+                    <i class="fa-solid fa-clipboard-check text-sky-500" aria-hidden="true"></i>
+                    {% trans "Informations du rendez-vous" %}
+                </h2>
+                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                    {% trans "Les champs marqués d'un astérisque sont obligatoires." %}
+                </p>
+            </div>
 
-            {% for field in form %}
-            <div>
-                <label class="block text-xs font-semibold uppercase text-slate-700 dark:text-slate-300 mb-1">
-                    {{ field.label }}
-                </label>
-                {{ field }}
-                {% if field.errors %}
-                <p class="text-xs text-red-500 mt-1">{{ field.errors.0 }}</p>
+            <form method="post" class="p-6 sm:p-8">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                <div class="mb-6 flex gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-900/70 dark:bg-red-950/30 dark:text-red-300">
+                    <i class="fa-solid fa-triangle-exclamation mt-0.5" aria-hidden="true"></i>
+                    <div>{{ form.non_field_errors }}</div>
+                </div>
                 {% endif %}
-            </div>
-            {% endfor %}
 
-            <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-100 dark:border-slate-800">
-                <a href="{% url 'appointments:appointment_list' %}" class="btn-secondary text-xs">{% trans "Annuler" %}</a>
-                <button type="submit" class="btn-primary">{% trans "Confirmer le Rendez-vous" %}</button>
+                <div class="space-y-5">
+                    <div>
+                        <label for="{{ form.patient.id_for_label }}" class="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-700 dark:text-slate-300">
+                            {% trans "Patient" %}{% if form.patient.field.required %} <span class="text-red-500">*</span>{% endif %}
+                        </label>
+                        {{ form.patient }}
+                        {% if form.patient.errors %}<p class="mt-1.5 text-xs text-red-500">{{ form.patient.errors.0 }}</p>{% endif %}
+                    </div>
+
+                    <div class="grid gap-5 sm:grid-cols-2">
+                        <div>
+                            <label for="{{ form.doctor.id_for_label }}" class="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-700 dark:text-slate-300">
+                                {% trans "Médecin" %}{% if form.doctor.field.required %} <span class="text-red-500">*</span>{% endif %}
+                            </label>
+                            {{ form.doctor }}
+                            {% if form.doctor.errors %}<p class="mt-1.5 text-xs text-red-500">{{ form.doctor.errors.0 }}</p>{% endif %}
+                        </div>
+                        <div>
+                            <label for="{{ form.priority.id_for_label }}" class="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-700 dark:text-slate-300">
+                                {% trans "Priorité" %}{% if form.priority.field.required %} <span class="text-red-500">*</span>{% endif %}
+                            </label>
+                            {{ form.priority }}
+                            {% if form.priority.errors %}<p class="mt-1.5 text-xs text-red-500">{{ form.priority.errors.0 }}</p>{% endif %}
+                        </div>
+                    </div>
+
+                    <div class="grid gap-5 sm:grid-cols-2">
+                        <div>
+                            <label for="{{ form.scheduled_date.id_for_label }}" class="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-700 dark:text-slate-300">
+                                {% trans "Date prévue" %}{% if form.scheduled_date.field.required %} <span class="text-red-500">*</span>{% endif %}
+                            </label>
+                            {{ form.scheduled_date }}
+                            {% if form.scheduled_date.errors %}<p class="mt-1.5 text-xs text-red-500">{{ form.scheduled_date.errors.0 }}</p>{% endif %}
+                        </div>
+                        <div>
+                            <label for="{{ form.scheduled_time.id_for_label }}" class="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-700 dark:text-slate-300">
+                                {% trans "Heure prévue" %}{% if form.scheduled_time.field.required %} <span class="text-red-500">*</span>{% endif %}
+                            </label>
+                            {{ form.scheduled_time }}
+                            {% if form.scheduled_time.errors %}<p class="mt-1.5 text-xs text-red-500">{{ form.scheduled_time.errors.0 }}</p>{% endif %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="{{ form.reason.id_for_label }}" class="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-700 dark:text-slate-300">
+                            {% trans "Motif du rendez-vous" %}{% if form.reason.field.required %} <span class="text-red-500">*</span>{% endif %}
+                        </label>
+                        {{ form.reason }}
+                        {% if form.reason.errors %}<p class="mt-1.5 text-xs text-red-500">{{ form.reason.errors.0 }}</p>{% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.notes.id_for_label }}" class="mb-1.5 block text-xs font-bold uppercase tracking-wide text-slate-700 dark:text-slate-300">
+                            {% trans "Notes complémentaires" %}
+                        </label>
+                        {{ form.notes }}
+                        {% if form.notes.errors %}<p class="mt-1.5 text-xs text-red-500">{{ form.notes.errors.0 }}</p>{% endif %}
+                    </div>
+                </div>
+
+                <div class="mt-8 flex flex-col-reverse gap-3 border-t border-slate-100 pt-5 sm:flex-row sm:items-center sm:justify-end dark:border-slate-800">
+                    <a href="{% url 'appointments:appointment_list' %}" class="btn-secondary text-xs">{% trans "Annuler" %}</a>
+                    <button type="submit" class="btn-primary gap-2">
+                        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+                        {% trans "Confirmer le rendez-vous" %}
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <aside class="space-y-4">
+            <div class="rounded-2xl border border-sky-100 bg-sky-50 p-5 dark:border-sky-900/60 dark:bg-sky-950/30">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500 text-white shadow-sm">
+                    <i class="fa-solid fa-shield-heart" aria-hidden="true"></i>
+                </div>
+                <h2 class="mt-4 text-sm font-bold text-slate-900 dark:text-white">{% trans "Planification sécurisée" %}</h2>
+                <p class="mt-2 text-xs leading-5 text-slate-600 dark:text-slate-300">
+                    {% trans "Le créneau est contrôlé avant validation afin d'éviter les conflits dans l'agenda du médecin." %}
+                </p>
             </div>
-        </form>
+
+            <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                <h2 class="text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">{% trans "Avant de confirmer" %}</h2>
+                <ul class="mt-4 space-y-3 text-xs text-slate-600 dark:text-slate-300">
+                    <li class="flex gap-2"><i class="fa-solid fa-check mt-0.5 text-emerald-500" aria-hidden="true"></i><span>{% trans "Vérifier l'identité du patient" %}</span></li>
+                    <li class="flex gap-2"><i class="fa-solid fa-check mt-0.5 text-emerald-500" aria-hidden="true"></i><span>{% trans "Choisir le praticien concerné" %}</span></li>
+                    <li class="flex gap-2"><i class="fa-solid fa-check mt-0.5 text-emerald-500" aria-hidden="true"></i><span>{% trans "Renseigner le motif de consultation" %}</span></li>
+                </ul>
+            </div>
+        </aside>
     </div>
 </div>
 {% endblock %}
