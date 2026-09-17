@@ -49,7 +49,7 @@
             <div class="flex items-center justify-end gap-3 pt-2">
                 <a href="{% url 'pharmacy:pending_prescriptions' %}" class="btn-secondary text-xs">{% trans "Annuler" %}</a>
                 <button type="submit" class="btn-primary">
-                    ✓ {% trans "Valider Délivrance & Décrémenter Stock" %}
+                    <i class="fa-solid fa-check" aria-hidden="true"></i> {% trans "Valider Délivrance & Décrémenter Stock" %}
                 </button>
             </div>
         </form>

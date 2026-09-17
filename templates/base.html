@@ -87,6 +87,7 @@
                 {% include 'components/navbar.html' %}
             {% else %}
                 <!-- Minimal Top Header for guests (login, etc.) -->
+                {% block guest_header %}
                 <header class="w-full px-6 py-4 flex items-center justify-between border-b border-slate-200/60 dark:border-slate-800/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm">
                     <div class="flex items-center gap-2">
                         <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-emerald-500 flex items-center justify-center text-white shadow-sm font-bold">
@@ -115,18 +116,21 @@
                         </button>
                     </div>
                 </header>
+                {% endblock %}
             {% endif %}
 
             <!-- Flash Messages Container -->
             {% include 'components/messages.html' %}
 
             <!-- Main Content Area -->
-            <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <main class="{% block main_classes %}flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6{% endblock %}">
                 {% block content %}{% endblock %}
             </main>
 
             <!-- Streamlined Lightweight Footer -->
+            {% block footer %}
             {% include 'components/footer.html' %}
+            {% endblock %}
         </div>
     </div>
 

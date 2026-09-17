@@ -11,7 +11,7 @@
             <p class="text-sm text-slate-500">{% trans "Ordonnances électroniques prescrites en attente de délivrance et vérification" %}</p>
         </div>
         <a href="{% url 'pharmacy:medication_list' %}" class="btn-secondary text-xs">
-            ← {% trans "Catalogue Médicaments" %}
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> {% trans "Catalogue Médicaments" %}
         </a>
     </div>
 
@@ -43,7 +43,7 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             <a href="{% url 'pharmacy:dispense_prescription' prescription_id=rx.id %}" class="btn-primary text-xs py-1.5 px-3">
-                                💊 {% trans "Délivrer" %}
+                                <i class="fa-solid fa-pills" aria-hidden="true"></i> {% trans "Délivrer" %}
                             </a>
                         </td>
                     </tr>

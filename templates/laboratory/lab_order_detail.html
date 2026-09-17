@@ -21,10 +21,10 @@
 
         <div class="flex items-center gap-2">
             <a href="{% url 'laboratory:report_pdf' pk=order.pk %}" target="_blank" class="btn-primary text-xs">
-                📄 {% trans "Imprimer Rapport Biologique (PDF)" %}
+                <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> {% trans "Imprimer Rapport Biologique (PDF)" %}
             </a>
             <a href="{% url 'laboratory:order_list' %}" class="btn-secondary text-xs">
-                ← {% trans "Liste des Bons" %}
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> {% trans "Liste des Bons" %}
             </a>
         </div>
     </div>
@@ -52,7 +52,7 @@
                         <td class="px-6 py-4 font-mono font-bold">
                             {% if item.result_value %}
                                 <span class="{% if item.is_abnormal %}text-red-600 dark:text-red-400 flex items-center gap-1{% else %}text-slate-900 dark:text-white{% endif %}">
-                                    {% if item.is_abnormal %}⚠️{% endif %} {{ item.result_value }} {{ item.test_type.unit }}
+                                    {% if item.is_abnormal %}<i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>{% endif %} {{ item.result_value }} {{ item.test_type.unit }}
                                 </span>
                             {% else %}
                                 <span class="text-xs text-amber-500 font-normal italic">{% trans "En attente d'analyse" %}</span>
@@ -71,7 +71,7 @@
                         <td class="px-6 py-4 text-right">
                             {% if IS_LABORANT or IS_ADMIN %}
                             <a href="{% url 'laboratory:result_update' item_id=item.id %}" class="btn-secondary text-xs py-1 px-2.5">
-                                ✏️ {% trans "Saisir" %}
+                                <i class="fa-solid fa-pen" aria-hidden="true"></i> {% trans "Saisir" %}
                             </a>
                             {% endif %}
                         </td>

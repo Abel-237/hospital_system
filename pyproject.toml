@@ -4,6 +4,8 @@ version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
     "django>=5.0",
+    "cloudinary>=1.41.0",
+    "django-cloudinary-storage>=0.3.0",
     # ajoute ici toutes tes autres dépendances
     # (djangorestframework, psycopg2-binary, gunicorn, etc.)
 ]

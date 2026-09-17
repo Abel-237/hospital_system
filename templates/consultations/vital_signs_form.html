@@ -8,7 +8,7 @@
     <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
         
         <div class="border-b border-slate-100 dark:border-slate-800 pb-4 mb-6">
-            <h1 class="text-xl font-bold text-slate-900 dark:text-white">💓 {% trans "Prise des Constantes Vitales (Soins Infirmiers)" %}</h1>
+            <h1 class="text-xl font-bold text-slate-900 dark:text-white"><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i> {% trans "Prise des Constantes Vitales (Soins Infirmiers)" %}</h1>
             <p class="text-xs text-slate-500">{% trans "Température, pression artérielle, fréquence cardiaque, saturation O2, poids et taille" %}</p>
         </div>
 
@@ -23,25 +23,25 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div>
                     <label class="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
-                        🌡️ {{ form.temperature.label }}
+                        <i class="fa-solid fa-temperature-half" aria-hidden="true"></i> {{ form.temperature.label }}
                     </label>
                     {{ form.temperature }}
                 </div>
                 <div>
                     <label class="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
-                        🩸 {{ form.blood_pressure_systolic.label }}
+                        <i class="fa-solid fa-droplet" aria-hidden="true"></i> {{ form.blood_pressure_systolic.label }}
                     </label>
                     {{ form.blood_pressure_systolic }}
                 </div>
                 <div>
                     <label class="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
-                        🩸 {{ form.blood_pressure_diastolic.label }}
+                        <i class="fa-solid fa-droplet" aria-hidden="true"></i> {{ form.blood_pressure_diastolic.label }}
                     </label>
                     {{ form.blood_pressure_diastolic }}
                 </div>
                 <div>
                     <label class="block text-xs font-semibold mb-1 text-slate-700 dark:text-slate-300">
-                        ❤️ {{ form.pulse_rate.label }}
+                        <i class="fa-solid fa-heart-pulse" aria-hidden="true"></i> {{ form.pulse_rate.label }}
                     </label>
                     {{ form.pulse_rate }}
                 </div>

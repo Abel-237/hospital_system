@@ -12,7 +12,7 @@
         </div>
         <div class="flex items-center gap-3">
             <a href="{% url 'pharmacy:pending_prescriptions' %}" class="btn-secondary text-xs">
-                💊 {% trans "Ordonnances à délivrer" %}
+                <i class="fa-solid fa-pills" aria-hidden="true"></i> {% trans "Ordonnances à délivrer" %}
             </a>
             <a href="{% url 'pharmacy:medication_create' %}" class="btn-primary">
                 + {% trans "Nouveau Médicament" %}
@@ -40,7 +40,7 @@
     <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-center gap-4">
         <form method="get" class="flex flex-col sm:flex-row items-center gap-3 w-full">
             <div class="relative w-full sm:w-80">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">🔍</span>
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span>
                 <input type="text" name="q" value="{{ q }}" placeholder="{% trans "Rechercher par nom ou DCI..." %}" class="form-input pl-9 text-sm">
             </div>
             <select name="form" class="form-select text-sm w-full sm:w-48">
@@ -85,9 +85,9 @@
                         </td>
                         <td class="px-6 py-4">
                             {% if med.is_critical_stock %}
-                                <span class="badge badge-danger">⚠️ {% trans "Critique" %} (&le;{{ med.critical_stock_threshold }})</span>
+                                <span class="badge badge-danger"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> {% trans "Critique" %} (&le;{{ med.critical_stock_threshold }})</span>
                             {% else %}
-                                <span class="badge badge-success">✓ {% trans "Normal" %}</span>
+                                <span class="badge badge-success"><i class="fa-solid fa-check" aria-hidden="true"></i> {% trans "Normal" %}</span>
                             {% endif %}
                         </td>
                         <td class="px-6 py-4 text-right">

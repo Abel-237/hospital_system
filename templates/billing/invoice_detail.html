@@ -24,10 +24,10 @@
 
         <div class="flex items-center gap-2">
             <a href="{% url 'billing:receipt_pdf' pk=invoice.pk %}" target="_blank" class="btn-primary text-xs py-2 px-3">
-                🖨️ {% trans "Imprimer Reçu de Caisse (PDF)" %}
+                <i class="fa-solid fa-print" aria-hidden="true"></i> {% trans "Imprimer Reçu de Caisse (PDF)" %}
             </a>
             <a href="{% url 'billing:invoice_list' %}" class="btn-secondary text-xs">
-                ← {% trans "Liste des Factures" %}
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> {% trans "Liste des Factures" %}
             </a>
         </div>
     </div>
@@ -125,7 +125,7 @@
         {% if invoice.remaining_balance > 0 %}
         <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
             <h2 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                💳 {% trans "Encaisser un Règlement" %}
+                <i class="fa-solid fa-credit-card" aria-hidden="true"></i> {% trans "Encaisser un Règlement" %}
             </h2>
 
             <form method="post" action="{% url 'billing:process_payment' invoice_id=invoice.id %}" class="space-y-4">

@@ -9,7 +9,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
             <h1 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <span>🛏️</span> {% trans "Plan des Lits & Occupation des Pavillons" %}
+                <i class="fa-solid fa-bed" aria-hidden="true"></i> {% trans "Plan des Lits & Occupation des Pavillons" %}
             </h1>
             <p class="text-sm text-slate-500">
                 {% trans "Visualisation de la disponibilité des lits par pavillon et gestion des admissions" %}
@@ -79,7 +79,7 @@
                             {% endif %}">
                             
                             <div class="font-bold text-xs flex items-center justify-center gap-1">
-                                <span>🛏️</span> Lit {{ bed.bed_number }}
+                                <i class="fa-solid fa-bed" aria-hidden="true"></i> Lit {{ bed.bed_number }}
                             </div>
                             
                             <div class="mt-1">

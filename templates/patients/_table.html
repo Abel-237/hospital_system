@@ -35,17 +35,17 @@
                     <td class="px-6 py-4">
                         {% if patient.consent_given %}
                             <span class="text-emerald-600 font-semibold text-xs flex items-center gap-1">
-                                ✓ {% trans "Conforme" %}
+                                <i class="fa-solid fa-check" aria-hidden="true"></i> {% trans "Conforme" %}
                             </span>
                         {% else %}
                             <span class="text-amber-500 font-semibold text-xs">
-                                ⚠ {% trans "En attente" %}
+                                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> {% trans "En attente" %}
                             </span>
                         {% endif %}
                     </td>
                     <td class="px-6 py-4 text-right">
                         <a href="{% url 'patients:patient_detail' pk=patient.pk %}" class="btn-secondary text-xs py-1.5 px-3">
-                            {% trans "Dossier DPI" %} →
+                            {% trans "Dossier DPI" %} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                         </a>
                     </td>
                 </tr>

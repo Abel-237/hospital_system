@@ -65,6 +65,29 @@ LOCAL_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
+# Media uploads are stored on Cloudinary when all three credentials are configured.
+# Keeping this conditional preserves the local `media/` workflow for contributors
+# who do not have access to the production Cloudinary account.
+CLOUDINARY_CLOUD_NAME = env.str('CLOUDINARY_CLOUD_NAME', default='')
+CLOUDINARY_API_KEY = env.str('CLOUDINARY_API_KEY', default='')
+CLOUDINARY_API_SECRET = env.str('CLOUDINARY_API_SECRET', default='')
+
+if all((CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET)):
+    INSTALLED_APPS += ['cloudinary', 'cloudinary_storage']
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': CLOUDINARY_CLOUD_NAME,
+        'API_KEY': CLOUDINARY_API_KEY,
+        'API_SECRET': CLOUDINARY_API_SECRET,
+    }
+    STORAGES = {
+        'default': {
+            'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
+        },
+        'staticfiles': {
+            'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+        },
+    }
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

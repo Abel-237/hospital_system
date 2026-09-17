@@ -12,7 +12,7 @@
         </div>
         <div class="flex items-center gap-3">
             <a href="{% url 'billing:export_csv' %}" class="btn-secondary text-xs">
-                📥 {% trans "Exporter Journal Caisse (CSV)" %}
+                <i class="fa-solid fa-file-export" aria-hidden="true"></i> {% trans "Exporter Journal Caisse (CSV)" %}
             </a>
         </div>
     </div>
@@ -24,15 +24,15 @@
             <p class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">{{ today_total|currency_fcfa }}</p>
         </div>
         <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-            <span class="text-xs font-semibold text-emerald-600 uppercase">💵 {% trans "Espèces" %}</span>
+            <span class="text-xs font-semibold text-emerald-600 uppercase"><i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i> {% trans "Espèces" %}</span>
             <p class="text-2xl font-extrabold text-emerald-600 mt-1">{{ today_cash|currency_fcfa }}</p>
         </div>
         <div class="p-4 rounded-2xl bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800 shadow-sm">
-            <span class="text-xs font-semibold text-orange-700 dark:text-orange-300 uppercase">📱 {% trans "Orange Money" %}</span>
+            <span class="text-xs font-semibold text-orange-700 dark:text-orange-300 uppercase"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i> {% trans "Orange Money" %}</span>
             <p class="text-2xl font-extrabold text-orange-700 dark:text-orange-300 mt-1">{{ today_orange|currency_fcfa }}</p>
         </div>
         <div class="p-4 rounded-2xl bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-800 shadow-sm">
-            <span class="text-xs font-semibold text-yellow-700 dark:text-yellow-300 uppercase">📱 {% trans "MTN MoMo" %}</span>
+            <span class="text-xs font-semibold text-yellow-700 dark:text-yellow-300 uppercase"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i> {% trans "MTN MoMo" %}</span>
             <p class="text-2xl font-extrabold text-yellow-700 dark:text-yellow-300 mt-1">{{ today_mtn|currency_fcfa }}</p>
         </div>
     </div>
@@ -41,7 +41,7 @@
     <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-center gap-3">
         <form method="get" class="flex flex-col sm:flex-row items-center gap-3 w-full">
             <div class="relative w-full sm:w-80">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">🔍</span>
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span>
                 <input type="text" name="q" value="{{ q }}" placeholder="{% trans "No Facture, patient, matricule..." %}" class="form-input pl-9 text-sm">
             </div>
             <select name="status" class="form-select text-sm w-full sm:w-56">
@@ -98,7 +98,7 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             <a href="{% url 'billing:invoice_detail' pk=inv.pk %}" class="btn-secondary text-xs py-1.5 px-3">
-                                {% trans "Détails / Payer" %} →
+                                {% trans "Détails / Payer" %} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                             </a>
                         </td>
                     </tr>

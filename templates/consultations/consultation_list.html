@@ -10,7 +10,7 @@
   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
     <div>
       <h1 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-        <span class="text-2xl">🩺</span>
+        <i class="fa-solid fa-stethoscope text-2xl" aria-hidden="true"></i>
         {% trans "Consultations Médicales" %}
       </h1>
       <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
@@ -20,7 +20,7 @@
     {% if request.user.role in "DOCTOR,ADMIN" or request.user.is_superuser %}
     <a href="{% url 'patients:patient_list' %}"
        class="inline-flex items-center gap-2 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-medium text-sm transition-all shadow hover:shadow-md">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+      <i class="fa-solid fa-plus" aria-hidden="true"></i>
       {% trans "Nouvelle Consultation" %}
     </a>
     {% endif %}
@@ -30,9 +30,7 @@
   <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-4">
     <form method="get" class="flex flex-col sm:flex-row gap-3">
       <div class="flex-1 relative">
-        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-        </svg>
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true"></i>
         <input id="consultation-search"
                type="text" name="q" value="{{ q }}"
                placeholder="{% trans 'Rechercher patient, matricule, diagnostic...' %}"
@@ -107,9 +105,9 @@
             <td class="px-4 py-3 hidden xl:table-cell">
               {% if consultation.vital_signs %}
               <div class="text-xs text-slate-600 dark:text-slate-400 space-y-0.5">
-                <div>🌡️ {{ consultation.vital_signs.temperature }}°C</div>
-                <div>💓 {{ consultation.vital_signs.blood_pressure_systolic }}/{{ consultation.vital_signs.blood_pressure_diastolic }} mmHg</div>
-                <div>❤️ {{ consultation.vital_signs.pulse_rate }} bpm</div>
+                <div><i class="fa-solid fa-temperature-half" aria-hidden="true"></i> {{ consultation.vital_signs.temperature }}°C</div>
+                <div><i class="fa-solid fa-droplet" aria-hidden="true"></i> {{ consultation.vital_signs.blood_pressure_systolic }}/{{ consultation.vital_signs.blood_pressure_diastolic }} mmHg</div>
+                <div><i class="fa-solid fa-heart-pulse" aria-hidden="true"></i> {{ consultation.vital_signs.pulse_rate }} bpm</div>
               </div>
               {% else %}
               <span class="text-xs text-slate-400">—</span>
@@ -131,14 +129,14 @@
                 <a href="{% url 'consultations:consultation_detail' pk=consultation.pk %}"
                    id="view-consult-{{ consultation.pk }}"
                    class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-brand-50 hover:bg-brand-100 dark:bg-brand-900/30 dark:hover:bg-brand-900/50 text-brand-700 dark:text-brand-400 text-xs font-medium transition">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                  <i class="fa-solid fa-eye" aria-hidden="true"></i>
                   {% trans "Voir" %}
                 </a>
                 {% if request.user.role == 'DOCTOR' or request.user.is_superuser %}
                 <a href="{% url 'consultations:prescription_create' consultation_id=consultation.pk %}"
                    id="add-rx-{{ consultation.pk }}"
                    class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-900/30 dark:hover:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 text-xs font-medium transition">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                  <i class="fa-solid fa-file-prescription" aria-hidden="true"></i>
                   Rx
                 </a>
                 {% endif %}
@@ -151,7 +149,7 @@
     </div>
     {% else %}
     <div class="flex flex-col items-center justify-center py-16 text-center">
-      <div class="text-5xl mb-4">🩺</div>
+      <i class="fa-solid fa-stethoscope text-5xl mb-4" aria-hidden="true"></i>
       <h3 class="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-1">{% trans "Aucune consultation trouvée" %}</h3>
       <p class="text-sm text-slate-500 max-w-xs">
         {% if q or date_filter %}
@@ -175,7 +173,7 @@
         {% if page_obj.has_previous %}
         <a href="?page={{ page_obj.previous_page_number }}{% if q %}&q={{ q }}{% endif %}{% if date_filter %}&date={{ date_filter }}{% endif %}"
            class="px-3 py-1.5 text-sm rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition">
-          ← {% trans "Préc" %}
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> {% trans "Préc" %}
         </a>
         {% endif %}
         <span class="px-3 py-1.5 text-sm font-medium text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 rounded-lg border border-brand-200 dark:border-brand-800">
@@ -184,7 +182,7 @@
         {% if page_obj.has_next %}
         <a href="?page={{ page_obj.next_page_number }}{% if q %}&q={{ q }}{% endif %}{% if date_filter %}&date={{ date_filter }}{% endif %}"
            class="px-3 py-1.5 text-sm rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition">
-          {% trans "Suiv" %} →
+          {% trans "Suiv" %} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         </a>
         {% endif %}
       </div>

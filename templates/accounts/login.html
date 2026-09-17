@@ -3,23 +3,13 @@
 
 {% block title %}{% trans "Connexion Personnel Hospitalier" %}{% endblock %}
 
-{% block content %}
-<div class="min-h-[80vh] flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="w-full max-w-md">
-        
-        <!-- Header Brand Badge -->
-        <div class="text-center mb-8">
-            <div class="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-emerald-500 flex items-center justify-center text-white text-3xl font-extrabold shadow-xl shadow-blue-500/25 mb-4">
-                ✚
-            </div>
-            <h2 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                {{ HOSPITAL.NAME }}
-            </h2>
-            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                {% trans "Portail Sécurisé Personnel Hospitalier (Loi n°2010/012)" %}
-            </p>
-        </div>
+{% block guest_header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block main_classes %}flex-grow w-full{% endblock %}
 
+{% block content %}
+<div class="min-h-screen flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md">
         <!-- Login Card -->
         <div class="bg-white dark:bg-slate-900 shadow-2xl rounded-2xl border border-slate-200/80 dark:border-slate-800 p-8">
             <form method="post" class="space-y-5">
@@ -41,7 +31,7 @@
 
                 <div class="pt-2">
                     <button type="submit" class="w-full py-3 px-4 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-600/30 transition duration-150 flex items-center justify-center gap-2">
-                        <span>🔒</span> {% trans "Se Connecter à l'Espace Santé" %}
+                        <i class="fa-solid fa-lock" aria-hidden="true"></i> {% trans "Se Connecter à l'Espace Santé" %}
                     </button>
                 </div>
             </form>

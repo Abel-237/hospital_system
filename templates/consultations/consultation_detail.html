@@ -21,13 +21,13 @@
 
         <div class="flex items-center gap-2">
             <a href="{% url 'consultations:prescription_create' consultation_id=consultation.id %}" class="btn-primary text-xs">
-                💊 {% trans "Rédiger Ordonnance" %}
+                <i class="fa-solid fa-pills" aria-hidden="true"></i> {% trans "Rédiger Ordonnance" %}
             </a>
             <a href="{% url 'laboratory:order_create' %}?patient={{ consultation.patient.id }}" class="btn-secondary text-xs">
-                🧪 {% trans "Demande d'Analyses" %}
+                <i class="fa-solid fa-flask" aria-hidden="true"></i> {% trans "Demande d'Analyses" %}
             </a>
             <a href="{% url 'patients:patient_detail' pk=consultation.patient.pk %}" class="btn-secondary text-xs">
-                ← {% trans "Dossier Patient" %}
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> {% trans "Dossier Patient" %}
             </a>
         </div>
     </div>
@@ -75,7 +75,7 @@
     <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
         <div class="flex items-center justify-between">
             <h2 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                💊 {% trans "Ordonnances Numériques Générées" %}
+                <i class="fa-solid fa-pills" aria-hidden="true"></i> {% trans "Ordonnances Numériques Générées" %}
             </h2>
         </div>
 
@@ -89,12 +89,12 @@
                     </div>
                     <div class="flex items-center gap-3">
                         {% if rx.is_dispensed %}
-                            <span class="badge badge-success">✓ {% trans "Délivrée en pharmacie" %}</span>
+                            <span class="badge badge-success"><i class="fa-solid fa-check" aria-hidden="true"></i> {% trans "Délivrée en pharmacie" %}</span>
                         {% else %}
                             <span class="badge badge-warning">⏳ {% trans "En attente délivrance" %}</span>
                         {% endif %}
                         <a href="{% url 'consultations:prescription_pdf' pk=rx.pk %}" target="_blank" class="btn-secondary text-xs py-1 px-3">
-                            📄 {% trans "Imprimer Ordonnance (PDF)" %}
+                            <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> {% trans "Imprimer Ordonnance (PDF)" %}
                         </a>
                     </div>
                 </div>
